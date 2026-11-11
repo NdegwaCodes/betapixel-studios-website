@@ -1,0 +1,83 @@
+---
+import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Block from '../components/Block.astro';
+import OfferGrid, { type Offer } from '../components/OfferGrid.astro';
+
+const items: Offer[] = [
+  { title: 'Corporate gift sets', tag: 'A complete brand experience', body: 'Custom sets for clients, staff and partners, built around your brand, down to the box itself.', options: ['Premium flask', 'Executive notebook', 'Metal pen', 'Mug', 'Keyholder', 'Water bottle', 'T-shirt', 'Cap', 'Tote bag', 'Thank-you card', 'Custom packaging'], optionsLabel: 'A set can combine', ideal: ['Client appreciation', 'Onboarding', 'Staff recognition', 'Anniversaries', 'Festive gifting', 'Launches'] },
+  { title: 'Branded water bottles', tag: 'Branding that travels', body: 'Stainless steel vacuum bottles, aluminium sports bottles, glass bottles and digital temperature-display bottles, with logos and individual names.', ideal: ['Schools', 'Gyms', 'Offices', 'Conferences', 'Employee kits', 'Client gifts'] },
+  { title: 'Thermo flasks', tag: 'Premium branding for everyday use', body: 'Insulated flasks branded with a logo, campaign artwork or the recipient’s name. Strong executive gifts.' },
+  { title: 'Branded mugs', tag: 'Every coffee break a brand moment', body: 'Logos, names, photographs and full-wrap designs.', options: ['Classic ceramic', 'Colour handle', 'Colour interior', 'Magic mugs', 'Full wrap', 'Photo mugs'] },
+  { title: 'Notebooks, diaries & planners', tag: 'Give ideas somewhere to live', body: 'Executive, hardcover, softcover and spiral notebooks, plus diaries and planners for year-long visibility.' },
+  { title: 'Branded pens', tag: 'Small product, thousands of impressions', body: 'Plastic promotional, metal, executive, stylus and gift pens, printed or engraved depending on the pen.' },
+  { title: 'Tote & jute bags', tag: 'Carry your brand further', body: 'Reusable totes for events and retail, and natural jute bags for hampers, gift packaging and hospitality.' },
+  { title: 'Keyholders & lanyards', tag: 'Branding within reach', body: 'Acrylic, metal, leather, wood and PVC keyholders; custom lanyards with ID cards or event badges.' },
+  { title: 'Umbrellas', tag: 'Branding built for visibility', body: 'A large print area and genuine usefulness for corporate gifting, outdoor campaigns and events.' },
+  { title: 'Awards & trophies', tag: 'Make recognition memorable', body: 'Personalised awards for the people and moments worth remembering.', options: ['Acrylic', 'Glass', 'Crystal', 'Wooden plaques', 'Sports trophies'] },
+  { title: 'Event & conference packs', tag: 'Something worth keeping', body: 'Coordinated delegate packs: bag, notebook, pen, lanyard, badge, bottle, T-shirt and programme in one identity.' },
+  { title: 'Employee welcome kits', tag: 'Make day one feel different', body: 'Onboarding boxes with notebook, pen, mug, flask, T-shirt or polo, ID, lanyard and a welcome card, designed, branded and packed.' },
+];
+---
+<ServiceLayout
+  slug="corporate-gifts"
+  kicker="Promotional merchandise & corporate gifts · Nairobi"
+  h1="Corporate Gifts & Branded Merchandise in Nairobi"
+  lead="Put your brand in their hands. Betapixel Studios brands <strong>water bottles, flasks, mugs, notebooks, pens, bags, awards and complete corporate gift boxes</strong> in-house in Nairobi, personalised with individual names where you need them, and packaged so the whole gift feels like one brand."
+  meta={['Names per piece, no setup cost', 'Sample before the run', 'Gift boxes designed & packed', 'Budget-based recommendations']}
+  faqCats={['gifts']}
+  related={['uv-dtf-stickers', 'custom-apparel', 'packaging-labels', 'events-exhibitions']}
+  cta={{ title: 'Give them something they’ll actually keep.', text: 'Tell us who you are gifting, how many people and your approximate budget per person, and we recommend products and combinations that fit.', secondary: { label: 'Build your gift set', href: '/request-a-quote/?service=corporate-gifts' } }}
+>
+  <section class="section" aria-labelledby="gift-range">
+    <div class="wrap">
+      <p class="eyebrow">Products we brand</p>
+      <h2 class="display" id="gift-range" data-split>Useful. Kept. Carried. Seen Again.</h2>
+      <p class="lead" style="max-width:62ch">The best promotional products do not feel like advertising. They are useful, so they are kept, and every time they are used, your brand is seen again.</p>
+      <OfferGrid items={items} />
+    </div>
+  </section>
+
+  <Block id="methods" title="Branding methods, and when each fits" eyebrow="Methods" tone="paper-2">
+    <p>The right method depends on the surface, the number of colours in your logo and how the item will be used. We recommend one in the quotation and tell you why.</p>
+    <dl class="spec-list">
+      <div><dt>UV DTF</dt><dd>Full colour including white on steel, glass, acrylic, plastic and powder coat. No minimum, no setup, names per piece. Hand wash. See <a href="/uv-dtf-stickers/">UV DTF stickers</a>.</dd></div>
+      <div><dt>Laser engraving</dt><dd>One colour: the metal under the coating. Permanent and executive-looking on powder-coated bottles and metal pens.</dd></div>
+      <div><dt>Sublimation</dt><dd>Full colour on white coated mugs and panels; extremely durable and dishwasher-tolerant.</dd></div>
+      <div><dt>DTF, embroidery, screen</dt><dd>For the textiles in a set: T-shirts, caps and tote bags from our <a href="/custom-apparel/">apparel line</a>.</dd></div>
+      <div><dt>Printed inserts &amp; packaging</dt><dd>Cards, sleeves and branded boxes from <a href="/packaging-labels/">packaging &amp; labels</a>.</dd></div>
+    </dl>
+  </Block>
+
+  <section class="section on-dark pixel-motif" aria-labelledby="gift-builder">
+    <div class="wrap">
+      <p class="eyebrow">Build your own corporate gift box</p>
+      <h2 class="display" id="gift-builder" data-split>Six Steps, No Guesswork</h2>
+      <ol class="process">
+        <li><h3>Your Budget</h3><p>An approximate budget per recipient.</p></li>
+        <li><h3>Your Products</h3><p>Choose what goes inside, or let us recommend.</p></li>
+        <li><h3>Your Branding</h3><p>Upload the logo; add names or messages.</p></li>
+        <li><h3>Your Packaging</h3><p>Branded box, sleeve, card and presentation.</p></li>
+        <li><h3>Your Quantity</h3><p>How many sets, and when you need them.</p></li>
+        <li><h3>Your Quote</h3><p>A tailored quotation on WhatsApp or email.</p></li>
+      </ol>
+      <div class="btn-row" style="margin-top:32px"><a class="btn btn--orange btn--lg" href="/request-a-quote/?service=corporate-gifts">Start building your gift set</a></div>
+    </div>
+  </section>
+
+  <Block id="planning" title="Planning a corporate gift order" eyebrow="Timing">
+    <p>Branding is fast; blank stock decides the calendar. Standard bottles, mugs and notebooks are usually available in Nairobi within days, while specific colours, premium brands or large quantities take longer, and the quotation says so up front. For December gifting, order by the end of October, when year-end demand across Nairobi is highest. See our <a href="/year-end-corporate-gifts/">year-end corporate gift ideas</a>.</p>
+    <p>Every order starts with <strong>one sample to approve</strong>. Every piece is then inspected for alignment, bubbles and lifted edges before packing, individually wrapped or boxed if ordered, and delivered in Nairobi or couriered across Kenya. Our <a href="/knowledge-centre/branding-water-bottles-corporate-gifts/">buyer’s guide to branded water bottles</a> covers choosing bottles people actually keep.</p>
+  </Block>
+
+  <Block id="choose-bottle" title="Choosing gifts people actually keep" eyebrow="Buyer's guide" tone="paper-2">
+    <p>A branded item only works if people use it. A bottle that leaks in a laptop bag carries your logo straight into the bin.</p>
+    <ul>
+      <li><strong>Stainless steel vacuum bottles</strong> (500 ml or 750 ml) keep drinks hot or cold for hours and are the most popular corporate choice; powder-coated black, white or navy looks premium.</li>
+      <li><strong>Aluminium sports bottles</strong> are lighter and cheaper, good for runs, schools and events, but not insulated.</li>
+      <li><strong>Glass bottles with sleeves</strong> suit wellness and eco-minded brands; heavier to ship.</li>
+      <li><strong>Digital bottles</strong> with a temperature display in the lid are a step up for executive gifts.</li>
+      <li><strong>Notebooks, pens and mugs</strong> are safe choices for large groups; flasks and gift boxes for senior clients.</li>
+    </ul>
+    <p>On a 500 ml bottle the comfortable print area is about 60 mm wide by 90 mm tall; vertical logos fit naturally. For personalised names, keep to one font and size, and send the list as a spreadsheet spelled exactly as it should print. Read the full <a href="/knowledge-centre/branding-water-bottles-corporate-gifts/">guide to branding water bottles for corporate gifting</a>, and see how <a href="/uv-dtf-stickers/">UV DTF stickers</a> put full-colour names on each piece.</p>
+  </Block>
+</ServiceLayout>

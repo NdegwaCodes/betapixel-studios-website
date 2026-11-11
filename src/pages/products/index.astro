@@ -1,0 +1,101 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { products } from '../../data/products';
+import { itemList, webPage } from '../../lib/schema';
+import { titleCase } from '../../lib/titleCase';
+
+const title = 'Colouring Books by Betapixel Studios | Made in Kenya';
+const description = 'Colouring books designed, printed and published by Betapixel Studios in Nairobi: an A4 alphabet book for children and a pocket mindful book for adults.';
+const kids = products.find((p) => p.audience === 'Children')!;
+const adults = products.find((p) => p.audience === 'Adults')!;
+---
+<BaseLayout title={title} description={description} ogImage="/og/products.jpg"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Betapixel Products', path: '/products/' }]}
+  schema={[webPage(title, '/products/', description), itemList('Betapixel Products', products.map((p) => ({ name: p.name, url: `/products/${p.slug}/` })))]}>
+  <header class="page-hero pixel-motif">
+    <div class="wrap grid-2 grid-2--even" style="align-items:center">
+      <div>
+        <p class="eyebrow">Betapixel Products</p>
+        <h1 class="h1-body">Made by Betapixel.</h1>
+        <p class="lead">Creative products designed, developed and published by us. Beyond creating for other brands, we create products of our own: original publications that encourage creativity, learning and moments away from the screen.</p>
+        <a class="btn" href="#collection">Explore our products ↓</a>
+      </div>
+      <div class="gallery__main" style="aspect-ratio:auto">
+        <Picture src={adults.images[0].src} alt={adults.images[0].alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 820]} sizes="(min-width: 900px) 50vw, 100vw" loading="eager" fetchpriority="high" />
+      </div>
+    </div>
+  </header>
+
+  <section class="section--tight" id="collection" aria-labelledby="our-products" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="display" id="our-products" data-split>Our Products</h2>
+      <div class="product-grid">
+        {products.map((p) => (
+          <article class="product-card">
+            <a class="product-card__media" href={`/products/${p.slug}/`} data-cursor="view">
+              <Picture src={p.images[0].src} alt={p.images[0].alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 860]} sizes="(min-width: 900px) 50vw, 100vw" loading="lazy" />
+            </a>
+            <div class="product-card__body">
+              <p class="product-card__sub">{p.subtitle}</p>
+              <h3>{titleCase(p.name)}</h3>
+              <p>{p.short}</p>
+              <div class="btn-row" style="margin-top:8px">
+                <a class="btn btn--ghost" href={`/products/${p.slug}/`}>View book →</a>
+                <a class="btn btn--orange" href={p.buyUrl} rel="noopener" target="_blank" data-buy={p.slug}>Buy at Nuria →</a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-dark" aria-labelledby="we-create">
+    <div class="wrap grid-2" style="align-items:center">
+      <div>
+        <p class="eyebrow">Our story</p>
+        <h2 class="display" id="we-create" data-split>We Don’t Only Produce. We Create.</h2>
+        <p class="lead">Most of our work helps other businesses bring their brands and ideas to life. But creativity at Betapixel does not stop with client projects.</p>
+        <p>We also develop products of our own, conceived, designed and produced under the Betapixel name. From children’s learning materials to creative publications for adults, we are building a growing collection that combines design, print and creativity. It is also why our <a href="/book-publishing/">book publishing</a> clients work with a team that has walked the same road.</p>
+      </div>
+      <ul class="statements">
+        <li>Designed by Betapixel.</li>
+        <li>Published by Betapixel.</li>
+        <li>Made to be enjoyed.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="no-age">
+    <div class="wrap">
+      <p class="eyebrow">For every age</p>
+      <h2 class="display" id="no-age" data-split>Creativity Has No Age Limit.</h2>
+      <div class="split-cards">
+        <a class="split-card" href={`/products/${kids.slug}/`}>
+          <Picture src={kids.images[2].src} alt={kids.images[2].alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[640, 960]} sizes="(min-width: 900px) 50vw, 100vw" loading="lazy" />
+          <div class="split-card__body"><p class="eyebrow" style="margin:0 0 6px">For little creators</p><h3>Learning Through Colour, Curiosity and Imagination.</h3><p>{kids.name}</p></div>
+        </a>
+        <a class="split-card" href={`/products/${adults.slug}/`}>
+          <Picture src={adults.images[3].src} alt={adults.images[3].alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[640, 960]} sizes="(min-width: 900px) 50vw, 100vw" loading="lazy" />
+          <div class="split-card__body"><p class="eyebrow" style="margin:0 0 6px">For grown-up creators</p><h3>A Little Time to Slow Down, Focus and Create.</h3><p>{adults.name}</p></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="more">
+    <div class="wrap grid-2" style="align-items:center">
+      <div>
+        <p class="eyebrow">More from Betapixel</p>
+        <h2 class="display" id="more" data-split>More Originals Are on the Way</h2>
+      </div>
+      <div class="prose">
+        <p>Activity books, stationery and new creative publications are in development. Follow <a href="https://www.instagram.com/betapixels.studio/" rel="noopener" target="_blank">@betapixels.studio</a> on Instagram to see them first.</p>
+        <p>Schools, bookshops and corporate buyers: for bulk orders or branded editions of our books for events and gift packs, <a href="/request-a-quote/?service=book-publishing">send us a request</a>.</p>
+        <div class="btn-row"><a class="btn btn--wa" href="https://wa.me/254746873985?text=Hello%20Betapixel%2C%20I%27m%20interested%20in%20your%20colouring%20books" data-wa rel="noopener" target="_blank"><Icon name="whatsapp" />Ask about the books</a></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

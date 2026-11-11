@@ -1,0 +1,32 @@
+---
+import { getImage, Picture } from 'astro:assets';
+import { categoryById, type Work } from '../data/portfolio';
+import { serviceBySlug } from '../data/services';
+import { art } from '../lib/art';
+import { titleCase } from '../lib/titleCase';
+interface Props { w: Work; heading?: 'h2' | 'h3' }
+const { w, heading = 'h2' } = Astro.props;
+const H = heading;
+const s = serviceBySlug(w.service);
+const src = w.photo ?? art[w.art!];
+const poster = w.video ? await getImage({ src, width: 720, format: 'webp' }) : null;
+const tag = w.real ? 'Betapixel original' : w.video ? 'Video' : w.onSite ? 'Real photo' : categoryById(w.category).name;
+---
+<article class="card" data-cat={w.category} data-service={w.service}>
+  <span class="card__tag">{tag}</span>
+  <figure style="margin:0">
+    <div class:list={['frame', w.onSite && 'frame--onsite']} data-cursor={w.video ? undefined : 'view'} style={w.photo && !w.onSite ? 'background:#fff' : undefined}>
+      {w.video && poster ? (
+        <video muted loop playsinline preload="none" data-poster={poster.src} width={w.video.width} height={w.video.height} aria-label={w.caption} data-inview-play>
+          <source src={w.video.src} type="video/mp4" />
+        </video>
+      ) : (
+        <Picture src={src} alt={w.caption} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 800]} sizes="(min-width: 900px) 33vw, 100vw" loading="lazy" style={w.photo ? 'object-fit:contain' : undefined} />
+      )}
+    </div>
+    <div class="card__body">
+      <H style="font-size:19px;margin:0 0 8px"><a href={w.href ?? `/${s.slug}/`} style="text-decoration:none">{titleCase(w.title)}</a></H>
+      <figcaption class="card__caption"><span>{w.spec}</span></figcaption>
+    </div>
+  </figure>
+</article>

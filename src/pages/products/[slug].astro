@@ -1,0 +1,112 @@
+---
+import { getImage, Picture } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { products, type Product } from '../../data/products';
+import { whatsappUrl } from '../../data/site';
+import { book } from '../../lib/schema';
+import { titleCase } from '../../lib/titleCase';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props as { p: Product };
+const path = `/products/${p.slug}/`;
+const og = await getImage({ src: p.images[0].src, width: 1200, format: 'jpeg' });
+const others = products.filter((x) => x.slug !== p.slug);
+---
+<BaseLayout title={p.title} description={p.description} ogImage={og.src} ogType="website"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Betapixel Products', path: '/products/' }, { name: p.name, path }]}
+  schema={[book(p, path, og.src)]} waContext={p.name}>
+  <section class="page-hero" style="padding-bottom:56px">
+    <div class="wrap grid-2 grid-2--even">
+      <div class="gallery" data-gallery>
+        <div class:list={['gallery__main', p.images[0].dark && 'is-dark']} data-gallery-main>
+          {p.images.map((im, i) => (
+            <Picture src={im.src} alt={im.alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[560, 960]} sizes="(min-width: 900px) 50vw, 100vw"
+              loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : undefined} data-gallery-slide={i} data-dark={im.dark ? '' : undefined}
+              style={i === 0 ? undefined : 'display:none'} />
+          ))}
+        </div>
+        <ul class="gallery__thumbs" aria-label="Product images">
+          {p.images.map((im, i) => (
+            <li><button class:list={['gallery__thumb', im.dark && 'is-dark']} type="button" data-gallery-thumb={i} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={`Show image ${i + 1}: ${im.alt}`}>
+              <Picture src={im.src} alt={im.alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[160]} sizes="84px" loading="lazy" />
+            </button></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">Betapixel Products · {p.category}</p>
+        <h1 class="h1-body">{titleCase(p.name)}</h1>
+        <p class="product-card__sub" style="margin:0 0 14px">{p.subtitle}</p>
+        <p class="lead">{p.short}</p>
+        <div class="buy-box">
+          <dl class="spec-list" style="margin:0">{p.specs.map((s) => <div><dt>{s.label}</dt><dd>{s.value}</dd></div>)}</dl>
+          <a class="btn btn--orange btn--lg" href={p.buyUrl} rel="noopener" target="_blank" data-buy={p.slug}>Buy at Nuria →</a>
+          <a class="btn btn--ghost" href={whatsappUrl(`${p.name}: bulk / school order`)} data-wa rel="noopener" target="_blank"><Icon name="whatsapp" />Bulk or school orders</a>
+          <p class="small" style="margin:0">Sold and delivered by Nuria Store. Opens nuriakenya.com in a new tab.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="about-book">
+    <div class="wrap grid-2">
+      <div><p class="eyebrow">About the book</p><h2 class="display" id="about-book" data-split>{titleCase(p.tagline)}</h2></div>
+      <div class="prose">{p.about.map((t) => <p>{t}</p>)}</div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="inside">
+    <div class="wrap">
+      <p class="eyebrow">Inside the book</p>
+      <h2 class="display" id="inside" data-split>What You Will Find Inside</h2>
+      <div class="gallery-grid">
+        {p.images.slice(1).map((im) => (
+          <figure class:list={['gallery-tile', im.dark && 'is-dark']}>
+            <Picture src={im.src} alt={im.alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 800]} sizes="(min-width: 900px) 33vw, 100vw" loading="lazy" />
+            <figcaption class="small">{im.alt}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <ul class="prose" style="margin-top:32px">{p.inside.map((t) => <li>{t}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section on-dark" aria-labelledby="who-for">
+    <div class="wrap grid-2" style="align-items:center">
+      <div>
+        <p class="eyebrow">Who it’s for</p>
+        <h2 class="display" id="who-for" data-split>Made For</h2>
+        <ul class="industry-list">{p.whoFor.map((w) => <li>{w}</li>)}</ul>
+      </div>
+      <div class="buy-box" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.14);color:#fff">
+        <h3 style="margin:0">Where to Buy</h3>
+        <p style="margin:0;color:rgba(255,255,255,0.8)">{p.name} is available on Nuria Store, with delivery across Kenya. Published by Betapixel Studios LTD, Nairobi.</p>
+        <a class="btn btn--orange btn--lg" href={p.buyUrl} rel="noopener" target="_blank" data-buy={p.slug}>Buy at Nuria →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--tight" aria-labelledby="more-books">
+    <div class="wrap">
+      <h2 id="more-books">More from Betapixel</h2>
+      <div class="product-grid" style="margin-top:20px">
+        {others.map((o) => (
+          <article class="product-card">
+            <a class="product-card__media" href={`/products/${o.slug}/`}><Picture src={o.images[0].src} alt={o.images[0].alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 800]} sizes="(min-width: 900px) 50vw, 100vw" loading="lazy" /></a>
+            <div class="product-card__body"><p class="product-card__sub">{o.subtitle}</p><h3><a href={`/products/${o.slug}/`} style="text-decoration:none">{o.name}</a></h3><p>{o.short}</p></div>
+          </article>
+        ))}
+        <article class="product-card">
+          <div class="product-card__body" style="align-content:center;min-height:100%">
+            <p class="product-card__sub">Publishing</p><h3>Want to Publish Your Own Book?</h3>
+            <p>We design, print and publish our own titles, and help authors do the same.</p>
+            <a class="btn btn--ghost" href="/book-publishing/" style="justify-self:start">Book publishing →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+
+.vercel
+.env*
+.claude/
+images/crops-raw/
+
+reports/
+release/
+images/Google Photos and Videos/

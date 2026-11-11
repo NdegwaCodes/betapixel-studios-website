@@ -1,0 +1,891 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "trailingSlash": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.google.com https://*.gstatic.com; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-src https://www.google.com https://maps.google.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "X-Permitted-Cross-Domain-Policies",
+          "value": "none"
+        }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/og/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    },
+    {
+      "source": "/video/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://betapixels.studio/:path*",
+      "statusCode": 301,
+      "has": [
+        {
+          "type": "host",
+          "value": "www.betapixels.studio"
+        }
+      ]
+    },
+    {
+      "source": "/contact-us/",
+      "destination": "/contact/",
+      "statusCode": 301
+    },
+    {
+      "source": "/our-products/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/sample-page/",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/my-account/",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/cart/",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/checkout/",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/refund_returns/",
+      "destination": "/terms-and-conditions/",
+      "statusCode": 301
+    },
+    {
+      "source": "/book-an-apointment/",
+      "destination": "/contact/",
+      "statusCode": 301
+    },
+    {
+      "source": "/submit-your-feedback-to-betapixels-studio/",
+      "destination": "/contact/",
+      "statusCode": 301
+    },
+    {
+      "source": "/careers/",
+      "destination": "/about/",
+      "statusCode": 301
+    },
+    {
+      "source": "/professional-photography/",
+      "destination": "/packaging-labels/",
+      "statusCode": 301
+    },
+    {
+      "source": "/service/signage/",
+      "destination": "/signage/",
+      "statusCode": 301
+    },
+    {
+      "source": "/signage-large-format/",
+      "destination": "/signage/",
+      "statusCode": 301
+    },
+    {
+      "source": "/service/branding/",
+      "destination": "/corporate-branding/",
+      "statusCode": 301
+    },
+    {
+      "source": "/service/graphics-design/",
+      "destination": "/corporate-branding/",
+      "statusCode": 301
+    },
+    {
+      "source": "/service/creative-videography/",
+      "destination": "/packaging-labels/",
+      "statusCode": 301
+    },
+    {
+      "source": "/service/professional-photography/",
+      "destination": "/packaging-labels/",
+      "statusCode": 301
+    },
+    {
+      "source": "/service/additional-services/",
+      "destination": "/services/",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/blog/",
+      "destination": "/knowledge-centre/",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/services/",
+      "destination": "/services/",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/uncategorized/",
+      "destination": "/knowledge-centre/",
+      "statusCode": 301
+    },
+    {
+      "source": "/feed/",
+      "destination": "/knowledge-centre/",
+      "statusCode": 301
+    },
+    {
+      "source": "/how-betapixel-studios-creates-stunning-3d-layered-lit-acrylic-artworks-for-your-home-or-office/",
+      "destination": "/portfolio/",
+      "statusCode": 301
+    },
+    {
+      "source": "/welcome-to-betapixel-studios-how-we-capture-your-memories-in-high-quality/",
+      "destination": "/portfolio/",
+      "statusCode": 301
+    },
+    {
+      "source": "/betapixel-studios-the-one-stop-shop-for-all-your-graphic-design-and-printing-needs/",
+      "destination": "/about/",
+      "statusCode": 301
+    },
+    {
+      "source": "/2025-calendar-printing-in-kenya/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/uv-dtf-magic-stickers/",
+      "destination": "/uv-dtf-stickers/",
+      "statusCode": 301
+    },
+    {
+      "source": "/bulk-printing/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/banners-large-format/",
+      "destination": "/banners/",
+      "statusCode": 301
+    },
+    {
+      "source": "/t-shirt-printing/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/promotional-branding/",
+      "destination": "/corporate-gifts/",
+      "statusCode": 301
+    },
+    {
+      "source": "/label-printing/",
+      "destination": "/packaging-labels/",
+      "statusCode": 301
+    },
+    {
+      "source": "/sticker-printing/",
+      "destination": "/packaging-labels/",
+      "statusCode": 301
+    },
+    {
+      "source": "/graphic-design/",
+      "destination": "/corporate-branding/",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography/",
+      "destination": "/packaging-labels/",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/",
+      "destination": "/knowledge-centre/",
+      "statusCode": 301
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap-index.xml",
+      "statusCode": 301
+    },
+    {
+      "source": "/sitemap_index.xml",
+      "destination": "/sitemap-index.xml",
+      "statusCode": 301
+    },
+    {
+      "source": "/wp-sitemap.xml",
+      "destination": "/sitemap-index.xml",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/business-cards/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/business-cards-2/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/posters/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/posters-minimum-200-pieces/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/flyers/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/flyers-minimum-200-pieces/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/brochures/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/brochures-2/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/booklets/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/magazines/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/wedding-cards/",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/diaries/",
+      "destination": "/corporate-gifts/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/digital-water-bottles/",
+      "destination": "/corporate-gifts/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/plain-digital-water-bottles/",
+      "destination": "/corporate-gifts/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/engraved-digital-water-bottle/",
+      "destination": "/corporate-gifts/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/heartfelt-digital-water-bottle/",
+      "destination": "/corporate-gifts/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/rollup-banners/",
+      "destination": "/banners/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/narrow-base-rollup-banner-design-provided/",
+      "destination": "/banners/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/wide-base-rollup-banner-design-provided/",
+      "destination": "/banners/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/narrow-base-roll-up-banner-plus-design/",
+      "destination": "/banners/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/wide-base-rollup-banner-plus-design/",
+      "destination": "/banners/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/betapixels-alphabet-colouring-book/",
+      "destination": "/products/alphabet-colouring-book/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/t-shirts/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/hoodies/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/hoodie_mockup/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/papas-special-day-hoodie/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/your-babe-ill-be/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/astronaut-in-space-personalized-hoodie/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/sisterly-love-birthday-hoodie/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/cosmic-burst-premium-hoodie/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/happy-birthday-to-you-white/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/darlings-birthday-delight-hoodie/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/greatest-husband-ever-birthday-hoodie/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/i-am-yours-forever-hoodie/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/moms-birthday-love-hoodie/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/my-girlfriend-birthday-blue/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/my-boyfriend-birthday-wishes/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/keep-calm-and-hail-at-the-birthday-queen-blue/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/its-my-darling-birthday-pink/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/i-love-you-happy-birthday-white/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/i-hope-your-day-is-full-of-fun-and-celebration/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/i-am-so-excited-today-is-your-birthday-white/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/hugs-kisses-and-a-lot-of-birthday-wishes-white/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/hoodie-with-vector-lion-print-red/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/happy-birthday-red/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/to-my-fabulous-friend-wish-you-have-a-happy-birthday/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/positive-black/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/grafiti-boy/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/she-thinks-she-is-in-charge/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/she-thinks-she-is-in-charge-couple-combo/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/the-ultimate-deadlifter/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/super-mum/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/the-adventure/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/in-the-storms-of-life/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/ill-keep-you-safe-white/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/im-in-charge-around-here/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/today-is-my-birthday/",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/mdf-board-frame/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/glass-photo-frames/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/wooden-canvas-frames/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/clear-acrylic-picture-frames/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/woman-on-red-bikini/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/woman-on-red-bikini-2/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/beautiful-plant-with-bokeh/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/spiderman-and-venom/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/celestial-embrace-hands-holding-the-moon-acrylic-glass-print/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/mahat-magandi/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/lady-holding-the-moon-in-a-beautiful-evening-background/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/hdr-landscape-kajiado/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/colored-lion-in-black/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/cocounut-landscape/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/black-rose/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/black-panther/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/black-and-red-rose/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/arabic-caligraphy-peace-be-upon-him/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/african-alephant/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/ord-shiva-nataraja-lord-of-dance/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/african-elephant-black-and-white-acrylic-print/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/beautiful-high-resolution-cat/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/eternal-love-romantic-sunrise-silhouette/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/the-kaaba/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/timeless-elegance-vintage-40s-gentleman-acrylic-glass-print/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/beautiful-morning-dusk/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/lord-krishna/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/beautiful-cute-fluffy-love-heart-for-her/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/arabic-caligraphy-eid-mubarak/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/beautiful-big-moon-silhuoette-with-tree-and-people-viewing-the-landscape/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/old-rustic-ancient-map-of-the-world/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/woman-with-white-bikini-staring-at-the-sea/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/vintage-rustic-textured-flowers/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/special-portrait-with-red-ribbons-reading-i-love-you/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/impressionistic-art/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/golden-chess-players-with-silver-king/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/starey-night-with-lots-of-stars-and-a-beutiful-view-of-the-moon-with-a-tree-silhuoette-in-the-background/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/flat-earth-concept-of-the-world-with-dome/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/christmas-tree-with-shimmering-boke-of-falling-snow/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/christmas-tree-with-jingles-and-two-hands/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/ancient-rustic-yellow-simplified-map-of-the-world/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/abstract-wavy-blue-futuristic-art/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/abstract-colorart-with-defined-brush-strokes/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/woman-with-burning-cash-and-red-lips/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/mahat-magandi-impressionist-artwork-black/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/child-on-a-floating-baloon/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/blue-and-pink-lion-side-profile/",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/:name(.*)-sitemap.xml",
+      "destination": "/sitemap-index.xml",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/:slug/feed/",
+      "destination": "/shop/:slug/",
+      "statusCode": 301
+    },
+    {
+      "source": "/:slug/feed/",
+      "destination": "/:slug/",
+      "statusCode": 301
+    },
+    {
+      "source": "/shop/(.*)",
+      "destination": "/products/",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-category/promotional-materials/(.*)",
+      "destination": "/commercial-printing/",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-category/apparells/(.*)",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-category/apparel/(.*)",
+      "destination": "/custom-apparel/",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-category/(.*)",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-tag/(.*)",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/service/(.*)",
+      "destination": "/services/",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/(.*)",
+      "destination": "/knowledge-centre/",
+      "statusCode": 301
+    },
+    {
+      "source": "/tag/(.*)",
+      "destination": "/knowledge-centre/",
+      "statusCode": 301
+    },
+    {
+      "source": "/author/(.*)",
+      "destination": "/about/",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/:rest(.*)",
+      "destination": "/knowledge-centre/:rest",
+      "statusCode": 301
+    },
+    {
+      "source": "/wp-content/(.*)",
+      "destination": "/",
+      "statusCode": 301
+    }
+  ]
+}

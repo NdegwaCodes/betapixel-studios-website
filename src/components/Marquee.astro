@@ -1,0 +1,14 @@
+---
+import { marqueeItems } from '../data/services';
+---
+<div class="marquee" aria-hidden="true" data-marquee>
+  <div class="marquee__track">
+    {[0, 1].map(() => (
+      <div class="marquee__group">
+        {[...marqueeItems, ...marqueeItems].map((t) => (
+          <span class="marquee__item">{t}<span class="marquee__mark"></span></span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>

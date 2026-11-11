@@ -1,0 +1,84 @@
+---
+import { Image } from 'astro:assets';
+import logoLight from '../assets/brand/logo-light.png';
+import { site, whatsappUrl, addressLine } from '../data/site';
+import { services } from '../data/services';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand"><a href="/" aria-label={`${site.name}, home`}><Image src={logoLight} alt={site.name} width={260} densities={[1, 2]} loading="lazy" /></a></p>
+        <p class="footer-tag">{site.tagline}</p>
+        <p>Printing, branding and publishing in Nairobi {site.ageLine}. Everything produced in-house.</p>
+        <div class="btn-row" style="margin-top:20px">
+          <a class="btn btn--orange" href="/request-a-quote/">Request a Quote</a>
+          <a class="btn btn--ghost" href={whatsappUrl()} data-wa rel="noopener" target="_blank">WhatsApp</a>
+        </div>
+      </div>
+      <address>
+        <span>{site.legalName}</span>
+        <a href={site.googleMapsShort} rel="noopener" target="_blank">{addressLine()}</a>
+        <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <span>{site.hours.map((h) => `${h.label} ${h.opens}–${h.closes}`).join(' · ')}</span>
+        <span>{site.closedLine}</span>
+      </address>
+    </div>
+    <div class="footer-grid">
+      <div>
+        <h2>Company</h2>
+        <ul>
+          <li><a href="/about/">About Us</a></li>
+          <li><a href="/portfolio/">Portfolio</a></li>
+          <li><a href="/products/">Betapixel Products</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/request-a-quote/">Request a Quote</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Products &amp; Services</h2>
+        <ul>{services.map((s) => <li><a href={`/${s.slug}/`}>{s.name}</a></li>)}</ul>
+      </div>
+      <div>
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="/knowledge-centre/">Knowledge Centre</a></li>
+          <li><a href="/knowledge-centre/?topic=uv-dtf">UV DTF Guides</a></li>
+          <li><a href="/knowledge-centre/?topic=artwork-design">Artwork Guides</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="/privacy-policy/">Privacy Policy</a></li>
+          <li><a href="/terms-and-conditions/">Terms &amp; Conditions</a></li>
+          <li><a href="/cookie-policy/">Cookie Policy</a></li>
+          <li><button class="footer-link-btn" type="button" data-cookie-open>Cookie settings</button></li>
+        </ul>
+        <h2 style="margin-top:24px">Follow</h2>
+        <ul>
+          <li><a href={site.social.instagram} rel="noopener me" target="_blank">Instagram {site.instagramHandle}</a></li>
+          <li><a href={site.social.facebook} rel="noopener me" target="_blank">Facebook</a></li>
+          <li><a href={site.social.tiktok} rel="noopener me" target="_blank">TikTok</a></li>
+          <li><a href={site.social.linkedin} rel="noopener me" target="_blank">LinkedIn</a></li>
+          <li><a href={site.googleBusiness} rel="noopener" target="_blank">Google reviews</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-word" aria-hidden="true">Betapixel</p>
+    <div class="footer-base">
+      <span>© {year} {site.legalName}. All rights reserved.</span>
+      <span>{site.tagline}</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="mobile-bar" aria-label="Quick actions">
+  <a href="/request-a-quote/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8.5 12v1.8h9V12h-9Zm0 3.5v1.8h9v-1.8h-9Z"/></svg>Quote</a>
+  <a href={whatsappUrl()} data-wa rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2A9.9 9.9 0 0 0 3.45 16.86L2.05 22l5.25-1.38A9.9 9.9 0 1 0 12.04 2Zm4.52 12c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.78.97-.15.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74 1.49.64 2.07.7 2.97.56.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"/></svg>WhatsApp</a>
+  <a href={`tel:${site.phone.e164}`}><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>Call</a>
+  <a href={site.googleMapsShort} rel="noopener" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>Directions</a>
+</nav>

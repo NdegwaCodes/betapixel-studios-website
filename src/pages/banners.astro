@@ -1,0 +1,88 @@
+---
+import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Block from '../components/Block.astro';
+import OfferGrid, { type Offer } from '../components/OfferGrid.astro';
+import MediaBannerSizes from '../components/MediaBannerSizes.astro';
+
+const banners: Offer[] = [
+  { title: 'Media & backdrop banners', tag: 'The wall every photo is taken in front of', body: 'Step-and-repeat logo walls printed on fabric and fitted to a portable frame, for launches, conferences, graduations and awards nights.', options: ['2.25 m × 2.25 m', '3 m × 2.25 m', '6 m × 2.25 m'], optionsLabel: 'Three standard sizes (width × height)' },
+  { title: 'Roll-up banners', tag: 'Professional displays made simple', body: 'Complete with aluminium stand and carry bag, in two styles: narrow-base and broad-base, where the wider base adds stability. 85 × 200 cm is standard. Replacement prints fit your existing stand.', options: ['Narrow-base roll-up', 'Broad-base roll-up'], ideal: ['Receptions', 'Exhibitions', 'Product launches', 'Church and school events', 'Pop-up stalls'] },
+  { title: 'X-banners', tag: 'Light, quick and portable', body: 'A lighter stand for short promotions and indoor events, set up in a minute and easy to carry between venues.' },
+  { title: 'PVC banners', tag: 'Big messages, bigger impact', body: 'Frontlit PVC flex, hemmed with eyelets every 50 cm, for building fronts, gates, fences and stages.', ideal: ['Launches', 'Construction sites', 'Promotions', 'Sports events', 'Church and school events'] },
+  { title: 'Backlit banners', tag: 'Bright day and night', body: 'Printed on backlit flex for lightboxes and illuminated displays, with denser ink so colours stay strong with light shining through from behind.', ideal: ['Shopfronts', 'Lightboxes', 'Malls', 'Restaurants', 'Night-time promotions'] },
+  { title: 'Teardrop & feather flags', tag: 'Capture attention outdoors', body: 'Stay legible in the wind, ideal for roadsides, forecourts, exhibitions and sports events. Multiple heights, with ground spikes or cross bases.' },
+  { title: 'Exhibition displays', tag: 'Stand out at every event', body: 'Pop-up displays, A-frame ground banners and display walls sized to your stand; see events and exhibitions for full stand packages.' },
+];
+---
+<ServiceLayout
+  slug="banners"
+  kicker="Media banners & roll-ups · Nairobi"
+  h1="Media Banners, Roll-Ups & Banner Printing in Nairobi"
+  lead="Big, bold and ready for the camera. Betapixel Studios prints <strong>media and backdrop banners</strong> in three standard sizes, broad-base and narrow-base roll-ups, X-banners, PVC and backlit banners, teardrop flags and exhibition displays in-house in Nairobi, with frames, stands and carry bags supplied and delivery across Kenya."
+  meta={['Three media banner sizes', 'Stands & frames supplied', 'Indoor & outdoor materials', 'Reprints for existing stands']}
+  faqCats={['banners', 'turnaround']}
+  related={['events-exhibitions', 'signage', 'commercial-printing', 'corporate-branding']}
+  cta={{ title: 'Bring your brand to every event.', text: 'Tell us the event or location, the size you need and the date, and send your logo. We will recommend the right banner, material and stand.', secondary: { label: 'Request a banner quote', href: '/request-a-quote/?service=banners' } }}
+>
+  <section class="section" aria-labelledby="banner-range">
+    <div class="wrap">
+      <p class="eyebrow">Our banners</p>
+      <h2 class="display" id="banner-range" data-split>Big Messages That Travel Well</h2>
+      <p class="lead" style="max-width:62ch">A good banner works the moment it goes up: readable from across a room or a road, steady in the wind and sharp in every photograph. Choose the format by where it will stand and how often it will move.</p>
+      <OfferGrid items={banners} />
+    </div>
+  </section>
+
+  <MediaBannerSizes />
+
+  <Block id="choosing" title="Which banner for which job" eyebrow="Advice" tone="paper-2">
+    <ul>
+      <li><strong>Photo walls and press corners:</strong> a media banner; pick the size by how many people stand in each photo.</li>
+      <li><strong>Receptions, stalls and expos:</strong> a roll-up, because it sets up in a minute and travels in its bag; choose a broad base where people brush past it.</li>
+      <li><strong>Building fronts, fences and gates:</strong> PVC banners, hemmed and eyeleted so they tie down securely.</li>
+      <li><strong>Roadsides and forecourts:</strong> teardrop or feather flags, which move and catch the eye.</li>
+      <li><strong>Displays seen after dark:</strong> backlit banners in a lightbox, lit from behind so they read day and night.</li>
+    </ul>
+    <p>For permanent shop fronts and reception walls, see our <a href="/signage/">signage</a> service instead; banners are built to be moved, signs to stay.</p>
+  </Block>
+
+  <Block id="materials" title="Materials and finishing" eyebrow="Specifications">
+    <dl class="spec-list">
+      <div><dt>Frontlit PVC flex</dt><dd>General outdoor banners; water-resistant; hemmed with eyelets</dd></div>
+      <div><dt>Backlit flex</dt><dd>Backlit banners and lightboxes; denser ink so colours hold up with light behind them</dd></div>
+      <div><dt>Printed fabric</dt><dd>Media banners, backdrops and stage drapes; matt, foldable and reusable</dd></div>
+      <div><dt>Roll-up film</dt><dd>Anti-curl print for roll-up stands so the graphic hangs flat</dd></div>
+      <div><dt>Flag fabric</dt><dd>Lightweight knitted polyester printed through, for teardrop and feather flags</dd></div>
+    </dl>
+    <p>Outdoor PVC banners in direct Nairobi sun stay presentable for about a year of continuous display; banners used for events and stored indoors last far longer.</p>
+  </Block>
+
+  <Block id="artwork" title="Artwork for large format" eyebrow="Files" tone="paper-2">
+    <ul>
+      <li><strong>Size:</strong> set the document at full size (a roll-up is 850 × 2000 mm) or at an exact 1:10 scale, and tell us which.</li>
+      <li><strong>Resolution:</strong> 150 dpi at full size for roll-ups and posters; 72–100 dpi is enough for banners viewed from several metres.</li>
+      <li><strong>Bleed:</strong> 20 mm on every side for banners, plus 100 mm at the bottom of a roll-up, which disappears into the base.</li>
+      <li><strong>Readability:</strong> keep logos out of the bottom 200 mm of a roll-up and body text at 60 pt or more.</li>
+    </ul>
+    <p>No design yet? Our <a href="/corporate-branding/">branding and graphic design team</a> designs banners to these rules. Read the <a href="/knowledge-centre/media-and-backdrop-banners-guide/">media and backdrop banners guide</a> and our <a href="/knowledge-centre/artwork-file-requirements-for-printing/">artwork guide</a> before you send files.</p>
+  </Block>
+
+  <section class="section on-paper-2" aria-labelledby="banner-process">
+    <div class="wrap">
+      <p class="eyebrow">Our process</p>
+      <h2 class="display" id="banner-process" data-split>Brief to Event-Ready</h2>
+      <ol class="process">
+        <li><h3>Brief</h3><p>Event or location, size, quantity and date, with your logos.</p></li>
+        <li><h3>Proof</h3><p>A to-scale proof showing logo spacing and safe areas.</p></li>
+        <li><h3>Print</h3><p>Printed in-house on the material matched to the job.</p></li>
+        <li><h3>Finish</h3><p>Hemmed, eyeleted, fitted to the frame or stand and checked.</p></li>
+        <li><h3>Deliver</h3><p>Collected from our studio or delivered across Kenya, ready to stand up.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <Block id="care" title="Setting up, storing and reusing banners" eyebrow="Care">
+    <p>A roll-up stand is built to be reused; the print is what wears out. Pull the print up slowly and hook it; guide it back down by hand rather than letting it snap into the base; store it flat and away from heat. When the message changes, we print a new graphic for your existing stand for noticeably less than a new roll-up.</p>
+    <p>For outdoor banners, tie every eyelet and leave slight slack so wind can move the banner without tearing it. Fold fabric media banners loosely into their bag and air them before storing. For a complete event, pair banners with <a href="/events-exhibitions/">event branding</a>, printed <a href="/commercial-printing/">flyers and brochures</a> and branded <a href="/custom-apparel/">staff apparel</a>.</p>
+  </Block>
+</ServiceLayout>

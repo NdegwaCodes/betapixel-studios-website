@@ -1,0 +1,93 @@
+---
+import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Block from '../components/Block.astro';
+import OfferGrid, { type Offer } from '../components/OfferGrid.astro';
+
+const items: Offer[] = [
+  { title: 'Product labels', tag: 'Small label, big responsibility', body: 'Identifies the product, carries the information and represents the brand, in custom shapes and sizes, on rolls or sheets.', ideal: ['Bottles', 'Jars', 'Pouches', 'Tubs', 'Boxes', 'Retail products'] },
+  { title: 'Bottle labels', tag: 'Shelf-ready', body: 'Water, juice, honey, sauces, oils, syrups, cleaning and personal-care products, with the stock chosen for the bottle and environment.' },
+  { title: 'Food & beverage labels', tag: 'Branding designed for the shelf', body: 'Honey, coffee, tea, sauces, spices, juices, ginger shots, snacks, baked goods, jams and oils, organised so essential information stays clear.' },
+  { title: 'Cosmetic & beauty labels', tag: 'As good as the product', body: 'Serums, lotions, creams, oils, perfumes, hair and body care, with finishes chosen to make a small brand look established.' },
+  { title: 'Water-resistant labels', tag: 'For moisture and handling', body: 'Clear and white vinyl stocks for drinks, chilled goods, bathroom and cleaning products.' },
+  { title: 'Barcode & QR labels', tag: 'Connect products to information', body: 'Barcodes, QR codes, batch information, product codes, website and social links, test-scanned on the proof.' },
+  { title: 'Stickers', tag: 'Print & cut', body: 'Contour-cut vinyl and paper stickers, kiss-cut sheets, die-cut singles, seal stickers and vehicle-grade decals.' },
+  { title: 'Custom product boxes', tag: 'The experience begins before the box opens', body: 'Structure, protection and presence for cosmetics, gifts, food, electronics, clothing and corporate gifts.' },
+  { title: 'Packaging sleeves', tag: 'Transform plain packaging', body: 'A printed sleeve turns a plain box or container into branded packaging, ideal for seasonal variants.' },
+  { title: 'Hang tags', tag: 'Branding beyond the garment', body: 'Logo, size, price, care instructions, website and QR code for fashion, accessories and handmade products.' },
+  { title: 'Paper, tote & jute bags', tag: 'Packaging that leaves with the customer', body: 'Branded paper bags for boutiques, bakeries and events, plus reusable tote and jute bags.' },
+  { title: 'Mailer & shipping packaging', tag: 'Unboxing that sells again', body: 'Mailer boxes, shipping labels, thank-you cards, inserts and sealing stickers for online sellers.' },
+];
+---
+<ServiceLayout
+  slug="packaging-labels"
+  kicker="Packaging & product labels · Nairobi"
+  h1="Product Labels & Custom Packaging in Nairobi"
+  lead="Packaging that makes people want to pick up your product. Betapixel Studios designs and prints <strong>product labels, stickers, boxes, sleeves, hang tags and bags</strong> in-house in Nairobi, and photographs the finished product for your listings, from a first product launch to a complete packaging system."
+  meta={['Labels on rolls or sheets', 'Waterproof stocks', 'Packaging design included on request', 'Product photography']}
+  faqCats={['packaging']}
+  related={['uv-dtf-stickers', 'commercial-printing', 'corporate-branding', 'corporate-gifts']}
+  cta={{ title: 'Let’s make your product look as good as the idea behind it.', text: 'Share the product, packaging dimensions, quantity and where it will be sold, and we recommend materials, finishes and the pieces your launch actually needs.' }}
+>
+  <section class="section" aria-labelledby="pack-range">
+    <div class="wrap">
+      <p class="eyebrow">What we produce</p>
+      <h2 class="display" id="pack-range" data-split>From One Label to a Full Packaging System</h2>
+      <p class="lead" style="max-width:62ch">Before customers taste it, use it or experience it, they see the packaging. Great packaging communicates quality, builds recognition and gives customers a reason to choose your product.</p>
+      <OfferGrid items={items} />
+    </div>
+  </section>
+
+  <Block id="stocks" title="Label stocks, and where each belongs" eyebrow="Materials" tone="paper-2">
+    <dl class="spec-list">
+      <div><dt>Gloss or matte paper</dt><dd>Dry goods, boxes and jars that stay dry; the lowest cost</dd></div>
+      <div><dt>Clear vinyl</dt><dd>The “no-label look” on glass and clear plastic, with white ink behind colours; waterproof and oil-resistant</dd></div>
+      <div><dt>White vinyl</dt><dd>Drinks, sauces, cosmetics and chilled products, squeezable bottles and curved containers; waterproof and oil-resistant</dd></div>
+      <div><dt>Kraft &amp; metallic</dt><dd>Natural and artisan products; premium lines in silver or gold</dd></div>
+      <div><dt>Freezer &amp; removable adhesives</dt><dd>Frozen products; temporary promotions and tamper-evident seals</dd></div>
+    </dl>
+    <p>Labels come on sheets for hand application or on rolls: standard 76 mm or 40 mm cores, wound in the direction your applicator needs. Send a photo of an old roll if you use a machine. For branding on glass or metal with no visible label edge, use <a href="/uv-dtf-stickers/">UV DTF stickers</a> — sometimes the best answer is both: a UV DTF logo on the front and a paper label for ingredients on the back.</p>
+  </Block>
+
+  <section class="section on-dark pixel-motif" aria-labelledby="launch">
+    <div class="wrap">
+      <p class="eyebrow">Launching a new product?</p>
+      <h2 class="display" id="launch" data-split>Tell Us About the Product. We’ll Work Out What It Needs.</h2>
+      <div class="offer-grid">
+        <article class="offer"><h3>A New Honey Brand</h3><p>Jar label → tamper seal → product box → paper bag → business cards → flyers → retail display.</p></article>
+        <article class="offer"><h3>A Cosmetics Startup</h3><p>Bottle branding → outer packaging → thank-you card → shopping bag → product photography → promotional materials.</p></article>
+        <article class="offer"><h3>A Clothing Brand</h3><p>Hang tags → packaging → stickers → thank-you cards → shopping bags → apparel branding.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <Block id="design-photo" title="Packaging design & product photography" eyebrow="Studio">
+    <p>Already have a logo but not sure how the product should look? Our creative team designs labels, box artwork, sleeves, hang tags, inserts and bags around your identity, and prepares the dieline for the cut shape. We design with the production method in mind, so what looks good on screen also works in print.</p>
+    <p>Once the packaging is printed, we photograph it: <strong>white-background packshots</strong> for online shops and marketplaces, detail and angle shots, and styled lifestyle images, colour-checked against the real product and named by SKU so they drop straight into your catalogue.</p>
+    <h3>Product Label or UV DTF: Which Should You Use?</h3>
+    <p>Neither is better in every case. A traditional label suits larger information areas (ingredients, instructions, barcodes and batch details) and is the economical choice for thousands of units. A <a href="/uv-dtf-stickers/">UV DTF sticker</a> suits decorative branding with no visible label edge on glass, metal and rigid plastic. Many premium products use both: a UV DTF logo on the front and a printed information label on the back.</p>
+    <h3>Designing a Label That Works on the Shelf</h3>
+    <ul>
+      <li>Measure the container, not the label you want. The flat area on a tapered jar is smaller than it looks.</li>
+      <li>Keep ingredients and contact details at about 6 pt or larger in a clear sans-serif.</li>
+      <li>Barcodes need a quiet margin and must print at 80–120% of nominal size; always test-scan the proof.</li>
+      <li>Leave a blank panel for batch numbers and dates if you stamp them later. For regulated products, confirm the Kenyan requirements for your category with KEBS.</li>
+    </ul>
+  </Block>
+
+  <section class="section on-paper-2" aria-labelledby="idea-to-shelf">
+    <div class="wrap">
+      <p class="eyebrow">From idea to shelf</p>
+      <h2 class="display" id="idea-to-shelf" data-split>Seven Steps to Launch</h2>
+      <ol class="process">
+        <li><h3>Tell Us</h3><p>The product, dimensions, quantity and goal.</p></li>
+        <li><h3>Choose</h3><p>We recommend materials, printing and finishes.</p></li>
+        <li><h3>Design</h3><p>Artwork created or checked for production.</p></li>
+        <li><h3>Approve</h3><p>You approve the proof, and a test label on the real container.</p></li>
+        <li><h3>Produce</h3><p>Printed, cut and finished in-house.</p></li>
+        <li><h3>Check</h3><p>Every item inspected before collection or dispatch.</p></li>
+        <li><h3>Launch</h3><p>Your product meets its customers.</p></li>
+      </ol>
+      <p style="margin-top:28px">Artwork tips are in <a href="/knowledge-centre/artwork-file-requirements-for-printing/">artwork file requirements for printing</a>. Weighing clear labels against a no-label look? Read <a href="/knowledge-centre/uv-dtf-stickers-vs-clear-stickers/">UV DTF stickers vs clear stickers</a>. Printed leaflets and inserts come from <a href="/commercial-printing/">commercial printing</a>, and brand identities from <a href="/corporate-branding/">corporate branding &amp; design</a>.</p>
+    </div>
+  </section>
+</ServiceLayout>

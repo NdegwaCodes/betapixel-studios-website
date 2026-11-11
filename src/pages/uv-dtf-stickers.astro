@@ -1,0 +1,189 @@
+---
+import { getCollection } from 'astro:content';
+import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Block from '../components/Block.astro';
+import OfferGrid, { type Offer } from '../components/OfferGrid.astro';
+import PinnedSequence, { type Panel } from '../components/PinnedSequence.astro';
+import { howTo } from '../lib/schema';
+import { G } from '../data/work';
+import { titleCase } from '../lib/titleCase';
+
+const names: Offer[] = [
+  { title: 'UV DTF Stickers', tag: 'The technical name', body: 'UV-cured ink printed Direct To Film, then transferred to the product. The name used by printers and manufacturers worldwide.' },
+  { title: 'Magic Stickers', tag: 'The name used across Kenya', body: 'Named for what happens when the top film is peeled away: the design seems to appear on the surface by itself, with no sticker around it.' },
+  { title: '3D Crystal Labels', tag: 'The international name', body: 'Describes the finish: a glossy, slightly raised, crystal-clear layer of varnish that you can feel with your fingertip.' },
+];
+
+const benefits: Offer[] = [
+  { title: 'Premium appearance', body: 'A raised gloss finish with no visible sticker edge. Products look factory-printed, which lifts their perceived value on the shelf.' },
+  { title: 'Vibrant colours', body: 'Full CMYK with a white underbase, so colours stay bright on black bottles, dark metal and clear glass. Gradients and fine detail reproduce cleanly.' },
+  { title: 'Water-resistant', body: 'Once applied and cured for 24 hours, transfers handle moisture, hand washing and everyday cleaning. We advise against dishwashers and sustained heat above about 60°C.' },
+  { title: 'Scratch-resistant', body: 'The cured varnish protects the colour layer from daily handling, desk wear and bag friction when applied to a suitable surface.' },
+  { title: 'Strong adhesion', body: 'A pressure-activated adhesive bonds firmly to clean, smooth, hard surfaces, with no primers or sprays for most materials.' },
+  { title: 'No heat press required', body: 'Peel, press, rub and lift the film. Branding happens cold, by hand, which is why awkward and curved items are practical to brand.' },
+  { title: 'Many designs per sheet', body: 'No screens, plates or setup charges. One half-metre sheet (58 × 50 cm) carries many logos or personalised names, and long runs stay consistent.' },
+];
+
+const process: Panel[] = [
+  { id: 'stage-artwork', title: 'Artwork preparation', art: 'graphic-design', photo: G.procArtwork,
+    body: ['A person checks every file before it is printed: line weights of at least 1.5 mm, type of 8 pt or larger, raster images at 300 dpi at final size, and a white underbase that sits exactly under the colour.',
+      'If a detail will not survive the transfer (a hairline, a thin serif, a gradient that fades to nothing), we tell you and propose the fix before any film is used.'] },
+  { id: 'stage-print', title: 'Print and cure', art: 'sticker-printing', photo: G.procPrint,
+    body: ['The design is printed onto adhesive film in three layers: a white base for opacity, the CMYK image and a clear varnish that gives the raised crystal finish.',
+      'Each layer is cured instantly by UV LED light as the print head passes, so the transfer is hard and handleable the moment it leaves the printer.'] },
+  { id: 'stage-laminate', title: 'Lamination', art: 'magic-stickers', photo: G.procLaminate,
+    body: ['A clear transfer film is laminated over the cured print. It holds every letter and dot of your design in register when you lift it, so the design moves as one piece.'] },
+  { id: 'stage-apply', title: 'Transfer to the product', art: 'photography', photo: G.procApply,
+    body: ['Press the transfer onto a clean surface, rub it down firmly and peel the top film away slowly. Only the printed artwork stays behind, with no visible sticker background.',
+      'Full steps are in the <a href="#application">application guide below</a>. We can also apply the transfers for you at a cost.'] },
+];
+
+const products: Offer[] = [
+  { title: 'Drinkware', body: 'The most requested UV DTF application in Nairobi: full-colour logos and names on the things people carry every day.', optionsLabel: 'Products', options: ['Water bottles', 'Tumblers', 'Travel mugs', 'Coffee cups', 'Wine glasses', 'Beer mugs', 'Flasks', 'Sports bottles'] },
+  { title: 'Cosmetics', body: 'A clean, printed-on look for beauty brands without the minimums of direct bottle printing.', optionsLabel: 'Products', options: ['Serum bottles', 'Cream jars', 'Perfume bottles', 'Lotion bottles', 'Lip balm packaging', 'Gift sets'] },
+  { title: 'Food & beverage', body: 'Premium branding on glass and tins that sit on café counters and shop shelves.', optionsLabel: 'Products', options: ['Coffee containers', 'Honey jars', 'Sauce bottles', 'Spice jars', 'Juice bottles', 'Tea tins'] },
+  { title: 'Corporate gifts', body: 'Individually named gifts and awards with no setup cost per name.', optionsLabel: 'Products', options: ['Awards', 'Gift boxes', 'Executive gifts', 'Desk accessories', 'Welcome kits', 'Conference gifts'] },
+  { title: 'Retail & lifestyle', body: 'Brand or personalise hard-surface products for resale.', optionsLabel: 'Products', options: ['Candles', 'Storage containers', 'Phone cases', 'Laptops', 'Luxury packaging', 'Home décor'] },
+];
+
+const steps = [
+  { name: 'Clean the surface', text: 'Wipe the item with isopropyl alcohol or clean water and let it dry completely. Grease, dust and hand oils are the main reason a transfer lifts.' },
+  { name: 'Position before you peel', text: 'Hold the transfer against the item with the backing still on and mark the position lightly with masking tape so it goes on straight.' },
+  { name: 'Peel the backing sheet', text: 'Peel the backing away at a low angle, exposing the adhesive side of the print. Do not touch the adhesive with your fingers.' },
+  { name: 'Press from the centre out', text: 'Lay the transfer down and press from the centre outwards so trapped air is pushed to the edges, not caught under the design.' },
+  { name: 'Rub down firmly', text: 'Rub over the whole design with a squeegee, a plastic card or your thumb for 20 to 30 seconds, paying extra attention to edges and small details.' },
+  { name: 'Peel the top film slowly', text: 'Peel the clear top film away slowly at a sharp angle, almost folding it back on itself. If any part lifts with the film, lay it back down and rub again.' },
+  { name: 'Leave it for 24 hours', text: 'The adhesive reaches full bond after about 24 hours. Avoid washing or heavy handling in that time.' },
+];
+
+const howToSchema = howTo('How to apply a UV DTF sticker (magic sticker)',
+  'Seven steps to apply a UV DTF transfer to glass, metal, plastic or sealed wood without trapped air or lifting edges.', steps, '/uv-dtf-stickers/',
+  { totalTime: 'PT5M', tool: [{ '@type': 'HowToTool', name: 'Plastic squeegee or card' }], supply: [{ '@type': 'HowToSupply', name: 'Isopropyl alcohol wipe' }] });
+
+const guides = (await getCollection('guides')).filter((g) => g.data.category === 'UV DTF' || g.data.service === 'uv-dtf-stickers');
+---
+<ServiceLayout
+  slug="uv-dtf-stickers"
+  kicker="Flagship · Kenya's UV DTF specialists"
+  h1="UV DTF Stickers in Kenya: Magic Stickers & 3D Crystal Labels"
+  lead="<strong>UV DTF stickers</strong>, also known as <strong>magic stickers</strong> and <strong>3D crystal labels</strong>, are full-colour transfers printed with UV-cured ink on film. Pressed onto a hard surface and peeled, they leave only the design behind: raised, glossy and with no sticker background. Betapixel Studios prints them in-house in Nairobi, from a single piece."
+  meta={['From 0.5 m of film (58 × 50 cm)', 'Typically ready in 24–48 hours', 'No setup charge', 'Artwork checked free']}
+  faqCats={['uv-dtf']}
+  related={['corporate-gifts', 'packaging-labels', 'custom-apparel', 'commercial-printing']}
+  schema={[howToSchema]}
+  cta={{ title: 'Your products deserve better branding.', text: 'Launching your first product or branding a thousand bottles? Send the artwork, the item and the quantity and we will tell you exactly what will work before you pay for it.' }}
+>
+  <section class="section" aria-labelledby="names">
+    <div class="wrap">
+      <p class="eyebrow">What are UV DTF stickers?</p>
+      <h2 class="display" id="names" data-split>One Product. Three Common Names.</h2>
+      <p class="lead" style="max-width:62ch">Unlike ordinary stickers, UV DTF stickers transfer only the printed design onto the surface, creating the look of direct printing with no visible background. Whatever you call them, they are the same product.</p>
+      <OfferGrid items={names} />
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="why-uvdtf">
+    <div class="wrap">
+      <p class="eyebrow">Why UV DTF has changed product branding</p>
+      <h2 class="display" id="why-uvdtf" data-split>Why Businesses Choose UV DTF</h2>
+      <p class="lead" style="max-width:64ch">Traditional branding methods need specialised equipment, setup time or specific materials. UV DTF removes most of those limits: one transfer brands glass, steel, acrylic, wood and plastic, whether you need ten pieces or ten thousand.</p>
+      <OfferGrid items={benefits} />
+    </div>
+  </section>
+
+  <section class="section on-dark pixel-motif" aria-labelledby="process-title" id="process">
+    <div class="wrap">
+      <p class="eyebrow">How UV DTF stickers work</p>
+      <h2 class="display" id="process-title" data-split>From Artwork to Product, in Four Stages</h2>
+      <p class="lead" style="margin-bottom:56px">None of these stages needs a minimum run, which is why the first piece is not inflated by setup costs.</p>
+      <PinnedSequence panels={process} label="The UV DTF process" />
+    </div>
+  </section>
+
+  <Block id="surfaces" title="Surfaces you can brand" eyebrow="Will it stick?">
+    <p>UV DTF adhesive needs a surface that is hard, clean and reasonably smooth. Flat is easiest; bottles and tumblers are routine; tight compound curves take a smaller design. These surfaces take a transfer well:</p>
+    <ul class="chip-list" aria-label="Compatible surfaces">
+      <li>Glass</li><li>Stainless steel</li><li>Aluminium</li><li>Powder-coated metal</li><li>Anodised finishes</li><li>Acrylic</li><li>Ceramic</li><li>Rigid plastics</li><li>PVC</li><li>Resin</li><li>Painted surfaces</li><li>Sealed timber</li><li>MDF</li><li>Leather &amp; PU</li><li>Tile &amp; stone</li><li>Composite materials</li>
+    </ul>
+    <h3 id="surfaces-not">Surfaces It Does Not Work On</h3>
+    <p>We would rather tell you now than refund you later. A UV DTF sticker will not hold reliably on:</p>
+    <ul class="chip-list chip-list--no" aria-label="Incompatible surfaces">
+      <li>Silicone</li><li>Wax coatings</li><li>Heavily textured stone</li><li>Fabric &amp; clothing</li>
+    </ul>
+    <p>Silicone and wax are designed so nothing sticks to them. Rough stone traps air under the print. Fabric stretches and is washed, so cured UV ink cracks. Clothing goes to <a href="/custom-apparel/">DTF printing or embroidery</a> instead. Unsure about your item? Send a photo on WhatsApp and we will test it first.</p>
+  </Block>
+
+  <section class="section on-paper-2" aria-labelledby="products-for">
+    <div class="wrap">
+      <p class="eyebrow">Products perfect for UV DTF</p>
+      <h2 class="display" id="products-for" data-split>What Nairobi Businesses Brand with UV DTF</h2>
+      <OfferGrid items={products} />
+      <p style="margin-top:28px">Used by manufacturers, product startups, beauty and coffee brands, restaurants, gift shops, schools, churches, NGOs, corporate teams and event planners. For named staff bottles and gift boxes see <a href="/corporate-gifts/">corporate gifts</a>; for shelf-ready products see <a href="/packaging-labels/">packaging &amp; product labels</a>.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="comparison">
+    <div class="wrap">
+      <p class="eyebrow">Choosing a method</p>
+      <h2 id="comparison">UV DTF Compared with Other Print Methods</h2>
+      <p>UV DTF is not the answer to every job. This is how it compares with the four other methods a Nairobi buyer is usually offered. More detail: <a href="/knowledge-centre/uv-dtf-vs-dtf-vs-sublimation-vs-screen-printing/">UV DTF vs DTF vs sublimation vs screen printing</a>.</p>
+      <div class="table-wrap" role="region" aria-labelledby="cmp-caption" tabindex="0">
+        <table>
+          <caption id="cmp-caption">UV DTF vs standard DTF vs sublimation vs screen printing vs pad printing</caption>
+          <thead><tr><th scope="col">Method</th><th scope="col">Surfaces</th><th scope="col">Colour count</th><th scope="col">Minimum order</th><th scope="col">Setup cost</th><th scope="col">Durability</th></tr></thead>
+          <tbody>
+            <tr class="is-ours"><th scope="row">UV DTF (magic stickers)</th><td>Hard surfaces: glass, metal, plastics, acrylic, ceramic, sealed wood</td><td>Full colour plus white and gloss varnish</td><td>0.5 m of film (58 × 50 cm)</td><td>None</td><td>Good; hand wash, avoid dishwashers and heat above about 60°C</td></tr>
+            <tr><th scope="row">Standard DTF</th><td>Fabric: cotton, polyester, blends, canvas bags</td><td>Full colour plus white</td><td>1 piece</td><td>None</td><td>Good on garments washed inside out at 30–40°C</td></tr>
+            <tr><th scope="row">Sublimation</th><td>White or light polyester; coated mugs and panels</td><td>Full colour, no white ink</td><td>1 piece</td><td>Low; needs coated blanks</td><td>Excellent; ink sits inside the coating</td></tr>
+            <tr><th scope="row">Screen printing</th><td>Fabric, paper, flat rigid sheets</td><td>Usually 1–6 spot colours</td><td>About 50 pieces to be economical</td><td>One screen per colour</td><td>Excellent; most wash-resistant garment print</td></tr>
+            <tr><th scope="row">Pad printing</th><td>Small curved items: pens, lighters, flash drives</td><td>Usually 1–2 spot colours</td><td>About 100 pieces to be economical</td><td>One plate per colour</td><td>Good; can wear on items handled constantly</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <Block id="artwork" title="Design guidelines & artwork" eyebrow="Files" tone="paper-2">
+    <p>Send the best file you have. Vector files give the sharpest edges; high-resolution raster files work at the resolution below. No artwork ready? Our design team prepares print-ready files for you.</p>
+    <dl class="spec-list">
+      <div><dt>Preferred formats</dt><dd>AI, EPS, PDF or SVG, with text converted to outlines</dd></div>
+      <div><dt>Also accepted</dt><dd>PSD, or PNG/TIFF at 300 dpi at the printed size with a transparent background</dd></div>
+      <div><dt>Minimum line weight</dt><dd>1.5 mm; finer lines may not transfer cleanly</dd></div>
+      <div><dt>Minimum type size</dt><dd>8 pt; use a bolder weight for anything under 10 pt</dd></div>
+      <div><dt>Colour</dt><dd>CMYK, or a Pantone reference when the colour must match existing branding</dd></div>
+      <div><dt>White &amp; clear areas</dt><dd>Tell us which parts print white and which stay see-through. On glass this decides the look</dd></div>
+    </dl>
+    <p>The full checklist is in <a href="/knowledge-centre/artwork-file-requirements-for-printing/">artwork file requirements for printing</a>.</p>
+  </Block>
+
+  <section class="section" aria-labelledby="application">
+    <div class="wrap grid-2">
+      <div class="sticky-col">
+        <p class="eyebrow">UV DTF application guide</p>
+        <h2 id="application">How to Apply a UV DTF Sticker</h2>
+        <p class="subline">Five minutes, no tools beyond a card. Troubleshooting is in <a href="/knowledge-centre/how-to-apply-uv-dtf-transfers/">our full application guide</a>.</p>
+      </div>
+      <ol class="steps">
+        {steps.map((st, i) => <li id={`step-${i + 1}`}><div><h3>{titleCase(st.name)}</h3><p>{st.text}</p></div></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <Block id="quality" title="Our quality standards" eyebrow="Why Betapixel" tone="paper-2">
+    <p>Choosing the supplier matters as much as choosing the technology. Every UV DTF order is printed, laminated, trimmed and checked in-house in Nairobi:</p>
+    <ul class="chip-list">
+      <li>High-resolution printing</li><li>Commercial-grade UV inks</li><li>Premium transfer films</li><li>Accurate colour reproduction</li><li>Sharp typography</li><li>Adhesion checked</li><li>Careful trimming</li><li>Inspection before delivery</li>
+    </ul>
+    <p><strong>Minimum order: half a metre of film, 58 cm wide by 50 cm long.</strong> A full metre measures 58 × 100 cm, and each sheet can carry many designs. Most orders are typically ready in 24–48 hours from artwork approval; orders where we also source and apply transfers to items take a few working days more. Price depends on film area, quantity and whether we apply the transfers, and each is a separate quotation line — see <a href="/knowledge-centre/magic-sticker-prices-kenya/">what drives the cost of magic stickers in Kenya</a>.</p>
+  </Block>
+
+  <section class="section" aria-labelledby="uv-guides">
+    <div class="wrap">
+      <p class="eyebrow">UV DTF knowledge hub</p>
+      <h2 class="display" id="uv-guides" data-split>Learn More About UV DTF</h2>
+      <ul class="post-list" style="margin-top:28px">
+        {guides.map((g) => <li><a href={`/knowledge-centre/${g.id}/`}><span class="guide-cat">{g.data.category}</span><div><h3>{titleCase(g.data.headline)}</h3><p style="margin:0">{g.data.description}</p></div></a></li>)}
+      </ul>
+    </div>
+  </section>
+</ServiceLayout>

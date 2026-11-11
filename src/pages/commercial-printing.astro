@@ -1,0 +1,86 @@
+---
+import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Block from '../components/Block.astro';
+import OfferGrid, { type Offer } from '../components/OfferGrid.astro';
+
+const items: Offer[] = [
+  { title: 'Business cards', tag: 'Leave a lasting first impression', body: 'Your card introduces you before you speak. Printed on 300 gsm board or ivory paper, with the finish that suits your brand.', options: ['Standard', 'Premium', 'Matte', 'Gloss', 'Soft-touch lamination', 'Spot UV', 'Gold & silver foil', 'Rounded corners', 'Custom shapes'], ideal: ['Entrepreneurs', 'Sales teams', 'Executives', 'Consultants', 'Realtors', 'Medical professionals'] },
+  { title: 'Flyers', tag: 'Reach more customers', body: 'Promotions, openings and events. A6 to A4, single or double sided, on 130–170 gsm gloss or matte art paper.', ideal: ['Promotions', 'Grand openings', 'Churches', 'Schools', 'Restaurants', 'Retail', 'Events'] },
+  { title: 'Brochures', tag: 'Tell your story beautifully', body: 'When your offer needs more explaining. Scored before folding so heavier stocks fold crisply without cracking.', options: ['Bi-fold', 'Tri-fold', 'Z-fold', 'Gate fold', 'Roll fold', 'Multi-page'], ideal: ['Hotels', 'Manufacturers', 'Schools', 'Hospitals', 'NGOs', 'Property developers'] },
+  { title: 'Company profiles', tag: 'Present your business professionally', body: 'Often the first detailed introduction a client or tender panel sees. Saddle-stitched or perfect-bound, with laminated covers.', ideal: ['Tender applications', 'Investor meetings', 'Sales presentations', 'Company introductions'] },
+  { title: 'Posters', tag: 'Capture attention instantly', body: 'Promote products, events and offers, indoors or out.', optionsLabel: 'Sizes', options: ['A4', 'A3', 'A2', 'A1', 'A0', 'Custom sizes'] },
+  { title: 'Booklets & catalogues', tag: 'Organise information clearly', body: 'Training manuals, annual reports, programmes and product catalogues that customers can browse with confidence.', optionsLabel: 'Binding', options: ['Saddle stitch', 'Perfect binding', 'Spiral', 'Wire-O'] },
+  { title: 'Menus', tag: 'Make every meal more appealing', body: 'Menus influence what people order. Ours are made to survive daily handling and wiping.', options: ['Laminated', 'Waterproof', 'Folded', 'Hardcover', 'Table menus', 'Takeaway menus'] },
+  { title: 'Certificates & invitations', tag: 'Celebrate the moment', body: 'Certificates on premium card with optional foil and security features; invitations for weddings, launches, graduations and corporate events.' },
+  { title: 'Notebooks & calendars', tag: 'Branding that lasts all year', body: 'Spiral, softcover, hardcover and executive notebooks; wall, desk and tent calendars with Kenyan public holidays checked before printing.' },
+  { title: 'NCR books', tag: 'Accurate record keeping', body: 'Custom invoice, receipt, delivery note, purchase order and job card books, numbered in sequence.', optionsLabel: 'Formats', options: ['Duplicate', 'Triplicate', 'Quadruplicate'] },
+  { title: 'Presentation folders & stationery', tag: 'Consistency in every interaction', body: 'Folders for proposals and tenders, plus letterheads, compliment slips, envelopes and notepads that match your cards.' },
+  { title: 'Stickers & labels', tag: 'Product identification', body: 'Paper, vinyl and waterproof labels for food, cosmetics and packaging; see packaging & labels. For background-free branding on bottles and glass, choose UV DTF stickers.' },
+];
+---
+<ServiceLayout
+  slug="commercial-printing"
+  kicker="Commercial printing · Nairobi"
+  h1="Commercial Printing in Nairobi — Print That Builds Confidence"
+  lead="Betapixel Studios prints <strong>business cards, flyers, brochures, company profiles, menus, certificates, calendars, NCR books and full company stationery</strong> in-house in Nairobi. Every file is checked and proofed before it runs, whether you need 100 business cards or 100,000 brochures."
+  meta={['Digital & offset in-house', 'Proof before every run', 'Custom sizes & finishes', 'Delivery across Kenya']}
+  faqCats={['printing', 'artwork', 'turnaround']}
+  related={['packaging-labels', 'banners', 'corporate-branding', 'book-publishing']}
+  cta={{ title: 'Print with confidence.', text: 'Introducing a new business, promoting an event or refreshing your marketing materials? Tell us the item, quantity and finish and we will quote it properly.' }}
+>
+  <section class="section" aria-labelledby="print-range">
+    <div class="wrap">
+      <p class="eyebrow">Our printing services</p>
+      <h2 class="display" id="print-range" data-split>Everything a Business Puts on Paper</h2>
+      <p class="lead" style="max-width:62ch">A business card introduces you before you speak. A brochure explains your value before your sales team arrives. A company profile earns trust before the meeting begins. We print them to reflect the quality of your brand.</p>
+      <OfferGrid items={items} />
+      <p style="margin-top:28px">Labels and product stickers are covered in detail on <a href="/packaging-labels/">packaging &amp; product labels</a>, and premium background-free bottle branding on <a href="/uv-dtf-stickers/">UV DTF stickers</a>. Large posters and banners come from our <a href="/banners/">media banners and roll-ups</a> service.</p>
+    </div>
+  </section>
+
+  <Block id="digital-vs-offset" title="Digital or offset: how we decide" eyebrow="Method" tone="paper-2">
+    <p>Digital printing puts toner or ink straight onto paper with no plates, so short runs are economical, every copy can differ (numbered tickets, personalised letters) and jobs can be ready quickly. Offset printing transfers ink from plates; making plates takes time, but each extra copy is then very cheap, and spot Pantone colours match precisely.</p>
+    <dl class="spec-list">
+      <div><dt>Short runs</dt><dd>Digital: faster and cheaper overall, from 50 copies.</dd></div>
+      <div><dt>Mid runs</dt><dd>Depends on size, colours and paper, so we quote both methods.</dd></div>
+      <div><dt>Long runs</dt><dd>Offset: cost per copy falls sharply from about 1,000 copies.</dd></div>
+      <div><dt>Exact brand colour</dt><dd>Offset with spot-colour ink, whatever the quantity.</dd></div>
+    </dl>
+  </Block>
+
+  <Block id="paper" title="Paper and finishing, in plain language" eyebrow="Materials">
+    <p>Paper weight is measured in grams per square metre (gsm): the higher the number, the thicker and stiffer it feels. Coated papers (gloss, silk, matte art) keep colours bright; uncoated papers feel natural and can be written on.</p>
+    <dl class="spec-list">
+      <div><dt>80–100 gsm bond</dt><dd>Letterheads, forms, NCR, workbook pages</dd></div>
+      <div><dt>115–170 gsm art</dt><dd>Flyers, brochures, profile inner pages, catalogues</dd></div>
+      <div><dt>250–300 gsm board</dt><dd>Covers, postcards, certificates, invitations</dd></div>
+      <div><dt>300 gsm board or ivory paper</dt><dd>Business cards</dd></div>
+    </dl>
+    <p><strong>Choosing a business card:</strong> a plain matte card reads as professional and understated; soft-touch lamination feels premium in the hand; spot UV or foil on a logo draws the eye without adding clutter. Rounded corners suit creative brands. If people will write on the back (appointment cards, loyalty stamps), skip the lamination on that side.</p>
+    <p><strong>Finishing:</strong> matte, gloss or soft-touch lamination, spot UV, gold and silver foil, scoring and folding, stapling, perfect, spiral and wire-O binding, round corners, numbering and perforation. Learn more in <a href="/knowledge-centre/artwork-file-requirements-for-printing/">how to prepare artwork for professional printing</a>.</p>
+  </Block>
+
+  <section class="section on-paper-2" aria-labelledby="print-process">
+    <div class="wrap">
+      <p class="eyebrow">Our printing process</p>
+      <h2 class="display" id="print-process" data-split>Consultation to Collection</h2>
+      <ol class="process">
+        <li><h3>Consultation</h3><p>Tell us the item, quantity, size, finish and deadline.</p></li>
+        <li><h3>Artwork Review</h3><p>We inspect every file for resolution, bleed, fonts and colour.</p></li>
+        <li><h3>Proof Approval</h3><p>You approve a digital proof, or a printed one for critical colour.</p></li>
+        <li><h3>Production</h3><p>Printed and finished in-house on commercial-grade equipment.</p></li>
+        <li><h3>Quality Check &amp; Delivery</h3><p>Checked before dispatch; collect or deliver across Kenya.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <Block id="files" title="Files that print cleanly" eyebrow="Artwork">
+    <ul>
+      <li>Send a print-ready PDF with <strong>3 mm bleed</strong> on every edge; keep text 5 mm inside the trim.</li>
+      <li>Images at 300 dpi at the printed size; colour mode CMYK; fonts embedded or outlined.</li>
+      <li>For booklets, send single pages in reading order and we impose them for the press.</li>
+      <li>Word, PowerPoint and Canva files can be printed: we convert them and send a PDF proof so you see exactly what will print.</li>
+    </ul>
+    <p>Need the design as well? Our <a href="/corporate-branding/">graphic design and branding team</a> lays out profiles, brochures and menus, and prints what it designs.</p>
+  </Block>
+</ServiceLayout>

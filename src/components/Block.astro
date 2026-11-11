@@ -1,0 +1,18 @@
+---
+import { titleCase } from '../lib/titleCase';
+interface Props { id: string; title: string; eyebrow?: string; tone?: 'paper' | 'paper-2' | 'dark'; display?: boolean; intro?: string }
+const { id, title, eyebrow, tone = 'paper', display = false, intro } = Astro.props;
+---
+<section class:list={['section', tone === 'paper-2' && 'on-paper-2', tone === 'dark' && 'on-dark']} aria-labelledby={id}>
+  <div class="wrap grid-2">
+    <div class="sticky-col">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2 id={id} class:list={[display && 'display']}>{titleCase(title)}</h2>
+      {intro && <p class="subline">{intro}</p>}
+      <slot name="aside" />
+    </div>
+    <div class="prose">
+      <slot />
+    </div>
+  </div>
+</section>

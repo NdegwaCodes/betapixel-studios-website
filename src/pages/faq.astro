@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { faqs, faqCategories } from '../data/faqs';
+import { faqPage } from '../lib/schema';
+import { titleCase } from '../lib/titleCase';
+
+const title = 'Printing & Branding FAQs, Nairobi | Betapixel';
+const description = 'Answers about ordering printing and branding from Betapixel Studios in Nairobi: quotes, artwork files, turnaround, delivery across Kenya and UV DTF stickers.';
+const groups = faqCategories.map((c) => ({ ...c, items: faqs.filter((f) => f.cat === c.id) })).filter((g) => g.items.length);
+---
+<BaseLayout title={title} description={description} crumbs={[{ name: 'Home', path: '/' }, { name: 'FAQ', path: '/faq/' }]} schema={[faqPage(faqs)]}>
+  <header class="page-hero pixel-motif">
+    <div class="wrap">
+      <p class="eyebrow">Frequently asked questions</p>
+      <h1 class="h1-body">Questions? We’ve Got Answers.</h1>
+      <p class="lead">Printing and branding can get technical. You do not need to know the difference between every material and finish before contacting us. Here are the questions customers ask most often.</p>
+      <div class="btn-row" style="margin-top:24px"><a class="btn" href="/request-a-quote/">Request a Quote</a><a class="btn btn--ghost" href="/contact/">Ask Betapixel</a></div>
+    </div>
+  </header>
+
+  <section class="section--tight" aria-label="FAQ" style="padding-top:0">
+    <div class="wrap" style="max-width:960px">
+      <div class="faq-tools">
+        <label class="faq-search">
+          <span class="visually-hidden">Search the FAQs</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.32 12.9l5.39 5.4-1.41 1.4-5.4-5.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></svg>
+          <input type="search" placeholder="Search questions, e.g. dishwasher, deposit, file formats" data-faq-search autocomplete="off" />
+        </label>
+        <ul class="filter" data-faq-filter aria-label="Filter by topic" style="margin:0">
+          <li><button type="button" data-value="all" aria-pressed="true">All</button></li>
+          {groups.map((g) => <li><button type="button" data-value={g.id} aria-pressed="false">{g.label}</button></li>)}
+        </ul>
+        <p class="visually-hidden" aria-live="polite" data-faq-status></p>
+      </div>
+      {groups.map((g) => (
+        <section class="faq-group" data-faq-group={g.id} aria-labelledby={`faq-${g.id}`}>
+          <h2 id={`faq-${g.id}`}>{titleCase(g.label)}</h2>
+          <div class="faq">
+            {g.items.map((f) => (
+              <details data-faq-item>
+                <summary>{f.q}</summary>
+                <div class="faq__answer"><p>{f.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </section>
+      ))}
+      <p class="faq-empty" data-faq-empty hidden>No matching questions. Try another word, or <a href="/contact/">ask us directly</a>.</p>
+    </div>
+  </section>
+  <CtaBand title="Still have a question?" text="You do not need the technical terminology. Tell us what you are trying to make and we will take it from there." secondary={{ label: 'Contact Betapixel', href: '/contact/' }} />
+</BaseLayout>

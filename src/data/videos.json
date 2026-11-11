@@ -1,0 +1,92 @@
+{
+  "signage-large-format-al-baraka-acrylic-sign": {
+    "duration": 2.7,
+    "date": "2024-06-22",
+    "width": 720,
+    "height": 1280
+  },
+  "signage-large-format-al-baraka-backlit-sign": {
+    "duration": 5.2,
+    "date": "2024-06-29",
+    "width": 720,
+    "height": 1280
+  },
+  "signage-large-format-seefle-led-sign": {
+    "duration": 2.8,
+    "date": "2024-12-13",
+    "width": 720,
+    "height": 1280
+  },
+  "signage-large-format-ghost-burgers-fascia-sign": {
+    "duration": 3.7,
+    "date": "2025-09-20",
+    "width": 720,
+    "height": 1280
+  },
+  "signage-large-format-ghost-burgers-illuminated-sign": {
+    "duration": 4.2,
+    "date": "2025-09-24",
+    "width": 720,
+    "height": 1280
+  },
+  "signage-large-format-ghost-burgers-terrace-banner": {
+    "duration": 6.2,
+    "date": "2026-02-26",
+    "width": 720,
+    "height": 1280
+  },
+  "signage-large-format-window-film-installation": {
+    "duration": 12.0,
+    "date": "2024-06-06",
+    "width": 720,
+    "height": 1280
+  },
+  "signage-large-format-window-graphic-installation": {
+    "duration": 12.9,
+    "date": "2024-06-06",
+    "width": 720,
+    "height": 1280
+  },
+  "signage-large-format-glass-door-sticker-application": {
+    "duration": 9.3,
+    "date": "2026-04-17",
+    "width": 720,
+    "height": 1280
+  },
+  "packaging-labels-ghost-burgers-fries-box": {
+    "duration": 5.0,
+    "date": "2025-10-04",
+    "width": 720,
+    "height": 1280
+  },
+  "packaging-labels-ghost-burgers-branded-cup": {
+    "duration": 11.8,
+    "date": "2025-10-06",
+    "width": 720,
+    "height": 1280
+  },
+  "packaging-labels-ghost-burgers-smash-sip-box": {
+    "duration": 4.5,
+    "date": "2025-10-07",
+    "width": 720,
+    "height": 1280
+  },
+  "commercial-printing-brochure-page-flip": {
+    "duration": 11.7,
+    "date": "2026-04-18",
+    "width": 720,
+    "height": 1280
+  },
+  "commercial-printing-lamination-in-production": {
+    "duration": 9.9,
+    "date": "2026-04-17",
+    "width": 720,
+    "height": 1280
+  },
+  "packaging-labels-sinia-branded-cans-and-bowls": {
+    "duration": 6.5,
+    "date": "2026-10-08",
+    "width": 720,
+    "height": 1280
+  }
+}

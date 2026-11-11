@@ -1,0 +1,23 @@
+---
+import Frame from './Frame.astro';
+import { G } from '../data/work';
+const bannerSizes = [
+  { size: '2.25 m × 2.25 m', use: 'Press corners, small launches and photo spots' },
+  { size: '3 m × 2.25 m', use: 'Conference registration and red-carpet walls' },
+  { size: '6 m × 2.25 m', use: 'Main stages, galas and large sponsor walls' },
+];
+---
+<section class="section" aria-labelledby="media-banner-sizes" id="media-banners">
+  <div class="wrap grid-2">
+    <div>
+      <p class="eyebrow">Media banners</p>
+      <h2 class="display" id="media-banner-sizes" data-split>Media Banner Sizes</h2>
+      <p class="lead">A media banner, also called a backdrop banner, is the step-and-repeat logo wall guests photograph themselves in front of. It comes printed on fabric and fitted to a portable frame, in three standard sizes (width × height):</p>
+      <ol class="size-list">
+        {bannerSizes.map((b) => <li><strong>{b.size}</strong><span>{b.use}</span></li>)}
+      </ol>
+      <p>Need a different size? Tell us the space and we will quote a custom backdrop.</p>
+    </div>
+    <Frame artKey="events-exhibitions" photo={G.backdrop.src} alt={G.backdrop.alt} sizes="(min-width: 900px) 55vw, 100vw" />
+  </div>
+</section>

@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { site, whatsappUrl, addressLine } from '../data/site';
+import { webPage } from '../lib/schema';
+
+const title = 'Contact: Printing Shop on Kweria Rd, Nairobi | Betapixel';
+const description = 'Visit Betapixel Studios at The print hub building, Room M02, Kweria Rd, Nairobi. Call or WhatsApp +254 746 873 985, or email hello@betapixels.studio.';
+const directions = `https://www.google.com/maps/dir/?api=1&destination=${site.geo!.lat},${site.geo!.lng}`;
+---
+<BaseLayout title={title} description={description} crumbs={[{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact/' }]}
+  schema={[{ ...webPage(title, '/contact/', description), '@type': 'ContactPage' }]}>
+  <header class="page-hero pixel-motif">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h1 class="h1-body">Let’s Create Something.</h1>
+      <p class="lead">Know exactly what you need, or still figuring it out? Talk to us. We help you choose the right materials, production method and branding solution.</p>
+      <div class="btn-row" style="margin-top:24px">
+        <a class="btn btn--orange" href="/request-a-quote/">Request a Quote</a>
+        <a class="btn btn--wa" href={whatsappUrl()} data-wa rel="noopener" target="_blank"><Icon name="whatsapp" />Chat on WhatsApp</a>
+        <span class="open-badge" data-open-badge>Opening hours</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section--tight" aria-labelledby="details-title" style="padding-top:0">
+    <div class="wrap grid-2 grid-2--even">
+      <div>
+        <h2 id="details-title">Get in Touch</h2>
+        <address style="font-style:normal">
+          <dl class="spec-list">
+            <div><dt>Business</dt><dd>{site.legalName}</dd></div>
+            <div><dt>Visit</dt><dd>{addressLine()}<br /><a href={directions} rel="noopener" target="_blank">Get directions →</a></dd></div>
+            <div><dt>Phone / WhatsApp</dt><dd><a href={`tel:${site.phone.e164}`}>{site.phone.display}</a></dd></div>
+            <div><dt>Email</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
+            <div><dt>Opening hours</dt><dd>{site.hours.map((h) => <span style="display:block">{h.label}: {h.opens} – {h.closes}</span>)}<span style="display:block">{site.closedLine}</span></dd></div>
+            <div><dt>Follow</dt><dd><a href={site.social.instagram} rel="noopener me" target="_blank">Instagram {site.instagramHandle}</a> · <a href={site.social.facebook} rel="noopener me" target="_blank">Facebook</a> · <a href={site.googleBusiness} rel="noopener" target="_blank">Google reviews</a></dd></div>
+          </dl>
+        </address>
+      </div>
+      <div>
+        <div class="map-facade">
+          <div class="map-facade__grid" aria-hidden="true"></div>
+          <div class="map-facade__inner">
+            <p style="margin:0;font-weight:600">Come see where ideas become real.</p>
+            <p class="small" style="margin:0">{addressLine()}</p>
+            <button class="btn btn--orange" type="button" data-map-load={site.mapEmbed}>Load Google Map</button>
+            <p class="small" style="margin:0">The map loads from Google only when you ask for it.</p>
+          </div>
+        </div>
+        <p class="small" style="margin-top:14px">Collecting an order, checking materials or talking through a project? You are welcome at the studio during opening hours.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="message-title">
+    <div class="wrap grid-2">
+      <div>
+        <p class="eyebrow">Send a message</p>
+        <h2 class="display" id="message-title" data-split>What Can We Help With?</h2>
+        <div class="aside-card" style="margin-top:20px">
+          <h3 style="margin:0">Need a Price?</h3>
+          <p>The quote form collects quantity, dimensions, artwork and deadlines so we can price accurately first time.</p>
+          <a class="btn" href="/request-a-quote/">Request a Quote →</a>
+        </div>
+      </div>
+      <div class="quote-card">
+        <form class="form" method="POST" action="/api/enquiry/" enctype="multipart/form-data" data-contact-form>
+          <input type="hidden" name="form_type" value="contact" />
+          <input type="hidden" name="started" value="" data-started />
+          <input type="hidden" name="page" value="/contact/" />
+          <p class="hp"><label>Leave this empty <input name="company-website" tabindex="-1" autocomplete="off" /></label></p>
+          <div class="field"><label for="c-name">Name *</label><input id="c-name" name="name" autocomplete="name" required /></div>
+          <div class="field"><label for="c-co">Company / organisation</label><input id="c-co" name="company" autocomplete="organization" /></div>
+          <div class="field"><label for="c-ph">Phone / WhatsApp *</label><input id="c-ph" name="phone" type="tel" autocomplete="tel" required /></div>
+          <div class="field"><label for="c-em">Email</label><input id="c-em" name="email" type="email" autocomplete="email" /></div>
+          <div class="field full"><label for="c-sub">What can we help you with? *</label><input id="c-sub" name="subject" required /></div>
+          <div class="field full"><label for="c-msg">Message *</label><textarea id="c-msg" name="message" required></textarea></div>
+          <div class="field full"><label for="c-file">Attach a file <span class="hint">(logo, reference or artwork, up to 4 MB)</span></label><input id="c-file" name="files[]" type="file" accept=".ai,.pdf,.eps,.svg,.psd,.png,.jpg,.jpeg,.zip" /></div>
+          <label class="choice full" style="font-weight:400;min-height:44px"><input type="checkbox" name="consent" value="yes" required />I agree to Betapixel using these details to reply, as set out in the <a href="/privacy-policy/">privacy policy</a>.</label>
+          <p class="field-error full" data-form-error role="alert" hidden></p>
+          <div class="full"><button class="btn btn--orange" type="submit">Send message</button></div>
+        </form>
+        <div class="quote-success" data-contact-success hidden tabindex="-1">
+          <h3 style="margin:0">Message Sent</h3>
+          <p>Thank you. Your reference is <strong data-contact-ref></strong>. We will reply by your preferred channel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--tight" aria-labelledby="collect">
+    <div class="wrap grid-2 grid-2--even">
+      <div><h2 id="collect">Collect from Us</h2><p>Orders can be collected from the studio once we confirm production is complete.</p></div>
+      <div><h2>Delivery</h2><p>We deliver within Nairobi and to other parts of Kenya by courier. Delivery costs and timelines are confirmed with your order.</p></div>
+    </div>
+  </section>
+</BaseLayout>

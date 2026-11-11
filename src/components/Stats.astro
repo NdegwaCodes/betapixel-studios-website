@@ -1,0 +1,13 @@
+---
+interface Stat { value: number; suffix?: string; label: string }
+interface Props { stats: Stat[] }
+const { stats } = Astro.props;
+---
+<dl class="stats">
+  {stats.map((s) => (
+    <div class="stat">
+      <dt>{s.label}</dt>
+      <dd><span data-count={s.value}>{s.value}</span>{s.suffix}</dd>
+    </div>
+  ))}
+</dl>

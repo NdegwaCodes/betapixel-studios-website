@@ -1,0 +1,101 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Frame from '../components/Frame.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Marquee from '../components/Marquee.astro';
+import ServiceRows from '../components/ServiceRows.astro';
+import Icon from '../components/Icon.astro';
+import { serviceBySlug } from '../data/services';
+import { faqsFor, type FaqCategory } from '../data/faqs';
+import { whatsappUrl } from '../data/site';
+import { faqPage, service as serviceSchema, videoObjects } from '../lib/schema';
+import { Picture } from 'astro:assets';
+import { groupsFor, samples } from '../data/work';
+import { titleCase } from '../lib/titleCase';
+import WorkCard from '../components/WorkCard.astro';
+import { work } from '../data/portfolio';
+
+interface Props {
+  slug: string;
+  h1: string;
+  kicker: string;
+  lead: string;
+  meta: string[];
+  faqCats: FaqCategory[];
+  related: string[];
+  schema?: object[];
+  serviceExtra?: Record<string, unknown>;
+  cta?: { title: string; text: string; secondary?: { label: string; href: string } };
+}
+const { slug, h1, kicker, lead, meta, faqCats, related, schema = [], serviceExtra = {}, cta } = Astro.props;
+const s = serviceBySlug(slug);
+const faqs = faqsFor(...faqCats);
+const groups = groupsFor[slug] ?? [];
+const hero = groups[0];
+const og = hero ? `/og/work-${slug}.jpg` : `/og/${s.art}.jpg`;
+const sampleCount = samples.filter((x) => x.service === slug).length;
+const onSite = work.filter((w) => w.onSite && w.service === slug);
+const crumbs = [{ name: 'Home', path: '/' }, { name: 'Products & Services', path: '/services/' }, { name: s.name, path: `/${s.slug}/` }];
+---
+<BaseLayout title={s.title} description={s.description} ogImage={og} crumbs={crumbs}
+  schema={[serviceSchema(s, { alternateName: s.secondary, ...serviceExtra }, og), faqPage(faqs), ...videoObjects(onSite.slice(0, 6)), ...schema]} waContext={s.name}>
+  <article>
+    <header class="page-hero">
+      <div class="wrap grid-2 grid-2--even" style="align-items:center">
+        <div>
+          <p class="eyebrow">{kicker}</p>
+          <h1 class="h1-body">{titleCase(h1)}</h1>
+          <p class="lead" set:html={lead} />
+          <ul class="page-hero__meta">{meta.map((m) => <li>{m}</li>)}</ul>
+          <div class="btn-row" style="margin-top:28px">
+            <a class="btn" href={`/request-a-quote/?service=${s.slug}`}>Request a Quote</a>
+            <a class="btn btn--ghost" href={whatsappUrl(s.name)} data-wa rel="noopener" target="_blank"><Icon name="whatsapp" />Ask on WhatsApp</a>
+          </div>
+        </div>
+        <Frame artKey={s.art} photo={hero?.src} alt={hero?.alt ?? s.alt} eager sizes="(min-width: 900px) 50vw, 100vw" />
+      </div>
+    </header>
+    <slot />
+    {groups.length > 0 && (
+      <section class="section on-paper-2" aria-labelledby="recent-work">
+        <div class="wrap">
+          <p class="eyebrow">Recent work</p>
+          <h2 class="display" id="recent-work" data-split>{titleCase(s.name)} Examples from Our Nairobi Studio</h2>
+          <div class="work-grid">
+            {groups.map((w) => (
+              <figure class="work-shot">
+                <Picture src={w.src} alt={w.alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[640, 1024, 1600]} sizes="(min-width: 900px) 50vw, 100vw" loading="lazy" />
+                <figcaption>{w.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <p class="small" style="margin-top:20px">Designs by Betapixel Studios, shown as product mockups.{sampleCount > 0 && <> <a href={`/portfolio/?service=${s.slug}`}>See {sampleCount} individual {s.name} samples in the portfolio</a>.</>}</p>
+        </div>
+      </section>
+    )}
+    {onSite.length > 0 && (
+      <section class="section" aria-labelledby="on-site-work">
+        <div class="wrap">
+          <p class="eyebrow">Real photos &amp; videos</p>
+          <h2 class="display" id="on-site-work" data-split>Real Work, Delivered and Installed</h2>
+          <p class="lead" style="max-width:62ch">Photographed and filmed on site and in our Nairobi studio, not mockups.</p>
+          <div class="card-grid" style="margin-top:32px">
+            {onSite.slice(0, 6).map((w) => <WorkCard w={w} heading="h3" />)}
+          </div>
+          {onSite.length > 6 && <p class="small" style="margin-top:20px"><a href={`/portfolio/?service=${s.slug}`}>See all {onSite.length} real photos and videos in the portfolio</a>.</p>}
+        </div>
+      </section>
+    )}
+  </article>
+  <Marquee />
+  <Faq items={faqs} title="Questions buyers ask" />
+  <section class="section on-paper-2" aria-labelledby="related-services">
+    <div class="wrap">
+      <p class="eyebrow">Related services</p>
+      <h2 class="display" id="related-services" data-split>Often Ordered Together</h2>
+      <ServiceRows only={related} />
+    </div>
+  </section>
+  <CtaBand title={cta?.title} text={cta?.text} secondary={cta?.secondary} service={s.slug} waContext={s.name} />
+</BaseLayout>

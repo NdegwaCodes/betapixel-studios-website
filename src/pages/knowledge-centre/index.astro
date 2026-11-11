@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { guideCategories } from '../../content.config';
+import { webPage, itemList } from '../../lib/schema';
+import { titleCase } from '../../lib/titleCase';
+
+const title = 'Printing & UV DTF Guides, Kenya | Betapixel';
+const description = 'Practical printing and branding guides from a Nairobi print studio: UV DTF stickers, artwork files, labels, banners, signage and apparel printing.';
+const guides = (await getCollection('guides')).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+const slug = (c: string) => c.toLowerCase().replace(/&/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+const cats = guideCategories.filter((c) => guides.some((g) => g.data.category === c));
+const featured = guides.find((g) => g.id === 'what-are-magic-stickers') ?? guides[0];
+const fmt = (d: Date) => d.toLocaleDateString('en-KE', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout title={title} description={description} crumbs={[{ name: 'Home', path: '/' }, { name: 'Knowledge Centre', path: '/knowledge-centre/' }]}
+  schema={[webPage(title, '/knowledge-centre/', description), itemList('Betapixel guides', guides.map((g) => ({ name: g.data.headline, url: `/knowledge-centre/${g.id}/` })))]}>
+  <header class="page-hero pixel-motif">
+    <div class="wrap">
+      <p class="eyebrow">Knowledge Centre</p>
+      <h1 class="h1-body">Better Decisions Make Better Brands.</h1>
+      <p class="lead">What is the difference between UV DTF and ordinary stickers? Which file should you send a printer? Should your logo be embroidered or printed? Practical answers to the questions businesses meet when turning ideas into physical products, without unnecessary jargon.</p>
+    </div>
+  </header>
+
+  <section class="section--tight" aria-labelledby="featured" style="padding-top:0">
+    <div class="wrap">
+      <a class="service-card service-card--flagship" href={`/knowledge-centre/${featured.id}/`} style="grid-template-columns:1fr">
+        <div class="service-card__body" style="padding:clamp(24px,4vw,48px)">
+          <span class="mega__badge" style="align-self:start">Featured guide</span>
+          <h2 id="featured" style="font-size:clamp(26px,3vw,36px);margin:6px 0">The Complete Guide to UV DTF Stickers</h2>
+          <p style="max-width:64ch">{featured.data.description}</p>
+          <span class="service-card__cta">Read the guide →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section--tight" aria-labelledby="browse">
+    <div class="wrap">
+      <h2 id="browse">Browse by Topic</h2>
+      <ul class="filter" data-topic-filter aria-label="Filter guides by topic">
+        <li><button type="button" data-value="all" aria-pressed="true">All topics</button></li>
+        {cats.map((c) => <li><button type="button" data-value={slug(c)} aria-pressed="false">{c}</button></li>)}
+      </ul>
+      <p class="visually-hidden" aria-live="polite" data-topic-status></p>
+      <ul class="post-list">
+        {guides.map((g) => (
+          <li data-topic={slug(g.data.category)}><a href={`/knowledge-centre/${g.id}/`}>
+            <div><span class="guide-cat">{g.data.category}</span><br /><time datetime={g.data.published.toISOString()}>{fmt(g.data.published)}</time></div>
+            <div><h3>{titleCase(g.data.headline)}</h3><p style="margin:0">{g.data.description}</p></div>
+          </a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <CtaBand title="Have an idea? Let’s make it real." text="You have done the research. Now let’s turn the idea into something you can hold, wear, display or put in front of your customers." primary="Start Your Project" />
+</BaseLayout>

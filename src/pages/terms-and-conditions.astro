@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+const title = 'Terms & Conditions | Betapixel';
+const description = 'Terms for orders with Betapixel Studios LTD, Nairobi: quotations, deposits, artwork approval, colour variation, production times, cancellations and delivery.';
+const sec = (n: number, t: string) => `${n}. ${t}`;
+---
+<BaseLayout title={title} description={description} crumbs={[{ name: 'Home', path: '/' }, { name: 'Terms & Conditions', path: '/terms-and-conditions/' }]}>
+  <article class="section--tight">
+    <div class="wrap article prose legal">
+      <h1 class="h1-body">Terms &amp; Conditions</h1>
+      <p class="article-meta">Last updated: <time datetime="2026-09-24">24 September 2026</time></p>
+      <p>Welcome to Betapixel Studios LTD.</p>
+      <p>These Terms &amp; Conditions apply when you use our website, request a quotation, place an order, purchase a product, or engage Betapixel Studios LTD for printing, design, branding, or related services.</p>
+      <p>By placing an order or approving production, you agree to these Terms &amp; Conditions.</p>
+
+      <h2>{sec(1, 'Quotations')}</h2>
+      <p>Quotations are based on the specifications provided by the customer at the time of enquiry.</p>
+      <p>Prices may change if there are changes to:</p>
+      <ul><li>Quantity</li><li>Size</li><li>Material</li><li>Finishing</li><li>Artwork</li><li>Production requirements</li><li>Delivery requirements</li><li>Scope of work</li></ul>
+      <p>A quotation does not constitute confirmation of an order until the required payment has been received or otherwise agreed in writing.</p>
+
+      <h2>{sec(2, 'Payments')}</h2>
+      <p>Orders may require full payment or a deposit before production begins.</p>
+      <p>The required payment terms will be communicated on the quotation or invoice.</p>
+      <p>Where a deposit is accepted, the remaining balance must be paid according to the agreed payment terms.</p>
+      <p>Betapixel Studios LTD may withhold completed products or suspend work until outstanding balances have been cleared.</p>
+
+      <h2>{sec(3, 'Artwork Approval')}</h2>
+      <p>Customers are responsible for checking and approving artwork before production.</p>
+      <p>Before approving artwork, you should carefully check:</p>
+      <ul><li>Spelling</li><li>Names</li><li>Phone numbers</li><li>Dates</li><li>Prices</li><li>Dimensions</li><li>Colours</li><li>Images</li><li>Logos</li><li>Layout</li><li>Quantities</li><li>Other important information</li></ul>
+      <p>Once artwork has been approved for production, Betapixel Studios LTD will not be responsible for errors that were present in the approved artwork.</p>
+      <p>Changes requested after approval may result in additional charges and production delays.</p>
+
+      <h2>{sec(4, 'Customer-Supplied Artwork')}</h2>
+      <p>Customers should provide artwork at the required size, resolution, colour mode, and file format.</p>
+      <p>Where supplied artwork requires correction, resizing, recreation, tracing, colour adjustment, or other preparation before printing, additional design or artwork charges may apply.</p>
+      <p>Betapixel Studios LTD may inform the customer where supplied artwork appears unsuitable for production, but responsibility for approving the final artwork remains with the customer.</p>
+
+      <h2>{sec(5, 'Intellectual Property')}</h2>
+      <p>Customers confirm that they have the necessary rights or permission to use any logos, photographs, artwork, trademarks, designs, text, or other materials supplied to Betapixel Studios LTD.</p>
+      <p>Betapixel Studios LTD will not knowingly reproduce material that infringes another person's intellectual property rights.</p>
+      <p>The customer remains responsible for obtaining any necessary licences or permissions for customer-supplied content.</p>
+      <p>Original designs created by Betapixel Studios LTD remain our intellectual property until the applicable design fees have been paid in full, unless otherwise agreed in writing.</p>
+      <p id="website-images">Photographs and videos on this website are owned by Betapixel Studios LTD and may not be copied, reused or edited without our written permission. To request permission to use an image, <a href="/contact/">contact us</a>.</p>
+
+      <h2>{sec(6, 'Printing and Colour Variation')}</h2>
+      <p>Colours displayed on phones, computers, tablets, and other screens may differ from printed colours.</p>
+      <p>Minor colour variations can also occur between different printers, materials, inks, production methods, and separate production batches.</p>
+      <p>A reasonable colour variation does not automatically constitute a printing defect.</p>
+      <p>Where exact colour matching is required, customers should inform us before production so that available colour-matching or proofing options can be discussed.</p>
+
+      <h2>{sec(7, 'UV DTF Stickers')}</h2>
+      <p>Customers should ensure that the intended surface is suitable for UV DTF application.</p>
+      <p>For best results, surfaces should generally be clean, dry, smooth, and free from oil, dust, moisture, or other contaminants before application.</p>
+      <p>Performance may vary depending on the surface, application method, environmental conditions, handling, and intended use.</p>
+      <p>Customers should request testing where they are uncertain whether a particular material or surface is suitable.</p>
+
+      <h2>{sec(8, 'Production Times')}</h2>
+      <p>Production timelines provided by Betapixel Studios LTD are estimates unless a specific deadline has been confirmed in writing.</p>
+      <p>Production may be affected by factors such as:</p>
+      <ul><li>Artwork approval delays</li><li>Material availability</li><li>Equipment maintenance or breakdown</li><li>Supplier delays</li><li>Large order volumes</li><li>Changes requested by the customer</li><li>Events outside our reasonable control</li></ul>
+      <p>Production time normally begins after artwork approval and receipt of the required payment.</p>
+
+      <h2>{sec(9, 'Urgent Orders')}</h2>
+      <p>Rush or same-day production may attract an additional charge.</p>
+      <p>Acceptance of an urgent order depends on our production capacity, material availability, and the type of work required.</p>
+      <p>An urgent deadline must be confirmed by Betapixel Studios LTD before the order is considered accepted on that basis.</p>
+
+      <h2>{sec(10, 'Order Changes')}</h2>
+      <p>Changes to an order should be requested before production begins.</p>
+      <p>Once materials have been purchased, printing has started, or other production work has begun, changes may not be possible.</p>
+      <p>Where changes can still be made, additional charges may apply.</p>
+
+      <h2>{sec(11, 'Cancellations and Refunds')}</h2>
+      <p>Custom-made and personalised products cannot normally be resold.</p>
+      <p>Once production has started or materials have been specifically purchased for an order, payments relating to work already completed, committed production costs, or purchased materials may not be refundable.</p>
+      <p>Where an order is cancelled before production begins, any refund will depend on work already completed and costs already incurred.</p>
+      <p>Approved design or artwork work already completed remains chargeable.</p>
+
+      <h2>{sec(12, 'Defective or Incorrect Orders')}</h2>
+      <p>Customers should inspect their orders after collection or delivery.</p>
+      <p>If you believe your order contains a production defect or does not match the approved order specifications, contact Betapixel Studios LTD as soon as reasonably possible and provide photographs or other information that allows us to assess the issue.</p>
+      <p>Where we confirm that an error resulted from our production, we may reprint, repair, replace, or provide another appropriate remedy depending on the circumstances.</p>
+      <p>Issues resulting from customer-approved artwork, incorrect information supplied by the customer, improper application, misuse, or normal wear are not considered production defects.</p>
+
+      <h2>{sec(13, 'Quantity Variations')}</h2>
+      <p>For some large-volume or specialised printing processes, minor quantity variations may occur because of production setup, finishing, quality control, or spoilage.</p>
+      <p>Where exact quantities are essential, customers should inform us before confirming the order.</p>
+
+      <h2>{sec(14, 'Collection and Delivery')}</h2>
+      <p>Customers should provide accurate collection, delivery, and contact information.</p>
+      <p>Where delivery is arranged through a courier or third-party delivery service, delivery times may depend on that provider.</p>
+      <p>Delivery charges may apply separately from production charges.</p>
+      <p>Customers should inspect packages and products after delivery and notify us promptly if there is an issue.</p>
+
+      <h2>{sec(15, 'Uncollected Orders')}</h2>
+      <p>Customers are responsible for collecting completed orders within a reasonable period after being notified that the order is ready.</p>
+      <p>Betapixel Studios LTD may contact customers regarding orders that remain uncollected for extended periods.</p>
+      <p>We cannot guarantee indefinite storage of completed orders.</p>
+
+      <h2>{sec(16, 'Design Services')}</h2>
+      <p>Design fees cover the work and revisions agreed within the original scope.</p>
+      <p>Major changes, additional concepts, extra pages, new versions, or changes outside the agreed scope may attract additional charges.</p>
+      <p>Editable or source files, including working design files, are not automatically included unless specifically stated in the quotation or agreement.</p>
+
+      <h2>{sec(17, 'Portfolio and Promotional Use')}</h2>
+      <p>Unless confidentiality has been agreed beforehand, Betapixel Studios LTD may photograph completed work and display examples of our work in our portfolio, website, social media pages, or marketing materials.</p>
+      <p>We will not intentionally disclose confidential customer information through such use.</p>
+      <p>Customers may request that confidential or sensitive projects are not publicly displayed.</p>
+
+      <h2>{sec(18, 'Website Products')}</h2>
+      <p>Product images displayed on our website are intended to represent the products offered.</p>
+      <p>Minor differences may occur in colour, appearance, packaging, material, or finishing due to photography, screen settings, material availability, or production batches.</p>
+      <p>Product availability may change without prior notice.</p>
+
+      <h2>{sec(19, 'Limitation of Liability')}</h2>
+      <p>To the extent permitted by applicable law, Betapixel Studios LTD will not be responsible for indirect or consequential losses arising from the use, delay, loss, or failure of printed products or services.</p>
+      <p>Nothing in these Terms &amp; Conditions excludes rights or remedies that cannot legally be excluded under applicable Kenyan law.</p>
+
+      <h2>{sec(20, 'Privacy')}</h2>
+      <p>Personal information collected through our website, orders, enquiries, and business communications is handled according to our <a href="/privacy-policy/">Privacy Policy</a> and applicable data protection requirements.</p>
+
+      <h2>{sec(21, 'Changes to These Terms')}</h2>
+      <p>Betapixel Studios LTD may update these Terms &amp; Conditions when our products, services, business practices, or legal requirements change.</p>
+      <p>The latest version will be published on our website.</p>
+
+      <h2>{sec(22, 'Governing Law')}</h2>
+      <p>These Terms &amp; Conditions are governed by the laws of Kenya.</p>
+      <p>Any dispute arising from these Terms &amp; Conditions or services provided by Betapixel Studios LTD will be handled according to applicable Kenyan law.</p>
+
+      <h2>{sec(23, 'Contact')}</h2>
+      <p>For questions concerning an order or these Terms &amp; Conditions, contact:</p>
+      <p>Betapixel Studios LTD<br />Nairobi, Kenya<br />Website: betapixels.studio<br />Email: <a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <p>You may also contact us through the contact information provided on our website.</p>
+      <p class="small">© 2026 Betapixel Studios LTD. All rights reserved.</p>
+    </div>
+  </article>
+</BaseLayout>

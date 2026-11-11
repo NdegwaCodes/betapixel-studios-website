@@ -1,0 +1,84 @@
+---
+import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Block from '../components/Block.astro';
+import OfferGrid, { type Offer } from '../components/OfferGrid.astro';
+
+const garments: Offer[] = [
+  { title: 'Custom T-shirt printing', tag: 'Your design. Your brand. Your shirt.', body: 'Vibrant, detailed prints across garment colours, fabrics and styles, from one shirt to full event runs.', options: ['Round neck', 'V-neck', 'Premium cotton', 'Polyester', 'Oversized', "Children's", 'Promotional', 'Staff T-shirts'], ideal: ['Businesses', 'Events', 'Clothing brands', 'Schools', 'Churches', 'NGOs', 'Campaigns'] },
+  { title: 'Polo shirts', tag: 'Smart enough for work', body: 'A consistent professional look without office formality. Logo, name or department embroidered or printed.', ideal: ['Sales teams', 'Retail staff', 'Hospitality', 'Field teams', 'Exhibitions', 'Customer service'] },
+  { title: 'Custom hoodies', tag: 'Branded comfort that gets noticed', body: 'Subtle embroidery for a corporate look, or large printed graphics for merchandise and campaigns.', options: ['Pullover', 'Zip-up', 'Oversized', 'Heavyweight', 'Corporate', 'Merchandise'], optionsLabel: 'Styles' },
+  { title: 'Corporate uniforms', tag: 'One team. One consistent brand.', body: 'Complete uniform sets built around your brand colours, working environment and staff roles.', ideal: ['Offices', 'Restaurants', 'Hotels', 'Retail', 'Healthcare', 'Logistics', 'Construction', 'Cleaning companies'] },
+  { title: 'Corporate shirts', tag: 'Polished for customer-facing teams', body: 'Long- and short-sleeve shirts with embroidered or printed branding for executives, sales and reception staff.' },
+  { title: 'Caps & headwear', tag: 'Put your brand where people see it', body: 'Staff uniforms, merchandise, giveaways and event branding.', options: ['Baseball', 'Snapback', 'Trucker', 'Bucket hats', 'Golf caps'], optionsLabel: 'Styles' },
+  { title: 'Aprons', tag: 'Branding made for hospitality', body: 'Waist, bib and full-length aprons for restaurants, cafés, bakeries, baristas, caterers and salons.' },
+  { title: 'Workwear', tag: 'Built for the job', body: 'Practical branded workwear for demanding environments.', options: ['Overalls', 'Dust coats', 'Reflective vests', 'Reflective jackets', 'Work shirts', 'Branded jackets'], ideal: ['Construction', 'Engineering', 'Manufacturing', 'Automotive', 'Warehousing', 'Field operations'] },
+  { title: 'Sportswear & team jerseys', tag: 'Your team. Your colours.', body: 'Kits with team colours, logos, player names, numbers and sponsors, for individual kits or whole squads.', ideal: ['Football', 'Basketball', 'Rugby', 'Volleyball', 'Netball', 'Athletics', 'School teams'] },
+];
+
+const methods: Offer[] = [
+  { title: 'DTF printing', tag: 'Detail and full colour', body: 'The design is printed on film with a white underbase and heat-pressed into the fabric. Any number of colours at the same price, photographs and gradients, light or dark garments, one-offs and mixed sizes.' },
+  { title: 'Embroidery', tag: 'A clean, professional finish', body: 'A textured stitched logo that lasts as long as the garment. Best on polos, corporate shirts, caps, jackets and workwear, for logos and simple brand marks.' },
+  { title: 'Screen printing', tag: 'Made for volume', body: 'The strongest choice for large runs of designs with a few spot colours: events, merchandise and big corporate orders.' },
+  { title: 'Heat transfer vinyl', tag: 'Names and numbers', body: 'Cut vinyl for lettering, names, numbers and simple graphics: jerseys, staff names and personalised pieces.' },
+];
+---
+<ServiceLayout
+  slug="custom-apparel"
+  kicker="Custom apparel & corporate wear · Nairobi"
+  h1="T-Shirt Printing & Corporate Wear in Nairobi"
+  lead="Wear your brand with confidence. Betapixel Studios produces <strong>branded T-shirts, polo shirts, hoodies, caps, uniforms, workwear and team jerseys</strong> in Nairobi using DTF printing, embroidery, screen printing and heat-transfer vinyl, all in-house, from a single personalised shirt to complete uniforms for your whole team."
+  meta={['From one piece', 'DTF · embroidery · screen · vinyl', 'Names & numbers per garment', 'Garments supplied or yours']}
+  faqCats={['apparel']}
+  related={['corporate-gifts', 'events-exhibitions', 'corporate-branding', 'uv-dtf-stickers']}
+  cta={{ title: 'Put your brand in motion.', text: 'Tell us the garment, quantity, artwork and where the branding goes, and we recommend the right method and quote it clearly.' }}
+>
+  <section class="section" aria-labelledby="garments">
+    <div class="wrap">
+      <p class="eyebrow">What we brand</p>
+      <h2 class="display" id="garments" data-split>Apparel That Represents Your Business</h2>
+      <p class="lead" style="max-width:62ch">Your team represents your company through how they look, not only what they say. We help businesses, schools, organisations, events and clothing brands produce apparel that looks good, feels good and stays consistent.</p>
+      <OfferGrid items={garments} />
+    </div>
+  </section>
+
+  <section class="section on-dark pixel-motif" aria-labelledby="methods">
+    <div class="wrap">
+      <p class="eyebrow">Apparel branding methods</p>
+      <h2 class="display" id="methods" data-split>The Right Method for the Garment</h2>
+      <p class="lead" style="max-width:62ch">The right method depends on the garment, artwork, quantity and how it will be used. You do not need to know which. Tell us what you are branding and we will recommend it.</p>
+      <OfferGrid items={methods} columns={2} />
+      <p style="margin-top:28px">Choosing between the two most common options? Read <a href="/knowledge-centre/uv-dtf-vs-dtf-vs-sublimation-vs-screen-printing/">how the print methods compare</a>. Ordering for the 2027 elections? See our guide to <a href="/knowledge-centre/campaign-t-shirts-and-election-materials-kenya/">campaign t-shirts and election materials</a>.</p>
+    </div>
+  </section>
+
+  <Block id="placement" title="Print sizes and placement" eyebrow="Placement">
+    <dl class="spec-list">
+      <div><dt>Left chest</dt><dd>About 90 mm wide, the standard corporate logo position</dd></div>
+      <div><dt>Full front</dt><dd>Up to about 280 × 350 mm on an adult medium; reduced on smaller sizes</dd></div>
+      <div><dt>Full back</dt><dd>Up to about 300 × 400 mm; names and numbers usually sit here</dd></div>
+      <div><dt>Sleeve</dt><dd>About 80 mm wide on the upper arm</dd></div>
+      <div><dt>Caps</dt><dd>Front panel, about 90 × 50 mm</dd></div>
+    </dl>
+    <p>Send vector files or a PNG at 300 dpi at print size. A 280 mm wide print needs an image about 3,300 pixels wide. Images saved from WhatsApp are too compressed to print sharply. Embroidery needs a logo simplified for stitching; we digitise it for you.</p>
+  </Block>
+
+  <Block id="brands" title="Building a clothing brand?" eyebrow="Apparel brands" tone="paper-2">
+    <p>We support apparel businesses from concept through production: branded T-shirts and hoodies, plus the printed touchpoints around them — <a href="/packaging-labels/">hang tags, product stickers, packaging and shopping bags</a>, thank-you cards and <a href="/uv-dtf-stickers/">UV DTF branding for packaging</a>. One production partner instead of five suppliers.</p>
+    <h3>Ordering Mixed Sizes, Names and Numbers</h3>
+    <ul>
+      <li>Send sizes and names in a spreadsheet: one row per garment, with size, colour, name and number.</li>
+      <li>Spell names exactly as they should print, including capitals.</li>
+      <li>Order one or two spares in the most common size; late joiners are normal for staff and event orders.</li>
+    </ul>
+  </Block>
+
+  <Block id="care" title="Wash care and durability" eyebrow="Aftercare">
+    <p>Printed garments last as long as the garment when they are looked after: wait 24 hours before the first wash, turn the garment inside out, wash at 30–40°C, avoid bleach and fabric softener on the print, line dry in the shade and never iron directly on the print. Embroidery can be washed normally.</p>
+    <p>Apparel works best as part of a set: pair uniforms with <a href="/corporate-gifts/">branded bottles and gifts</a>, <a href="/events-exhibitions/">event branding</a> and <a href="/corporate-branding/">office branding</a> so the colours match across everything.</p>
+  </Block>
+
+  <Block id="blanks" title="Choosing the blank garment" eyebrow="Garments" tone="paper-2">
+    <p>The print lasts as long as the garment, so the blank matters. Fabric weight is measured in grams per square metre: 150–160 gsm feels light and suits events and giveaways; 180–200 gsm feels substantial and holds its shape through many washes, which suits staff uniforms and retail. 100% cotton is soft and breathable; polyester dries fast and suits sport; poly-cotton blends shrink less than pure cotton.</p>
+    <p>For polos and corporate shirts, pique cotton takes embroidery beautifully; for reflective workwear, the branding method must not cover the reflective strips. We state the fabric, weight and brand of every blank in the quotation, and can bring samples to your office for a size run before a large uniform order.</p>
+  </Block>
+</ServiceLayout>

@@ -1,0 +1,96 @@
+---
+import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Block from '../components/Block.astro';
+import OfferGrid, { type Offer } from '../components/OfferGrid.astro';
+import MediaBannerSizes from '../components/MediaBannerSizes.astro';
+
+const items: Offer[] = [
+  { title: 'Event backdrops', tag: 'Give the cameras something to capture', body: 'Often the most photographed element of an event, for conferences, launches, graduations, awards, press events and celebrations.' },
+  { title: 'Media & backdrop banners', tag: 'Branding that lives beyond the event', body: 'Media banners, also called backdrop banners: step-and-repeat logo walls on a portable frame, with sponsor logos spaced to read cleanly in every photograph.', options: ['2.25 m × 2.25 m', '3 m × 2.25 m', '6 m × 2.25 m'], optionsLabel: 'Three standard sizes (width × height)' },
+  { title: 'Stage branding', tag: 'The brand at the centre of attention', body: 'Main-stage backdrops, speaker panels, podium branding, stage fascias, sponsor boards and side panels built to look strong in person and on video.' },
+  { title: 'Exhibition stands', tag: 'Own your space at the expo', body: 'Display walls and backdrops sized to your stand, with branded counters, product displays, brochure holders, flags and roll-ups.', ideal: ['Trade shows', 'Expos', 'Career fairs', 'Property exhibitions', 'Business forums'] },
+  { title: 'Roll-up banners & flags', tag: 'Portable branding', body: 'Roll-ups for entrances, registration and stands; teardrop and telescopic flags for outdoor activations and venue entrances.' },
+  { title: 'Registration & wayfinding', tag: 'An organised first impression', body: 'Registration counters, welcome boards, queue areas, directional signs for rooms, washrooms, dining, VIP areas and parking.' },
+  { title: 'Table branding', tag: 'Small surfaces, clear brand', body: 'Branded table covers and banners, table numbers, reserved signs, menu cards and product information cards.' },
+  { title: 'Lanyards & badges', tag: 'Identification as branding', body: 'Custom lanyards with delegate, staff, speaker, VIP, exhibitor and media badges: distinct categories in one identity.' },
+  { title: 'Programmes & printed materials', tag: 'Clear information', body: 'Programmes, agendas, speaker profiles, brochures, menus, invitations, certificates and feedback cards.' },
+  { title: 'Delegate packs', tag: 'Everything in one place', body: 'Branded bag, notebook, pen, lanyard, badge, programme, water bottle and a promotional gift.' },
+  { title: 'Event apparel & merchandise', tag: 'Recognisable teams, memorable take-homes', body: 'T-shirts, polos, caps and reflective wear for organisers and volunteers, plus mugs, bottles, notebooks and gift sets for guests.' },
+  { title: 'Awards & recognition', tag: 'Moments worth remembering', body: 'Trophies, acrylic awards, plaques, certificates and personalised gifts matched to the event identity.' },
+];
+
+const packages: Offer[] = [
+  { title: 'Essential package', tag: 'Meetings, workshops, small events', body: 'Backdrop + roll-up banners + directional signs + badges.' },
+  { title: 'Conference package', tag: 'Conferences and professional gatherings', body: 'Stage branding + registration branding + lanyards + badges + delegate packs + wayfinding.' },
+  { title: 'Exhibition package', tag: 'Trade shows and expos', body: 'Display backdrop + counter branding + roll-up banner + flyers + business cards + merchandise.' },
+  { title: 'Full event branding', tag: 'Launches and branded experiences', body: 'A custom combination covering venue, stage, attendees, staff and take-home merchandise.' },
+];
+---
+<ServiceLayout
+  slug="events-exhibitions"
+  kicker="Event & exhibition branding · Nairobi"
+  h1="Event & Exhibition Branding in Nairobi"
+  lead="Make your brand the one they remember. Betapixel Studios produces <strong>stage backdrops, media walls, expo stand graphics, roll-up banners, directional signs, lanyards, badges, delegate packs and event merchandise</strong> in-house in Nairobi, with the whole event designed as one visual identity and set up before doors open."
+  meta={['One identity, entrance to exit', 'Setup & installation', 'Sponsor logo management', 'Packages for any size']}
+  faqCats={['events', 'turnaround']}
+  related={['banners', 'signage', 'corporate-gifts', 'custom-apparel']}
+  cta={{ title: 'Your event has one chance to make a first impression.', text: 'Share the event date, venue, expected attendance and what you already have. We identify the touchpoints that matter and quote the package.' }}
+>
+  <section class="section" aria-labelledby="event-range">
+    <div class="wrap">
+      <p class="eyebrow">Complete event branding</p>
+      <h2 class="display" id="event-range" data-split>One Event. One Visual Experience.</h2>
+      <p class="lead" style="max-width:62ch">Events move fast: people arrive, take photographs, exchange contacts and leave. A professionally branded event should not feel like a collection of unrelated banners. Every element should belong together.</p>
+      <OfferGrid items={items} />
+    </div>
+  </section>
+
+  <MediaBannerSizes />
+
+  <section class="section on-dark pixel-motif" aria-labelledby="packages">
+    <div class="wrap">
+      <p class="eyebrow">Event branding packages</p>
+      <h2 class="display" id="packages" data-split>Quoted Around the Event, Not Item by Item</h2>
+      <OfferGrid items={packages} columns={2} />
+      <p style="margin-top:24px">All packages are quoted according to scope, size, materials and quantity.</p>
+    </div>
+  </section>
+
+  <Block id="conferences" title="Conferences, graduations and activations" eyebrow="Event types">
+    <p><strong>Corporate conferences:</strong> entrance branding → registration → stage → wayfinding → delegate materials → exhibition areas → merchandise, approached as one experience rather than separate orders.</p>
+    <p><strong>Graduations and school events:</strong> backdrops, programmes, certificates, banners, directional signs, branded apparel, awards, photo areas and school merchandise for graduations, prize-giving, sports and open days.</p>
+    <p><strong>Product launches and brand activations:</strong> product displays, media walls, packaging and <a href="/uv-dtf-stickers/">UV DTF product stickers</a>, staff T-shirts and caps, sampling materials and flyers for malls, campuses and outdoor events.</p>
+    <p><strong>Exhibitions:</strong> most Nairobi expo stands are shell-scheme booths of about 3 × 3 m. We design panels to the exact wall sizes, keep key messages above table height so they read over a crowd, and pair the stand with a roll-up for the aisle, flyers for visitors and a small branded giveaway that starts conversations.</p>
+    <p><strong>Outdoor events and activations:</strong> tents, sports days and roadside activations need wind-rated materials (weighted teardrop flags, securely tied PVC banners and broad-base roll-ups) and graphics that still read in bright sun, so we use strong contrast and fewer, larger words.</p>
+    <p><strong>Sponsor branding:</strong> we organise sponsor visibility across backdrops, media walls, programmes, lanyards and badges while keeping the event identity clean. Final logo hierarchy follows your approved sponsorship agreements.</p>
+  </Block>
+
+  <section class="section on-paper-2" aria-labelledby="event-process">
+    <div class="wrap">
+      <p class="eyebrow">Our process</p>
+      <h2 class="display" id="event-process" data-split>Brief to Event-Ready</h2>
+      <ol class="process">
+        <li><h3>Tell Us About the Event</h3><p>Date, venue, audience, attendance and requirements.</p></li>
+        <li><h3>Define Touchpoints</h3><p>Where branding will have the most impact.</p></li>
+        <li><h3>Creative Direction</h3><p>Artwork built around your brand or event identity.</p></li>
+        <li><h3>Production</h3><p>Everything produced in-house in Nairobi.</p></li>
+        <li><h3>Setup</h3><p>Installed or prepared for setup at the venue.</p></li>
+        <li><h3>Event Ready</h3><p>Checked before the doors open.</p></li>
+      </ol>
+      <p style="margin-top:28px">Plan at least a week for a typical conference package after artwork approval. Give us the event date as well as the delivery date. Staff apparel comes from <a href="/custom-apparel/">custom apparel</a>, guest gifts from <a href="/corporate-gifts/">corporate gifts</a>, and permanent displays from <a href="/signage/">signage</a>; banners and roll-ups are on <a href="/banners/">media banners &amp; roll-ups</a>.</p>
+    </div>
+  </section>
+
+  <Block id="checklist" title="Event branding checklist" eyebrow="Planning" tone="paper-2">
+    <p>Use this to brief us. Every item is something we can produce in-house:</p>
+    <ul>
+      <li><strong>Arrival:</strong> entrance banner or flags, welcome board, registration counter branding, directional signs to parking and rooms.</li>
+      <li><strong>Stage:</strong> main backdrop sized to the stage, podium panel, speaker screens and sponsor boards.</li>
+      <li><strong>Photography:</strong> a media wall placed where the light is good and the guests naturally stop.</li>
+      <li><strong>People:</strong> lanyards and badges by category, staff and volunteer T-shirts or polos, name tags.</li>
+      <li><strong>Materials:</strong> programmes, agendas, certificates, table numbers and menu cards.</li>
+      <li><strong>Take-home:</strong> delegate packs, branded bottles, notebooks and gifts for speakers and VIPs.</li>
+    </ul>
+    <p>Send artwork early: large backdrops need print-ready files at the right size, and sponsor logos should be vector files. Our <a href="/knowledge-centre/artwork-file-requirements-for-printing/">artwork file guide</a> explains exactly what to request from sponsors. For expo stands, measure the stand and note the height of any shell-scheme walls before we design.</p>
+  </Block>
+</ServiceLayout>

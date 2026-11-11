@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Frame from '../components/Frame.astro';
+import OfferGrid, { type Offer } from '../components/OfferGrid.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { whatsappUrl } from '../data/site';
+import { faqsFor } from '../data/faqs';
+import { faqPage, webPage } from '../lib/schema';
+import { G } from '../data/work';
+
+const path = '/year-end-corporate-gifts/';
+const title = 'Year-End Corporate Gifts in Nairobi | Betapixel';
+const description = 'Year-end corporate gifts in Nairobi: branded gift boxes, bottles, flasks, notebooks, calendars and diaries, personalised with names. Order early for December.';
+const wa = 'Year-end corporate gifts';
+
+const ideas: Offer[] = [
+  { title: 'For clients and partners', tag: 'Thank them in a way they keep', body: 'An executive gift box built around your brand: notebook, metal pen, flask or water bottle and keyholder, packed in a branded box with a printed card.', options: ['Executive notebook', 'Metal pen', 'Thermo flask', 'Water bottle', 'Keyholder', 'Branded box & card'] },
+  { title: 'For the whole team', tag: 'One gift, every name', body: 'A bottle, flask or mug branded with your logo and each person’s name, or branded hoodies and T-shirts the team will actually wear into the new year.', options: ['Named water bottles', 'Named mugs', 'Hoodies & T-shirts', 'Tote bags'] },
+  { title: 'For executives and the board', tag: 'Premium, personal, understated', body: 'Premium flasks, executive notebooks and engraved pens, or a personalised award in acrylic, glass or crystal for the year’s standout people.', options: ['Premium flask', 'Engraved pen', 'Executive notebook', 'Acrylic or crystal award'] },
+  { title: 'Next year’s calendars and diaries', tag: 'Twelve months on their desk', body: 'Branded wall and desk calendars, diaries and planners that keep your name in front of clients every working day of the new year.', options: ['Wall calendars', 'Desk calendars', 'Diaries', 'Planners'] },
+];
+
+const faqs = faqsFor('gifts');
+---
+<BaseLayout title={title} description={description} ogImage="/og/work-corporate-gifts.jpg" waContext={wa}
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Corporate Gifts', path: '/corporate-gifts/' }, { name: 'Year-End Gifts', path }]}
+  schema={[webPage(title, path, description), faqPage(faqs)]}>
+  <header class="page-hero pixel-motif">
+    <div class="wrap grid-2 grid-2--even" style="align-items:center">
+      <div>
+        <p class="eyebrow">Year-end gifting · Nairobi</p>
+        <h1 class="h1-body">Year-End Corporate Gifts, Branded and Ready for December</h1>
+        <p class="lead">Thank your clients, partners and team with gifts they will actually keep. Betapixel Studios brands <strong>gift boxes, water bottles, flasks, notebooks, calendars and diaries</strong> in-house in Nairobi, with individual names where you need them.</p>
+        <p><strong>For December gifting, order by the end of October.</strong> Later than that? Standard bottles, mugs and notebooks are usually available in Nairobi within days, so ask us before you rule it out.</p>
+        <div class="btn-row">
+          <a class="btn btn--orange btn--lg" href="/request-a-quote/?service=corporate-gifts">Plan your year-end gifts</a>
+          <a class="btn btn--wa btn--lg" href={whatsappUrl(wa)} data-wa rel="noopener" target="_blank"><Icon name="whatsapp" />Chat on WhatsApp</a>
+        </div>
+      </div>
+      <Frame artKey="promotional-branding" photo={G.gifts.src} alt={G.gifts.alt} eager />
+    </div>
+  </header>
+
+  <section class="section" aria-labelledby="ideas">
+    <div class="wrap">
+      <p class="eyebrow">Gift ideas</p>
+      <h2 class="display" id="ideas" data-split>Gift Ideas for Every List</h2>
+      <p class="lead" style="max-width:62ch">Start from who you are thanking. Tell us the number of people and your budget per person, and we recommend the products and combinations that fit.</p>
+      <OfferGrid items={ideas} />
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="gift-photos">
+    <div class="wrap">
+      <p class="eyebrow">Recent gifting work</p>
+      <h2 class="display" id="gift-photos" data-split>Branded in Our Nairobi Studio</h2>
+      <div class="grid-2 grid-2--even" style="margin-top:28px">
+        <Frame artKey="promotional-branding" photo={G.bottles.src} alt={G.bottles.alt} />
+        <Frame artKey="commercial-printing" photo={G.calendars.src} alt={G.calendars.alt} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="gift-process">
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2 class="display" id="gift-process" data-split>From Gift List to Delivered Boxes</h2>
+      <ol class="process">
+        <li><h3>Brief</h3><p>Who you are gifting, how many people, your budget per person and the delivery date.</p></li>
+        <li><h3>Recommendation</h3><p>Products and combinations that fit the budget, with a quotation that states the timeline up front.</p></li>
+        <li><h3>Sample</h3><p>A branded sample to approve before the full run, so there are no surprises.</p></li>
+        <li><h3>Branding and Packing</h3><p>Logos and names applied in-house, then packed into branded boxes with your card.</p></li>
+        <li><h3>Delivery</h3><p>Collected from our studio or delivered across Kenya, ready to hand out.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <Faq items={faqs} title="Questions about corporate gifts" />
+
+  <CtaBand title="Make this year’s thank-you the one they keep." text="Send the number of recipients, your budget per person and the date you need them. We reply with gift ideas and a tailored quotation." service="corporate-gifts" waContext={wa} primary="Plan your year-end gifts" secondary={{ label: 'See all corporate gifts', href: '/corporate-gifts/' }} />
+</BaseLayout>

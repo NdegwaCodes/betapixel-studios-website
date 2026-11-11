@@ -1,0 +1,33 @@
+---
+import Frame from './Frame.astro';
+import type { ArtKey } from '../data/services';
+import type { WorkImage } from '../data/work';
+import { titleCase } from '../lib/titleCase';
+export interface Panel { id: string; title: string; body: string[]; art: ArtKey; photo?: WorkImage; alt?: string; links?: { href: string; label: string }[] }
+interface Props { panels: Panel[]; headingLevel?: 'h2' | 'h3'; label: string }
+const { panels, headingLevel = 'h3', label } = Astro.props;
+const H = headingLevel;
+const total = String(panels.length).padStart(2, '0');
+---
+<div class="pinseq" data-pinseq aria-label={label} role="group">
+  <div class="pinseq__stage">
+    <ol class="pinseq__panels">
+      {panels.map((p, i) => (
+        <li class="pinseq__panel" data-panel={i}>
+          <div>
+            <span class="pinseq__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <H id={p.id}>{titleCase(p.title)}</H>
+            {p.body.map((t) => <p set:html={t} />)}
+            {p.links && <ul class="pinseq__links">{p.links.map((l) => <li><a class="ul-link" href={l.href}>{l.label}</a></li>)}</ul>}
+          </div>
+          <Frame artKey={p.art} photo={p.photo?.src} alt={p.photo?.alt} />
+        </li>
+      ))}
+    </ol>
+    <div class="pinseq__progress" aria-hidden="true">
+      <span data-pin-current>01</span>
+      <span class="pinseq__bar"><i data-pin-bar></i></span>
+      <span>{total}</span>
+    </div>
+  </div>
+</div>

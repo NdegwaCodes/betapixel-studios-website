@@ -1,0 +1,107 @@
+---
+import { Picture } from 'astro:assets';
+import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Block from '../components/Block.astro';
+import { products } from '../data/products';
+---
+<ServiceLayout
+  slug="book-publishing"
+  kicker="Book publishing · Kenya"
+  h1="Book Printing & Self-Publishing in Kenya"
+  lead="Betapixel Studios helps Kenyan authors, churches, schools and organisations turn a finished manuscript into a printed book: <strong>typesetting, cover design, ISBN guidance, a printed proof copy and short-run printing</strong>, all in-house in Nairobi. We publish our own books too, so we know every step from manuscript to shelf."
+  meta={['Printed proof first', 'You keep all rights & files', 'Typesetting & cover design', 'Short runs from 50 copies']}
+  faqCats={['books']}
+  related={['commercial-printing', 'corporate-branding', 'banners', 'packaging-labels']}
+  cta={{ title: 'Ready to see your book in print?', text: 'Send the manuscript length, trim size you have in mind and the number of copies. We confirm the page count, paper and a realistic timeline.', secondary: { label: 'See our own books', href: '/products/' } }}
+>
+  <section class="section" aria-labelledby="our-books">
+    <div class="wrap grid-2" style="align-items:center">
+      <div>
+        <p class="eyebrow">Proof, not promises</p>
+        <h2 class="display" id="our-books" data-split>We Publish Our Own Books</h2>
+        <p>Betapixel designs, prints and publishes its own titles: <a href={`/products/${products[0].slug}/`}>{products[0].name}</a> for children and <a href={`/products/${products[1].slug}/`}>{products[1].name}</a> for adults, both sold on Nuria Store. Every decision our authors face — trim size, paper, binding, cover finish, where to sell — we have made ourselves.</p>
+        <a class="btn btn--ghost" href="/products/">Explore Betapixel Products</a>
+      </div>
+      <div class="gallery-grid" style="margin:0;grid-template-columns:1fr 1fr">
+        {products.map((p) => (
+          <a class="gallery-tile" href={`/products/${p.slug}/`} style="text-decoration:none">
+            <Picture src={p.images[0].src} alt={p.images[0].alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[400, 800]} sizes="(min-width: 900px) 25vw, 50vw" loading="lazy" />
+            <figcaption class="small">{p.name}</figcaption>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="stages">
+    <div class="wrap">
+      <p class="eyebrow">The process</p>
+      <h2 class="display" id="stages" data-split>From Manuscript to Printed Book</h2>
+      <ol class="process">
+        <li><h3>Manuscript Review</h3><p>Send the final, edited manuscript. We count pages at your chosen trim size and confirm the quotation.</p></li>
+        <li><h3>Typesetting</h3><p>Book typeface, consistent margins, running heads, chapter openings, tables and images placed properly.</p></li>
+        <li><h3>Cover Design</h3><p>Front, spine and back as one piece; spine width calculated from page count and paper.</p></li>
+        <li><h3>ISBN &amp; Barcode</h3><p>You apply to KNLS as publisher; we place the ISBN and EAN-13 barcode on the cover.</p></li>
+        <li><h3>Proofs</h3><p>A full PDF proof, then one printed, bound proof copy to check in your hands.</p></li>
+        <li><h3>Print Run</h3><p>Printed, bound, trimmed and checked copy by copy, packed in cartons.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <Block id="specs" title="Formats and specifications" eyebrow="Specifications">
+    <dl class="spec-list">
+      <div><dt>Trim sizes</dt><dd>A5 (148 × 210 mm), 14 × 21 cm pocket, Royal (156 × 234 mm), B5 and A4 for workbooks and children’s books</dd></div>
+      <div><dt>Binding</dt><dd>Perfect bound (flat spine) from about 48 pages; saddle-stitched for shorter books; wire-bound for workbooks</dd></div>
+      <div><dt>Inner paper</dt><dd>80 gsm bond for text; 100–130 gsm art paper for colour and colouring books</dd></div>
+      <div><dt>Cover</dt><dd>250–300 gsm board with gloss or matte lamination</dd></div>
+      <div><dt>Print</dt><dd>Black text with a full-colour cover, or full colour inside for children’s books, cookbooks and photo books</dd></div>
+      <div><dt>Run length</dt><dd>From 50 copies digitally; offset for long runs</dd></div>
+    </dl>
+  </Block>
+
+  <Block id="self-publishing" title="Self-publishing in Kenya, plainly" eyebrow="For authors" tone="paper-2">
+    <p>Self-publishing means you act as the publisher: you pay for production, own the stock and keep the income. It suits memoirs, church and community histories, professional handbooks, poetry, children’s books and textbooks for a known audience.</p>
+    <ul>
+      <li><strong>Page count drives cost.</strong> A larger trim size with sensible margins can reduce pages, and price, without shrinking the text.</li>
+      <li><strong>Print what you can sell in six months.</strong> Reprints from the same files are straightforward.</li>
+      <li><strong>Legal deposit.</strong> Kenyan law requires publishers to deposit copies of new books with the Kenya National Library Service.</li>
+      <li><strong>Colour inside is expensive.</strong> Group colour images into one section where you can.</li>
+      <li><strong>Schools and organisations.</strong> Workbooks, church histories and training manuals are often printed in batches per term or programme; we keep your files ready so each reprint matches the last one exactly.</li>
+      <li><strong>Selling online.</strong> Marketplaces such as Nuria list books from independent publishers, the route we use for our own titles.</li>
+    </ul>
+  </Block>
+
+  <Block id="files" title="If you supply print-ready files" eyebrow="Files">
+    <ul>
+      <li>An interior PDF as single pages, fonts embedded, 3 mm bleed where images run to the edge.</li>
+      <li>A cover PDF as one spread (back, spine, front) with 3 mm bleed and the spine width we confirm.</li>
+      <li>Images at 300 dpi; black text as 100% K, not rich black.</li>
+    </ul>
+    <p>We preflight every file before printing; see <a href="/knowledge-centre/artwork-file-requirements-for-printing/">artwork file requirements</a>. Launching the book? Add <a href="/banners/">roll-up banners</a>, bookmarks and flyers from <a href="/commercial-printing/">commercial printing</a>, and an author identity from our <a href="/corporate-branding/">design team</a>.</p>
+  </Block>
+
+  <Block id="costing" title="What decides the cost of printing a book" eyebrow="Pricing" tone="paper-2">
+    <p>A book quotation is built from a handful of measurable choices. Knowing them helps you make trade-offs before the design is fixed rather than after.</p>
+    <dl class="spec-list">
+      <div><dt>Page count</dt><dd>The largest single factor. Every extra 16 pages adds paper, printing and binding time.</dd></div>
+      <div><dt>Trim size</dt><dd>A5 is the most economical. Larger sizes fit more words per page and can lower the page count, but use more paper per sheet.</dd></div>
+      <div><dt>Colour inside</dt><dd>Full colour on every page costs several times more than black text. Grouping images into one section keeps most pages in black.</dd></div>
+      <div><dt>Paper</dt><dd>80 gsm bond suits novels and handbooks; heavier art paper is needed only where photographs or colouring pages must reproduce well.</dd></div>
+      <div><dt>Quantity</dt><dd>The unit cost falls as the run grows, but print what you can realistically distribute. Reprints from the same files are straightforward.</dd></div>
+      <div><dt>Finishing</dt><dd>Matte or gloss lamination protects the cover; spot UV or embossing adds cost and time.</dd></div>
+    </dl>
+    <p>We quote typesetting and cover design separately from printing, so you can compare the print cost fairly, or bring your own designer's files and pay only for printing.</p>
+  </Block>
+
+  <Block id="timeline" title="A realistic timeline for a first book" eyebrow="Planning">
+    <p>For a 200-page paperback with a finished, edited manuscript, plan on roughly five to seven weeks from first contact to cartons of books:</p>
+    <ul>
+      <li><strong>Week 1:</strong> quotation, trim size and paper agreed; ISBN application started with KNLS.</li>
+      <li><strong>Weeks 2–3:</strong> typesetting and cover concepts; you choose a cover direction.</li>
+      <li><strong>Week 4:</strong> full PDF proof. Read every page and send one consolidated list of corrections.</li>
+      <li><strong>Week 5:</strong> corrected proof, then one printed, bound proof copy.</li>
+      <li><strong>Weeks 6–7:</strong> print run, binding and quality check.</li>
+    </ul>
+    <p>The most common delay is a second round of text changes after typesetting. Finish editing before the manuscript comes to us and the schedule holds. Colouring and activity books like ours follow the same path, with extra care over paper weight so pencils and crayons do not show through.</p>
+  </Block>
+</ServiceLayout>

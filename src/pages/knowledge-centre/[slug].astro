@@ -1,0 +1,90 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Frame from '../../components/Frame.astro';
+import { serviceBySlug } from '../../data/services';
+import { site } from '../../data/site';
+import { article } from '../../lib/schema';
+import { titleCase } from '../../lib/titleCase';
+import { G } from '../../data/work';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('guides');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const path = `/knowledge-centre/${post.id}/`;
+const url = `${site.url}${path}`;
+const svc = serviceBySlug(d.service);
+const heroes = [d.image ?? []].flat().map((k) => G[k as keyof typeof G]).filter(Boolean);
+const hero = heroes[0];
+const fmt = (x: Date) => x.toLocaleDateString('en-KE', { day: 'numeric', month: 'long', year: 'numeric' });
+const all = (await getCollection('guides')).filter((p) => p.id !== post.id);
+const related = [...all.filter((p) => p.data.category === d.category), ...all.filter((p) => p.data.category !== d.category)].slice(0, 3);
+const share = [
+  { label: 'WhatsApp', href: `https://wa.me/?text=${encodeURIComponent(`${d.headline} ${url}`)}` },
+  { label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}` },
+  { label: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}` },
+  { label: 'X', href: `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(d.headline)}` },
+];
+---
+<BaseLayout title={d.title} description={d.description} ogImage={`/og/${d.art}.jpg`} ogType="article"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Knowledge Centre', path: '/knowledge-centre/' }, { name: d.headline, path }]}
+  schema={[article({ title: d.headline, description: d.description, path, published: d.published, updated: d.updated, image: `/og/${d.art}.jpg` })]}
+  waContext={svc.name}>
+  <article>
+    <header class="page-hero" style="padding-bottom:40px">
+      <div class="wrap article">
+        <p class="eyebrow">Knowledge Centre · {d.category}</p>
+        <h1 class="h1-body">{titleCase(d.headline)}</h1>
+        <p class="article-meta">
+          <span>Published <time datetime={d.published.toISOString()}>{fmt(d.published)}</time></span>
+          {d.updated && <span>Updated <time datetime={d.updated.toISOString()}>{fmt(d.updated)}</time></span>}
+          <span>By Betapixel Studios, Nairobi</span>
+        </p>
+      </div>
+    </header>
+    <div class="wrap article">
+      {heroes.length > 1 ? (
+        <div class="guide-hero-pair">
+          {heroes.map((h) => <Frame artKey={d.art} photo={h.src} alt={h.alt} eager sizes="(min-width: 800px) 380px, 50vw" />)}
+        </div>
+      ) : (
+        <Frame artKey={d.art} photo={hero?.src} alt={hero?.alt} eager sizes="(min-width: 800px) 760px, 100vw" />
+      )}
+      <div class="prose" style="margin-top:40px">
+        <Content />
+      </div>
+      <aside class="callout" aria-label="Related service">
+        <p><strong>Related service:</strong> <a href={`/${svc.slug}/`}>{svc.name}</a>: {svc.line}</p>
+      </aside>
+      <div class="share" aria-label="Share this guide">
+        <span class="small">Share this guide:</span>
+        {share.map((s) => <a class="share__link" href={s.href} rel="noopener" target="_blank">{s.label}</a>)}
+      </div>
+    </div>
+  </article>
+
+  <section class="section--tight" aria-labelledby="still-unsure">
+    <div class="wrap article">
+      <div class="aside-card">
+        <h2 id="still-unsure">Still Not Sure?</h2>
+        <p>Every project is different. If you have read the guide and still are not sure which material, printing method or product is right for you, send us the details and we will help you figure it out.</p>
+        <div class="btn-row"><a class="btn" href={`/request-a-quote/?service=${svc.slug}`}>Request a Quote</a><a class="btn btn--ghost" href="/contact/">Ask a question</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--tight" aria-labelledby="more-reading">
+    <div class="wrap">
+      <h2 id="more-reading">Related Guides</h2>
+      <ul class="post-list" style="margin-top:20px">
+        {related.map((p) => <li><a href={`/knowledge-centre/${p.id}/`}><span class="guide-cat">{p.data.category}</span><div><h3 style="margin:0">{titleCase(p.data.headline)}</h3></div></a></li>)}
+      </ul>
+    </div>
+  </section>
+  <CtaBand service={svc.slug} waContext={svc.name} />
+</BaseLayout>

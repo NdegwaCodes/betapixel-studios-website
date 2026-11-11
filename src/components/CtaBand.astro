@@ -1,0 +1,23 @@
+---
+import Icon from './Icon.astro';
+import { site, whatsappUrl } from '../data/site';
+import { titleCase } from '../lib/titleCase';
+interface Props { title?: string; text?: string; service?: string; waContext?: string; primary?: string; secondary?: { label: string; href: string } }
+const { title = 'Ready to build something remarkable?', text = 'Whether you need a single product or a complete branding solution, tell us what you are creating. We reply with a tailored quotation on WhatsApp or by email.', service, waContext = '', primary = 'Request a Quote', secondary } = Astro.props;
+const quoteHref = `/request-a-quote/${service ? `?service=${service}` : ''}`;
+---
+<section class="section on-dark cta-band" aria-labelledby="cta-title" id="quote">
+  <div class="wrap cta-band__inner">
+    <div>
+      <p class="eyebrow">Let's talk</p>
+      <h2 class="display" id="cta-title" data-split>{titleCase(title)}</h2>
+      <p class="lead">{text}</p>
+    </div>
+    <div class="cta-band__actions">
+      <a class="btn btn--orange btn--lg" href={quoteHref}>{primary}</a>
+      <a class="btn btn--wa btn--lg" href={whatsappUrl(waContext)} data-wa rel="noopener" target="_blank"><Icon name="whatsapp" />Chat on WhatsApp</a>
+      {secondary && <a class="btn btn--ghost btn--lg" href={secondary.href}>{secondary.label}</a>}
+      <p class="small cta-band__note">Prices depend on size, quantity, material and finish, so every job is quoted individually. Call <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a>.</p>
+    </div>
+  </div>
+</section>

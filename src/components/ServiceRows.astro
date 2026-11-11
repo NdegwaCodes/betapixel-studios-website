@@ -1,0 +1,23 @@
+---
+import { getImage } from 'astro:assets';
+import Icon from './Icon.astro';
+import { services } from '../data/services';
+import { art } from '../lib/art';
+import { groupsFor } from '../data/work';
+interface Props { exclude?: string; only?: string[] }
+const { exclude, only } = Astro.props;
+const list = services.filter((s) => s.slug !== exclude && (!only || only.includes(s.slug)));
+const thumbs = await Promise.all(list.map((s) => getImage({ src: groupsFor[s.slug]?.[0]?.src ?? art[s.art], width: 520, format: 'webp' })));
+---
+<ul class="service-rows" data-service-rows>
+  {list.map((s, i) => (
+    <li class="service-row">
+      <a href={`/${s.slug}/`} data-thumb={thumbs[i].src}>
+        <span class="service-row__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+        <span class="service-row__name">{s.name}</span>
+        <span class="service-row__line">{s.line}</span>
+        <Icon name="arrow" class="service-row__arrow" />
+      </a>
+    </li>
+  ))}
+</ul>

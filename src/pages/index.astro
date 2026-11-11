@@ -1,0 +1,252 @@
+---
+import { getCollection } from 'astro:content';
+import { Picture } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import Stats from '../components/Stats.astro';
+import Frame from '../components/Frame.astro';
+import ServiceRows from '../components/ServiceRows.astro';
+import PinnedSequence, { type Panel } from '../components/PinnedSequence.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { services, byGroup } from '../data/services';
+import { products } from '../data/products';
+import { work } from '../data/portfolio';
+import { faqsFor } from '../data/faqs';
+import { heroImage, heroMobile } from '../data/work';
+import { heroSources, heroMobileSources, HERO_SIZES, MOBILE_MEDIA } from '../lib/hero';
+import { faqPage, webPage, itemList } from '../lib/schema';
+import { titleCase } from '../lib/titleCase';
+
+const title = 'Printing & Branding Company in Nairobi | Betapixel Studios';
+const description = 'Printing and branding company in Nairobi: UV DTF magic stickers, commercial printing, signage, T-shirts, labels, corporate gifts and books, all made in-house.';
+
+const first = await heroSources(heroImage[services[0].slug].src);
+const firstMobile = heroMobile[services[0].slug] ? await heroMobileSources(heroMobile[services[0].slug].src) : null;
+const preload = firstMobile
+  ? [{ srcset: firstMobile.avif, sizes: HERO_SIZES, type: 'image/avif', media: MOBILE_MEDIA }, { srcset: first.avif, sizes: HERO_SIZES, type: 'image/avif', media: '(min-width: 768px)' }]
+  : [{ srcset: first.avif, sizes: HERO_SIZES, type: 'image/avif' }];
+
+const popular: [string, string][] = [
+  ['Business card printing in Nairobi', '/commercial-printing/'],
+  ['Flyer, brochure and company profile printing', '/commercial-printing/'],
+  ['Calendar printing', '/commercial-printing/'],
+  ['Sticker and label printing', '/packaging-labels/'],
+  ['Magic stickers (UV DTF)', '/uv-dtf-stickers/'],
+  ['T-shirt printing and embroidery', '/custom-apparel/'],
+  ['Roll-up banner and backdrop printing', '/banners/'],
+  ['Shop signs and 3D signage', '/signage/'],
+  ['Vehicle branding and wraps', '/signage/'],
+  ['Office branding', '/corporate-branding/'],
+  ['Branded corporate gifts and water bottles', '/corporate-gifts/'],
+  ['Event and exhibition branding', '/events-exhibitions/'],
+  ['Book printing and self-publishing', '/book-publishing/'],
+];
+const link = (slug: string) => { const s = services.find((x) => x.slug === slug)!; return { href: `/${s.slug}/`, label: s.name }; };
+const categories: Panel[] = [
+  { id: 'cat-print', title: 'Print & Production', art: 'commercial-printing',
+    body: ['UV DTF stickers, commercial printing, signage and large format, custom apparel, corporate gifts, and packaging and labels, each method chosen for the surface it goes on.',
+      'We tell you when a process is the wrong fit before you pay for it.'],
+    links: byGroup('print').map((s) => link(s.slug)) },
+  { id: 'cat-brand', title: 'Brand Solutions', art: 'corporate-branding',
+    body: ['Corporate branding and graphic design for offices, retail, fleets and multi-branch rollouts, plus complete event and exhibition branding.',
+      'One creative direction, one production partner, one consistent brand.'],
+    links: byGroup('brand').map((s) => link(s.slug)) },
+  { id: 'cat-publishing', title: 'Publishing', art: 'book-publishing',
+    body: ['Typesetting, covers and short-run printing for authors, schools and organisations, plus our own published colouring books.',
+      'Designed by Betapixel. Printed by Betapixel. Published by Betapixel.'],
+    links: [link('book-publishing'), { href: '/products/', label: 'Betapixel Products' }] },
+];
+
+const featured = services.slice(1, 7);
+const industries = ['Retail', 'Restaurants & cafés', 'Hotels', 'Beauty & cosmetics', 'Food manufacturers', 'Construction', 'Healthcare', 'Schools & universities', 'NGOs', 'Churches', 'Government', 'Banks & finance', 'Real estate', 'Automotive', 'Technology', 'Manufacturing', 'Event planners', 'Creative agencies'];
+const faqs = faqsFor('ordering').slice(0, 5);
+const guides = (await getCollection('guides')).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf()).slice(0, 3);
+const recent = work.filter((w) => !w.real && w.photo).filter((w, i, a) => a.findIndex((x) => x.service === w.service) === i);
+---
+<BaseLayout title={title} description={description} heroOverlay preload={preload}
+  schema={[webPage(title, '/', description), faqPage(faqs), itemList('Betapixel Studios services', services.map((s) => ({ name: s.name, url: `/${s.slug}/` })))]}>
+  <Hero />
+
+  <section class="section" aria-labelledby="intro-title">
+    <div class="wrap grid-2">
+      <div>
+        <p class="eyebrow">Trusted by businesses that believe great branding matters</p>
+        <h2 class="display" id="intro-title" data-split>More than Printing. We Build Brands.</h2>
+      </div>
+      <div class="prose">
+        <p class="lead">Whether you are launching a product, opening your first business, expanding your company or preparing for an event, Betapixel Studios helps you create brand experiences people remember through premium printing, product branding, signage, custom apparel, packaging and promotional merchandise.</p>
+        <p>Our specialty is <a href="/uv-dtf-stickers/">UV DTF stickers, also known as magic stickers and 3D crystal labels</a>. Around it sits a complete in-house studio: <a href="/commercial-printing/">commercial printing</a>, <a href="/signage/">signage</a>, <a href="/banners/">media banners and roll-ups</a>, <a href="/custom-apparel/">T-shirts and corporate wear</a>, <a href="/corporate-gifts/">corporate gifts</a>, <a href="/packaging-labels/">packaging and labels</a>, <a href="/corporate-branding/">corporate branding and design</a>, <a href="/events-exhibitions/">event branding</a> and <a href="/book-publishing/">book publishing</a>.</p>
+        <p>From startups and small businesses to schools, restaurants, hotels, manufacturers, churches, NGOs and corporate organisations, we help brands present themselves with confidence, and we tell you plainly what will and will not work.</p>
+      </div>
+    </div>
+    <div class="wrap" style="margin-top:64px">
+      <Stats stats={[
+        { value: 5, suffix: '+', label: 'Years bringing brands to life.' },
+        { value: services.length, label: 'Product & service categories' },
+        { value: 0.5, suffix: ' m', label: 'Minimum UV DTF order: 58 × 50 cm of film' },
+        { value: 1, label: 'Less reason to look like everyone else.' },
+      ]} />
+    </div>
+  </section>
+
+  <Marquee />
+
+  <section class="section" aria-labelledby="featured-title">
+    <div class="wrap">
+      <p class="eyebrow">Products &amp; Services</p>
+      <h2 class="display" id="featured-title" data-split>Everything Your Brand Needs</h2>
+      <div class="card-grid-3">
+        <a class="service-card service-card--flagship" href={`/${services[0].slug}/`}>
+          <Frame artKey={services[0].art} view sizes="(min-width: 900px) 60vw, 100vw" />
+          <div class="service-card__body">
+            <span class="mega__badge" style="align-self:start">Flagship</span>
+            <h3>{titleCase(services[0].name)}</h3>
+            <p>Premium product branding with UV DTF stickers, popularly known as magic stickers and 3D crystal labels, for bottles, tumblers, cosmetics, packaging, electronics, gifts and retail products.</p>
+            <span class="service-card__cta">Explore UV DTF →</span>
+          </div>
+        </a>
+        {featured.map((s) => (
+          <a class="service-card" href={`/${s.slug}/`}>
+            <Frame artKey={s.art} sizes="(min-width: 900px) 33vw, 100vw" />
+            <div class="service-card__body"><h3>{titleCase(s.name)}</h3><p>{s.line}</p><span class="service-card__cta">Explore →</span></div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-dark pixel-motif" aria-labelledby="flagship-title">
+    <div class="wrap grid-2 grid-2--even" style="align-items:center">
+      <div>
+        <p class="eyebrow">Featured product</p>
+        <h2 class="display" id="flagship-title" data-split>UV DTF Stickers: The Future of Product Branding</h2>
+        <p class="lead">Known locally as magic stickers and internationally as 3D crystal labels, UV DTF stickers are printed on film, pressed onto a hard surface and peeled away, leaving only raised, glossy ink. No sticker edge, no background.</p>
+        <ul class="chip-list">
+          <li>Water bottles</li><li>Tumblers</li><li>Cosmetic packaging</li><li>Coffee containers</li><li>Electronics</li><li>Glass</li><li>Acrylic</li><li>Metal</li><li>Wood</li><li>Corporate gifts</li>
+        </ul>
+        <p>Minimum order: half a metre of film (58 × 50 cm); a full metre is 58 × 100 cm. Not suitable for silicone, wax coatings or fabric, and we say so up front.</p>
+        <div class="btn-row" style="margin-top:24px">
+          <a class="btn btn--orange" href="/uv-dtf-stickers/">Learn more about UV DTF</a>
+          <a class="btn btn--ghost" href="/knowledge-centre/what-are-magic-stickers/">What are magic stickers?</a>
+        </div>
+      </div>
+      <Frame artKey="magic-stickers" view />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="services-title" id="services">
+    <div class="wrap">
+      <p class="eyebrow">Why Betapixel Studios</p>
+      <h2 class="display" id="services-title" data-split>Print, Brand and Publish Under One Roof</h2>
+      <p class="lead" style="margin-bottom:56px">From the moment someone sees your packaging, walks into your office, receives your business card or opens a corporate gift, every detail shapes how they remember you. That is why we approach every project with creativity, precision and a commitment to quality.</p>
+      <PinnedSequence panels={categories} label="Service groups" />
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="why-choose">
+    <div class="wrap">
+      <p class="eyebrow">Why businesses choose Betapixel</p>
+      <h2 class="display" id="why-choose" data-split>Premium Quality, Complete Solutions</h2>
+      <ol class="process">
+        <li><h3>Premium Quality</h3><p>Commercial-grade equipment and carefully selected materials.</p></li>
+        <li><h3>Complete Branding</h3><p>Concept, design, production and delivery under one roof.</p></li>
+        <li><h3>Creative Expertise</h3><p>Design, branding and print knowledge working together.</p></li>
+        <li><h3>Reliable Turnaround</h3><p>Deadlines confirmed up front and respected.</p></li>
+        <li><h3>Nationwide Delivery</h3><p>Nairobi collection or courier anywhere in Kenya.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="recent-work">
+    <div class="wrap">
+      <p class="eyebrow">Selected work</p>
+      <h2 class="display" id="recent-work" data-split>Every Brand Has a Story</h2>
+      <p class="lead" style="max-width:62ch">A startup preparing to launch. A restaurant refreshing its identity. A school celebrating graduation. A manufacturer introducing a new product. Our role is simple: help each one present itself in the best possible way.</p>
+      <div class="card-grid" style="margin-top:36px">
+        {products.map((p) => (
+          <article class="card">
+            <span class="card__tag">Betapixel original</span>
+            <div class="frame" data-cursor="view" style="background:#eef1f6">
+              <Picture src={p.images[0].src} alt={p.images[0].alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 800]} sizes="(min-width: 900px) 33vw, 100vw" loading="lazy" style="object-fit:contain" />
+            </div>
+            <div class="card__body"><h3><a href={`/products/${p.slug}/`} style="text-decoration:none">{p.name}</a></h3><p>{p.subtitle}</p></div>
+          </article>
+        ))}
+        {recent.slice(0, 4).map((w) => (
+          <article class="card">
+            <span class="card__tag">{services.find((s) => s.slug === w.service)?.name}</span>
+            <div class="frame" data-cursor="view" style="background:#fff"><Picture src={w.photo!} alt={w.caption} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 800]} sizes="(min-width: 900px) 33vw, 100vw" loading="lazy" style="object-fit:contain" /></div>
+            <div class="card__body"><h3><a href={`/portfolio/?service=${w.service}`} style="text-decoration:none">{titleCase(w.title)}</a></h3><p>{w.spec}</p></div>
+          </article>
+        ))}
+      </div>
+      <p style="margin-top:24px"><a class="btn btn--ghost" href="/portfolio/">Explore the portfolio</a></p>
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="all-services-title">
+    <div class="wrap">
+      <p class="eyebrow">Index</p>
+      <h2 class="display" id="all-services-title" data-split>Every Service</h2>
+      <ServiceRows />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="industries">
+    <div class="wrap">
+      <p class="eyebrow">Industries we serve</p>
+      <h2 class="display" id="industries" data-split>Solutions Tailored to Your Industry</h2>
+      <p class="lead" style="max-width:60ch">Every industry has its own branding needs, so we develop solutions around your business rather than selling generic products.</p>
+      <ul class="industry-list">{industries.map((i) => <li>{i}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section on-dark" aria-labelledby="how-title">
+    <div class="wrap">
+      <p class="eyebrow">Our process</p>
+      <h2 class="display" id="how-title" data-split>How It Works</h2>
+      <ol class="process">
+        <li><h3>Tell Us About Your Project</h3><p>One sticker or an entire branding package: we start by understanding the goal.</p></li>
+        <li><h3>Receive Your Quotation</h3><p>Based on your quantities, materials and finishing options.</p></li>
+        <li><h3>Approve Your Artwork</h3><p>Our design team prepares or reviews it before production.</p></li>
+        <li><h3>Production</h3><p>Premium materials, in-house equipment, strict quality control.</p></li>
+        <li><h3>Collection or Delivery</h3><p>Collect in Nairobi or have it delivered anywhere in Kenya.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="journal-title">
+    <div class="wrap">
+      <p class="eyebrow">Knowledge Centre</p>
+      <h2 class="display" id="journal-title" data-split>Learn. Create. Grow.</h2>
+      <ul class="post-list" style="margin-top:28px">
+        {guides.map((p) => (
+          <li><a href={`/knowledge-centre/${p.id}/`}>
+            <span class="guide-cat">{p.data.category}</span>
+            <div><h3 style="margin:0 0 6px">{titleCase(p.data.headline)}</h3><p style="margin:0">{p.data.description}</p></div>
+          </a></li>
+        ))}
+      </ul>
+      <p style="margin-top:24px"><a class="btn btn--ghost" href="/knowledge-centre/">Visit the Knowledge Centre</a></p>
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="nairobi-title">
+    <div class="wrap grid-2">
+      <div>
+        <p class="eyebrow">Popular in Nairobi</p>
+        <h2 class="display" id="nairobi-title" data-split>Printing Services in Nairobi</h2>
+        <p>Looking for a printing shop in Nairobi? Betapixel Studios prints, brands and installs everything here in-house at our studio on Kweria Rd. Collect from the studio, or we deliver within Nairobi and send orders by courier to towns across Kenya.</p>
+        <p><a class="btn btn--orange" href="/request-a-quote/">Request a printing quote</a></p>
+      </div>
+      <ul class="industry-list">
+        {popular.map(([label, href]) => <li><a href={href} style="text-decoration:none">{label}</a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <Faq items={faqs} title="Before you order" />
+  <CtaBand title="Ready to build something remarkable?" text="Whether you need a single product or a complete branding solution, Betapixel Studios is ready to help. Let's create something your customers will remember." primary="Request Your Free Quote" />
+</BaseLayout>

@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Stats from '../components/Stats.astro';
+import Frame from '../components/Frame.astro';
+import OfferGrid, { type Offer } from '../components/OfferGrid.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../data/site';
+import { services } from '../data/services';
+import { webPage } from '../lib/schema';
+import { G } from '../data/work';
+
+const title = 'About Betapixel Studios | Nairobi Printing & Branding';
+const description = 'Betapixel Studios is a Nairobi printing and branding company founded in 2021, producing UV DTF stickers, signage, apparel, gifts and books in-house.';
+const values: Offer[] = [
+  { title: 'Quality without compromise', body: 'From a single business card to a nationwide campaign, quality stays our highest priority.' },
+  { title: 'Creativity with purpose', body: 'Beautiful design should also solve problems and strengthen communication.' },
+  { title: 'Innovation', body: 'We invest in modern technology, materials and techniques, UV DTF among them, so our clients stay ahead.' },
+  { title: 'Integrity', body: 'Honest advice, transparent quotations and telling you plainly what will not work.' },
+  { title: 'Customer success', body: 'Our success is measured by the success of the businesses we serve. When our clients grow, we grow.' },
+];
+---
+<BaseLayout title={title} description={description} crumbs={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about/' }]}
+  schema={[{ ...webPage(title, '/about/', description), '@type': 'AboutPage' }]}>
+  <header class="page-hero pixel-motif">
+    <div class="wrap grid-2 grid-2--even" style="align-items:center">
+      <div>
+        <p class="eyebrow">About Betapixel Studios</p>
+        <h1 class="h1-body">We Don’t Just Print. We Build Brands People Remember.</h1>
+        <p class="lead">{site.legalName} is a creative printing, branding and publishing company in Nairobi, Kenya, founded in {site.foundingYear}. We help businesses turn ideas into memorable brands through premium print, product branding and craftsmanship, all produced in-house.</p>
+      </div>
+      <Frame artKey="corporate-branding" photo={G.signLandscape.src} alt={G.signLandscape.alt} eager />
+    </div>
+  </header>
+
+  <section class="section--tight on-dark" aria-label="Studio in numbers">
+    <div class="wrap">
+      <Stats stats={[
+        { value: 5, suffix: '+', label: 'Years bringing brands to life.' },
+        { value: services.length, label: 'Product & service categories' },
+        { value: 1, label: 'Less reason to look like everyone else.' },
+      ]} />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="story">
+    <div class="wrap grid-2">
+      <div><p class="eyebrow">Our story</p><h2 class="display" id="story" data-split>Bridging Creativity and Production</h2></div>
+      <div class="prose">
+        <p class="lead">Businesses compete in a crowded marketplace. The brands that succeed are not always the biggest. They are the ones people remember.</p>
+        <p>Betapixel Studios began in {site.foundingYear} with photography and design, and grew into a full production studio because clients kept asking us to make what we had designed. Too often, businesses were getting great designs that were printed badly, or good printing with no brand thinking behind it. We believed they deserved both: one partner to take an idea from concept to completion, with quality at every stage.</p>
+        <p>The turning point was UV DTF. We adopted the technology early, learned its limits first-hand — which surfaces fail, which line weights survive, how transfers hold up to daily washing — and made it our flagship. Today Betapixel is a trusted creative partner for businesses that want their products, spaces and teams to look their absolute best.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="what-we-do">
+    <div class="wrap">
+      <p class="eyebrow">What we do</p>
+      <h2 class="display" id="what-we-do" data-split>Complete Branding and Production, Under One Roof</h2>
+      <ul class="industry-list">
+        {services.map((s) => <li><a href={`/${s.slug}/`} style="text-decoration:none">{s.name}</a></li>)}
+        <li><a href="/products/" style="text-decoration:none">Betapixel Products</a></li>
+      </ul>
+      <p style="margin-top:28px;max-width:66ch">Everything we produce has one goal: helping your business look its absolute best. Our flagship is <a href="/uv-dtf-stickers/">UV DTF stickers, also known as magic stickers and 3D crystal labels</a>, the next generation of premium product branding, and we are proud to help lead its adoption in Kenya.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="beyond">
+    <div class="wrap grid-2">
+      <div><p class="eyebrow">Beyond printing</p><h2 class="display" id="beyond" data-split>Every Decision Is Made with Your Brand in Mind</h2></div>
+      <div class="prose">
+        <p>Many companies print. Few help businesses build complete brand experiences. So we ask different questions:</p>
+        <ul>
+          <li>Will this packaging make someone pick it up?</li>
+          <li>Will this sign attract attention from across the street?</li>
+          <li>Will this business card leave a lasting impression?</li>
+          <li>Will this gift strengthen your relationship with a client?</li>
+          <li>Will these uniforms reflect your professionalism?</li>
+        </ul>
+        <p><strong>Our philosophy:</strong> branding is not decoration. It is communication. Every colour, material and finish influences how customers perceive your business. Details build confidence, and confidence builds successful brands.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-dark pixel-motif" aria-labelledby="mission">
+    <div class="wrap">
+      <div class="grid-2 grid-2--even">
+        <div>
+          <p class="eyebrow">Our mission</p>
+          <p class="lead" style="color:#fff">To empower businesses with creative branding and premium printing solutions that inspire confidence, strengthen brand identity and create meaningful customer experiences.</p>
+        </div>
+        <div>
+          <p class="eyebrow">Our vision</p>
+          <p class="lead" style="color:#fff">To become East Africa’s most respected creative branding and print company, setting new standards for quality, innovation, creativity and customer experience.</p>
+        </div>
+      </div>
+      <h2 class="display" id="mission" style="margin-top:56px" data-split>Our Core Values</h2>
+      <OfferGrid items={values} />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="about-process">
+    <div class="wrap">
+      <p class="eyebrow">Our process</p>
+      <h2 class="display" id="about-process" data-split>Discover. Create. Produce. Deliver. Support.</h2>
+      <ol class="process">
+        <li><h3>Discover</h3><p>We understand your goals, audience and objectives.</p></li>
+        <li><h3>Create</h3><p>Concepts and artwork aligned with your brand.</p></li>
+        <li><h3>Produce</h3><p>Made in-house with commercial-grade equipment and selected materials.</p></li>
+        <li><h3>Deliver</h3><p>Inspected before collection or nationwide delivery.</p></li>
+        <li><h3>Support</h3><p>We stay with you for the next project as your brand grows.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="ahead">
+    <div class="wrap grid-2">
+      <div><p class="eyebrow">Looking ahead</p><h2 class="display" id="ahead" data-split>Preparing for the Next Generation of Brands</h2></div>
+      <div class="prose">
+        <p>The future of Betapixel extends beyond printing. We are building a creative ecosystem that supports businesses at every stage — through branding, education in our <a href="/knowledge-centre/">Knowledge Centre</a>, original <a href="/products/">Betapixel Products</a>, print-on-demand and new production technologies.</p>
+        <p>We serve retail, hospitality, food and beverage, healthcare, manufacturing, construction, real estate, finance, education, government, NGOs, beauty and cosmetics, automotive, technology and professional services. Whatever the industry, the approach is the same: understand your brand, deliver exceptional quality, help you make a lasting impression.</p>
+      </div>
+    </div>
+  </section>
+  <CtaBand title="Ready to start your branding journey?" text="Whether you need UV DTF stickers, commercial printing, signage, packaging, apparel or a complete branding solution, our team is ready to help." secondary={{ label: 'Explore our services', href: '/services/' }} />
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { site, whatsappUrl } from '../data/site';
+---
+<BaseLayout title="Request received | Betapixel Studios" description="Your request has reached Betapixel Studios in Nairobi. We will reply with a tailored quotation by WhatsApp or email, so keep your reference number handy." noindex>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Request received</p>
+      <h1 class="h1-body">We’ve Got It.</h1>
+      <p class="lead">Your request is with the Betapixel team. We will review your details and get back to you by WhatsApp or email.</p>
+      <p class="quote-success__ref" data-ref-display style="display:inline-block">Reference</p>
+      <div class="btn-row" style="margin-top:20px">
+        <a class="btn btn--wa" href={whatsappUrl('Following up on my request')} data-wa rel="noopener" target="_blank"><Icon name="whatsapp" />WhatsApp {site.phone.display}</a>
+        <a class="btn btn--ghost" href="/">Return home</a>
+      </div>
+    </div>
+  </section>
+  <script is:inline>
+    (function () {
+      document.body.dataset.conversion = 'lead';
+      var ref = new URLSearchParams(location.search).get('ref');
+      var el = document.querySelector('[data-ref-display]');
+      if (ref && /^BP[QC]-[0-9A-Z-]+$/.test(ref)) el.textContent = ref; else el.hidden = true;
+    })();
+  </script>
+</BaseLayout>

@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Frame from '../components/Frame.astro';
+import ServiceRows from '../components/ServiceRows.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { services, serviceBySlug } from '../data/services';
+import { webPage, itemList } from '../lib/schema';
+import { titleCase } from '../lib/titleCase';
+
+const title = 'Print, Signage & Branding Services, Nairobi | Betapixel';
+const description = 'All printing and branding services at Betapixel Studios in Nairobi, organised by goal: launch a product, promote a business, brand an office or run an event.';
+
+const goals = [
+  { goal: 'Launch a product', body: 'Professional branding that captures attention and builds customer confidence on the shelf.', links: ['uv-dtf-stickers', 'packaging-labels', 'corporate-branding'], extra: 'Labels · boxes · sleeves · hang tags · product photography', for: 'Beauty brands, food and beverage makers, coffee brands, candle makers, startups' },
+  { goal: 'Promote my business', body: 'Marketing materials that reach more customers, online and in person.', links: ['commercial-printing', 'banners'], extra: 'Business cards · flyers · brochures · profiles · menus · roll-ups · banners', for: 'New businesses, restaurants, schools, NGOs, corporate teams' },
+  { goal: 'Build my brand', body: 'A consistent identity across offices, stationery, vehicles and staff.', links: ['corporate-branding', 'signage', 'custom-apparel'], extra: 'Office branding · signage · vehicle branding · stationery · uniforms', for: 'Offices, retail, hotels, banks, healthcare, government' },
+  { goal: 'Dress my team', body: 'Apparel that represents your brand with confidence.', links: ['custom-apparel'], extra: 'T-shirts · polos · hoodies · caps · workwear · jerseys. DTF, embroidery, screen, vinyl', for: 'Staff, events, schools, sports teams, clothing brands' },
+  { goal: 'Transform my workspace', body: 'An environment that inspires customers and employees.', links: ['corporate-branding', 'signage'], extra: 'Reception branding · wall graphics · frosted glass · wayfinding · safety signs', for: 'Offices, hospitals, schools, hotels, banks, NGOs' },
+  { goal: 'Impress my customers', body: 'Corporate gifts and merchandise that keep your brand visible every day.', links: ['corporate-gifts', 'uv-dtf-stickers'], extra: 'Bottles · flasks · mugs · notebooks · pens · gift sets · awards', for: 'Client appreciation, staff recognition, conferences, launches' },
+  { goal: 'Run an event', body: 'Venue, stage, attendees and take-home merchandise in one identity.', links: ['events-exhibitions', 'banners', 'corporate-gifts'], extra: 'Backdrops · media walls · expo stands · badges · delegate packs', for: 'Conferences, expos, launches, graduations, activations' },
+  { goal: 'Publish a book', body: 'From manuscript to printed book, with a publisher who has done it.', links: ['book-publishing'], extra: 'Typesetting · covers · ISBN guidance · short-run printing', for: 'Authors, churches, schools, organisations' },
+];
+const flagship = services[0];
+---
+<BaseLayout title={title} description={description} crumbs={[{ name: 'Home', path: '/' }, { name: 'Products & Services', path: '/services/' }]}
+  schema={[webPage(title, '/services/', description), itemList('Betapixel Studios services', services.map((s) => ({ name: s.name, url: `/${s.slug}/` })))]}>
+  <header class="page-hero pixel-motif">
+    <div class="wrap">
+      <p class="eyebrow">Products &amp; Services</p>
+      <h1 class="h1-body">Printing &amp; Branding Services in Nairobi</h1>
+      <p class="lead">Everything your brand needs, under one roof. Great brands are built on consistency. Every card, sign, package, label, uniform and gift shapes how customers see you. So instead of asking <em>“what do you need printed?”</em>, we ask <strong>what are you trying to achieve?</strong></p>
+    </div>
+  </header>
+
+  <section class="section--tight" aria-labelledby="goals" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="display" id="goals" data-split>I Want To…</h2>
+      <div class="goal-grid">
+        {goals.map((g) => (
+          <article class="goal">
+            <p class="goal__kicker">I want to</p>
+            <h3>{titleCase(g.goal)}</h3>
+            <p>{g.body}</p>
+            <p class="small">{g.extra}</p>
+            <p class="small"><strong>Perfect for:</strong> {g.for}</p>
+            <ul class="goal__links">{g.links.map((l) => <li><a href={`/${l}/`}>{serviceBySlug(l).name} →</a></li>)}</ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-dark" aria-labelledby="flagship">
+    <div class="wrap grid-2 grid-2--even" style="align-items:center">
+      <div>
+        <p class="eyebrow">Our flagship service</p>
+        <h2 class="display" id="flagship" data-split>UV DTF Stickers</h2>
+        <p class="lead">Kenya’s premium product-branding solution. Also known as magic stickers and 3D crystal labels, UV DTF transfers brand bottles, tumblers, cosmetics, glass, acrylic, wood, metal and electronics without the cost of direct printing, from half a metre of film (58 × 50 cm).</p>
+        <a class="btn btn--orange" href={`/${flagship.slug}/`}>Explore UV DTF Stickers</a>
+      </div>
+      <Frame artKey={flagship.art} view />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="all">
+    <div class="wrap">
+      <p class="eyebrow">All categories</p>
+      <h2 class="display" id="all" data-split>Every Service</h2>
+      <ServiceRows />
+      <p style="margin-top:28px">Also from Betapixel: <a href="/products/">Betapixel Products</a>, our own published colouring books. Not sure where your project fits? <a href="/request-a-quote/">Tell us what you are creating</a> and we will route it.</p>
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="why">
+    <div class="wrap">
+      <p class="eyebrow">Why Betapixel Studios</p>
+      <h2 class="display" id="why" data-split>Design That Works. Printing That Performs.</h2>
+      <ol class="process">
+        <li><h3>Complete Branding Partner</h3><p>Everything from one in-house team in Nairobi.</p></li>
+        <li><h3>Creative Expertise</h3><p>Designers who know how files behave in production.</p></li>
+        <li><h3>Premium Materials</h3><p>Carefully selected stocks, inks and substrates.</p></li>
+        <li><h3>Commercial Production</h3><p>Consistent results from one item to thousands.</p></li>
+        <li><h3>Nationwide Delivery</h3><p>Collect in Nairobi or deliver across Kenya.</p></li>
+      </ol>
+    </div>
+  </section>
+  <CtaBand title="Tell us about your project." text="Share your idea and we recommend the right materials, production method and branding solution, then send a tailored quotation." secondary={{ label: 'Book a consultation', href: '/request-a-quote/?service=corporate-branding' }} />
+</BaseLayout>

@@ -1,0 +1,40 @@
+---
+import { getImage } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { work, categories } from '../data/portfolio';
+import { art } from '../lib/art';
+import { imageGallery, videoObjects } from '../lib/schema';
+
+const title = 'Our Work: Printing & Branding Portfolio | Betapixel';
+const description = 'Printing and branding work by Betapixel Studios in Nairobi: UV DTF stickers, signage, banners, T-shirts, corporate gifts, menus and books. Filter by service.';
+const path = '/portfolio/';
+const src = (w: (typeof work)[number]) => w.photo ?? art[w.art!];
+const used = categories.filter((c) => work.some((w) => w.category === c.id));
+const imgs = await Promise.all(work.map((w) => getImage({ src: src(w), width: 1024, format: 'webp' })));
+const gallery = imageGallery('Betapixel Studios portfolio', path, work.map((w, i) => ({ url: imgs[i].src, name: w.title, caption: w.caption, width: imgs[i].attributes.width ?? 1024, height: imgs[i].attributes.height ?? 640 })));
+---
+<BaseLayout title={title} description={description} ogImage="/og/work-signage.jpg" crumbs={[{ name: 'Home', path: '/' }, { name: 'Portfolio', path }]} schema={[gallery, ...videoObjects(work)]}>
+  <header class="page-hero pixel-motif">
+    <div class="wrap">
+      <p class="eyebrow">Portfolio</p>
+      <h1 class="h1-body">Printing &amp; Branding Portfolio</h1>
+      <p class="lead">Designs we have created for businesses, schools, events and our own publishing, grouped by service. Each item lists the format, so you can brief a similar job precisely.</p>
+      <p class="small">Client designs are shown as product mockups; our published books are photographed.</p>
+    </div>
+  </header>
+  <section class="section--tight" aria-label="Portfolio items" style="padding-top:0">
+    <div class="wrap">
+      <ul class="filter" data-filter aria-label="Filter by category">
+        <li><button type="button" data-value="all" aria-pressed="true">All work</button></li>
+        {used.map((c) => <li><button type="button" data-value={c.id} aria-pressed="false">{c.name}</button></li>)}
+      </ul>
+      <p class="visually-hidden" aria-live="polite" data-filter-status></p>
+      <div class="card-grid">
+        {work.map((w) => <WorkCard w={w} />)}
+      </div>
+    </div>
+  </section>
+  <CtaBand title="Brief a similar job." text="Seen something close to what you need? Send us the reference and your quantity and we will quote it, or suggest a better method." />
+</BaseLayout>

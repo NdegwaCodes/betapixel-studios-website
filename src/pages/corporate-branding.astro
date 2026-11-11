@@ -1,0 +1,99 @@
+---
+import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Block from '../components/Block.astro';
+import OfferGrid, { type Offer } from '../components/OfferGrid.astro';
+
+const sectors: Offer[] = [
+  { title: 'Office branding', tag: 'Make your workspace feel like your brand', body: 'Reception logo signs, feature walls, frosted glass, window and wall graphics, directional and door signs, mission and values displays, timeline walls and meeting-room branding.' },
+  { title: 'Restaurant & café branding', tag: 'An experience before the first bite', body: 'Exterior signage, menu boards and printed menus, wall and window graphics, uniforms and aprons, takeaway packaging, food labels, stickers and paper bags.' },
+  { title: 'Hotel & hospitality', tag: 'Details guests remember', body: 'Exterior and reception signage, room numbers, wayfinding and safety signs, uniforms, menus, conference materials, branded amenities and vehicles.' },
+  { title: 'Schools & education', tag: 'One identity across the institution', body: 'Signage, classroom and safety signs, wall graphics, banners, certificates, prospectuses, magazines, staff apparel, sports jerseys and graduation materials.' },
+  { title: 'Retail stores', tag: 'A space customers recognise', body: 'Shopfronts, window graphics, wall branding, product and price displays, shopping bags, product labels, staff uniforms and counter branding.' },
+  { title: 'Healthcare', tag: 'Clear, professional, easy to navigate', body: 'Reception branding, department and directional signs, door and safety signs, frosted glass, staff identification and information displays.' },
+  { title: 'Real estate & property', tag: 'Visible before it is finished', body: 'Site hoarding, development and property boards, sales-office branding, brochures, floor plans, presentation folders, flags and vehicles.' },
+  { title: 'Construction & industrial', tag: 'Clear, practical, consistent', body: 'Site boards, safety signage, hoarding, reflective signs, vehicle and machinery identification, workwear, reflective jackets and hard-hat labels.' },
+  { title: 'Fleet branding', tag: 'Your vehicles are already moving', body: 'A standard layout system so cars, vans, pickups, trucks and motorcycles all read as one brand, from door logos to full wraps.' },
+  { title: 'Multi-branch rollouts', tag: 'One identity, many locations', body: 'Repeatable specifications for signage, interiors, uniforms, point-of-sale and stationery, so branch ten looks like branch one.' },
+  { title: 'NGOs & organisations', tag: 'Programmes and campaigns', body: 'Reports, training materials, banners, event displays, field-team apparel, vehicle graphics and merchandise within your brand guidelines.' },
+  { title: 'Startup branding package', tag: 'Start consistently', body: 'Logo application, business essentials, shop or office signage, staff apparel and launch marketing, adjusted to your business, not a one-size bundle.' },
+];
+
+const design: Offer[] = [
+  { title: 'Logos & brand identities', body: 'Logo in full colour, one colour and reversed; colour palette with CMYK, RGB, hex and Pantone references; typography and a short guideline document.' },
+  { title: 'Brand implementation', body: 'Already have a brand manual? We reproduce it faithfully across signage, print, apparel, packaging and vehicles.' },
+  { title: 'Print-ready artwork', body: 'Vectorising logos, preparing white layers for UV DTF, drawing cut contours and adapting flat logos for curved bottles.' },
+  { title: 'Company profiles & packaging', body: 'Multi-page layouts, labels, boxes and event graphics designed as one system, built for the production method from the first sketch.' },
+];
+---
+<ServiceLayout
+  slug="corporate-branding"
+  kicker="Corporate branding & graphic design · Nairobi"
+  h1="Corporate & Office Branding in Nairobi"
+  lead="One brand, every touchpoint. Betapixel Studios is a <strong>corporate branding and graphic design company in Nairobi</strong> that handles office and reception branding, signage, uniforms, stationery, fleet graphics, merchandise, packaging and multi-branch rollouts, designed and produced in-house, with one point of contact."
+  meta={['Design + production + installation', 'Works with your brand guidelines', 'Site assessments', 'Multi-branch rollouts']}
+  faqCats={['branding', 'ordering']}
+  related={['signage', 'custom-apparel', 'commercial-printing', 'events-exhibitions']}
+  cta={{ title: 'Stop managing five suppliers to build one brand.', text: 'From the sign outside to the uniform your team wears: one creative direction, one production partner, one consistent brand.', secondary: { label: 'Book a consultation', href: '/request-a-quote/?service=corporate-branding' } }}
+>
+  <section class="section" aria-labelledby="living-brand">
+    <div class="wrap grid-2">
+      <div>
+        <p class="eyebrow">From a logo to a living brand</p>
+        <h2 class="display" id="living-brand" data-split>Everything Should Look Like One Business</h2>
+      </div>
+      <div class="prose">
+        <p class="lead">Your customers do not experience your business in pieces. They see your sign, walk into your office, meet your team, receive your card, see your vehicles and take home your packaging.</p>
+        <p>A logo is only the beginning. The blue on your business card should not become a different blue on your signage. Your uniforms should not feel disconnected from your office. We translate your identity across physical spaces, print, merchandise, apparel, packaging and displays so everything feels intentional and unmistakably yours.</p>
+        <p>Instead of coordinating a printer, sign maker, uniform supplier, merchandise company and installer separately, you brief one team. Artwork changes reach everyone, colours match and deadlines align.</p>
+        <p>In practice a corporate branding project draws on every part of the studio: <a href="/signage/">signage, reception and vehicle branding</a>, <a href="/custom-apparel/">uniforms and corporate wear</a>, <a href="/commercial-printing/">business cards, letterheads and company profiles</a>, <a href="/corporate-gifts/">branded merchandise and gifts</a>, <a href="/packaging-labels/">packaging and labels</a> and <a href="/events-exhibitions/">event and exhibition displays</a>. Because it is all produced in-house, the same colour references and artwork files feed every item.</p>
+        <p><strong>Already have a brand manual?</strong> We work inside your guidelines (colours, logo usage, typography, layout principles and signage specifications) and translate the document into real-world applications. <strong>No complete brand system yet?</strong> Our design team develops the foundation first: logo refinement, colour system, typography, graphic elements and short guidelines, so everything produced afterwards is consistent from day one.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-paper-2" aria-labelledby="sectors">
+    <div class="wrap">
+      <p class="eyebrow">Branding by business type</p>
+      <h2 class="display" id="sectors" data-split>Built Around How Your Business Works</h2>
+      <OfferGrid items={sectors} />
+    </div>
+  </section>
+
+  <section class="section on-dark pixel-motif" aria-labelledby="design">
+    <div class="wrap">
+      <p class="eyebrow">Graphic design</p>
+      <h2 class="display" id="design" data-split>Design by a Team That Also Prints</h2>
+      <p class="lead" style="max-width:64ch">A design that looks right on screen can fail in print: neon screen colours that ink cannot reach, hairlines that vanish on fabric, soft shadows that turn to smudges. We design in CMYK from the start and deliver editable source files plus print- and web-ready versions.</p>
+      <OfferGrid items={design} columns={2} />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="cb-process">
+    <div class="wrap">
+      <p class="eyebrow">Our corporate branding process</p>
+      <h2 class="display" id="cb-process" data-split>One Project, One Point of Contact</h2>
+      <ol class="process">
+        <li><h3>Discovery</h3><p>Business, locations, audience, objectives and scope.</p></li>
+        <li><h3>Site Assessment</h3><p>Measurements and surfaces checked where needed.</p></li>
+        <li><h3>Creative Direction</h3><p>How the brand translates across every application.</p></li>
+        <li><h3>Proposal</h3><p>A defined scope and itemised quotation.</p></li>
+        <li><h3>Artwork &amp; Mock-Ups</h3><p>Key applications prepared for approval.</p></li>
+        <li><h3>Production</h3><p>Everything produced in-house.</p></li>
+        <li><h3>Installation</h3><p>Signage and graphics installed; items delivered.</p></li>
+        <li><h3>Quality Check</h3><p>Consistency reviewed across the finished project.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <Block id="brief" title="What a good design brief contains" eyebrow="Briefing" tone="paper-2">
+    <ol>
+      <li><strong>What is it, and where will it be used?</strong> A logo for bottles, shirts and a shop sign has different constraints from one that lives only on Instagram.</li>
+      <li><strong>Who is it for?</strong> Describe the people you want to reach rather than the look you imagine.</li>
+      <li><strong>What must it include?</strong> Final wording, contact details, mandatory logos and regulatory text.</li>
+      <li><strong>What do you like and dislike?</strong> Two or three examples you admire, and one you do not.</li>
+      <li><strong>What already exists?</strong> Logo files, colours, fonts and past printed material.</li>
+      <li><strong>When, and how many?</strong> The deadline, quantity and material, so we design for the process.</li>
+    </ol>
+    <p>Prefer to talk it through? A 20-minute call covers it, and we confirm the brief in writing with the quotation. Related reading: <a href="/knowledge-centre/artwork-file-requirements-for-printing/">artwork file requirements for printing</a>.</p>
+  </Block>
+</ServiceLayout>

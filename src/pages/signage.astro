@@ -1,0 +1,86 @@
+---
+import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Block from '../components/Block.astro';
+import OfferGrid, { type Offer } from '../components/OfferGrid.astro';
+
+const signs: Offer[] = [
+  { title: 'Shop signage', tag: 'Your silent salesperson', body: 'Working every hour to attract customers and make your business easy to find. Made to suit your frontage, location and budget.', options: ['ACP signboards', 'Aluminium signboards', 'Acrylic signs', 'LED illuminated signs', 'Double-sided', 'Wall-mounted', 'Hanging', 'Fascia signs'], ideal: ['Retail', 'Restaurants', 'Pharmacies', 'Salons', 'Supermarkets', 'Offices'] },
+  { title: '3D letter signage', tag: 'Premium signs for premium brands', body: 'Precision-cut dimensional lettering for receptions, buildings and malls, raised off the wall so the shadow gives depth.', optionsLabel: 'Materials', options: ['Acrylic', 'Stainless steel', 'Brushed aluminium', 'Mirror finish', 'PVC', 'LED illuminated'] },
+  { title: 'Illuminated signs', tag: 'Seen after dark', body: 'Backlit 3D letters with a halo glow, front-lit letters and LED logo signs that keep the brand readable in the evening, when restaurants, lounges and pharmacies are busiest.', options: ['Halo backlit', 'Front-lit', 'LED logo discs', 'Edge-lit acrylic'] },
+  { title: 'Reception branding', tag: 'Welcome clients with confidence', body: 'Your reception introduces the business before anyone speaks.', options: ['3D logo installation', 'Acrylic reception signs', 'Illuminated logos', 'Feature walls', 'Branded counters', 'Directional graphics'] },
+  { title: 'Office branding', tag: 'Your workspace as a marketing tool', body: 'Wall graphics, glass branding, frosted vinyl, timelines, mission and vision displays and meeting-room graphics.', ideal: ['Corporate offices', 'Banks', 'NGOs', 'Schools', 'Hospitals', 'Government'] },
+  { title: 'Window graphics', tag: 'Put every window to work', body: 'Privacy and promotion at the same time. Tell us which side of the glass the graphic goes on.', options: ['One-way vision', 'Frosted vinyl', 'Promotional graphics', 'Opening hours', 'Logo graphics', 'Decorative'] },
+  { title: 'Customised mirrors', tag: 'Branding people photograph', body: 'Selfie mirrors printed as a social media post frame, and frosted-effect designs on mirrors and glass fronts, for restaurants, salons, boutiques and events.', options: ['Selfie mirrors on easels', 'Frosted designs on glass', 'Mirror graphics', 'Logo and handle print'] },
+  { title: 'Wall graphics & wallpaper', tag: 'Empty walls tell no story', body: 'Printed wallpaper, vinyl graphics, brand-story walls, quotes and educational graphics for receptions, hallways, restaurants, gyms and classrooms.' },
+  { title: 'Vehicle branding', tag: 'Turn every journey into advertising', body: 'Cars, pickups, vans, trucks, buses, motorcycles and whole fleets, with one layout system so every vehicle looks like the same brand.', options: ['Full wraps', 'Partial wraps', 'Door logos', 'Rear window graphics', 'Reflective branding', 'Fleet graphics'] },
+  { title: 'Lightboxes', tag: 'Visibility day and night', body: 'LED-illuminated lightboxes printed on backlit film with extra ink density so colour survives the light behind it.' },
+  { title: 'Directional & safety signage', tag: 'Help people find their way', body: 'Door signs, floor directories, parking and wayfinding systems, plus fire, PPE, emergency-exit, hazard and first-aid signs for sites, factories, hospitals and schools.' },
+];
+---
+<ServiceLayout
+  slug="signage"
+  kicker="Signage · Nairobi"
+  h1="Shop Signs & Signage in Nairobi"
+  lead="Make your business impossible to miss. Betapixel Studios designs, manufactures and <strong>installs</strong> shop signs, 3D and illuminated letters, acrylic and ACP signboards, reception and office branding, window graphics, lightboxes, vehicle wraps and customised mirrors, all in-house in Nairobi, from a single storefront to multi-branch rollouts across Kenya."
+  meta={['Design, production & installation', 'Site visits where needed', 'Indoor & outdoor materials', 'Nationwide projects']}
+  faqCats={['signage', 'turnaround']}
+  related={['corporate-branding', 'banners', 'events-exhibitions', 'commercial-printing']}
+  cta={{ title: 'Visibility builds trust.', text: 'Opening a shop, refreshing an office or branding a fleet? Share the location, rough sizes and a photo, and we will advise on materials and whether a site visit is needed.', secondary: { label: 'Book a site visit', href: '/request-a-quote/?service=signage' } }}
+>
+  <section class="section" aria-labelledby="signage-range">
+    <div class="wrap">
+      <p class="eyebrow">Our signage services</p>
+      <h2 class="display" id="signage-range" data-split>Every Business Is Seen Before It Is Remembered</h2>
+      <p class="lead" style="max-width:62ch">Someone drives past your storefront, walks into your office or follows your van through traffic. Each of those moments shapes how they see your business, long before they speak to anyone.</p>
+      <OfferGrid items={signs} />
+    </div>
+  </section>
+
+  <Block id="choosing" title="Choosing the right sign" eyebrow="Advice">
+    <p><strong>Start with distance and light.</strong> A sign read from across a busy road needs large, simple lettering and strong contrast; a reception sign read from three metres can carry finer detail. If customers mostly arrive after dark, an illuminated or halo-lit sign earns its cost quickly.</p>
+    <p><strong>Match the material to how long it must last.</strong> Quality ACP and aluminium fascias and laminated vinyl last several years outdoors; acrylic and 3D letters give a premium finish indoors and under cover. We explain the trade-off between price and lifespan before you commit.</p>
+    <p><strong>Keep one system across every location.</strong> Branches, vehicles and offices should share the same logo placement, colours and lettering, so customers recognise you anywhere. Our <a href="/corporate-branding/">corporate branding</a> team builds that system, and our <a href="/banners/">media banners and roll-ups</a> carry it to events and promotions.</p>
+  </Block>
+
+  <Block id="materials" title="Materials, and where to use them" eyebrow="Specifications" tone="paper-2">
+    <dl class="spec-list">
+      <div><dt>ACP &amp; aluminium</dt><dd>Durable outdoor shop fascias and signboards; flat, rigid and weather-resistant</dd></div>
+      <div><dt>Acrylic</dt><dd>Reception signs, 3D letters, LED logo discs and premium indoor signage with a polished edge</dd></div>
+      <div><dt>Stainless steel &amp; brushed aluminium</dt><dd>3D letters for corporate buildings and receptions that need a metal finish</dd></div>
+      <div><dt>Backlit film</dt><dd>Lightboxes; denser ink so colours hold up with light behind them</dd></div>
+      <div><dt>Self-adhesive &amp; cast vinyl</dt><dd>Walls, windows, floors (with anti-slip laminate) and vehicle wraps that follow curves</dd></div>
+      <div><dt>One-way vision</dt><dd>Graphics outside, clear view from inside, for shop windows and vehicle rear windows</dd></div>
+      <div><dt>Frosted vinyl</dt><dd>Privacy bands and decorative designs on glass partitions, doors and mirrors</dd></div>
+    </dl>
+    <p>We recommend materials to match how long you need the sign to work and where it hangs: direct Nairobi sun, rain and dust are hard on cheap substrates, so outdoor signs get UV-resistant inks and laminates.</p>
+  </Block>
+
+  <Block id="planning" title="Planning an outdoor sign" eyebrow="Before you order">
+    <ul>
+      <li><strong>Measure the space</strong> and photograph the frontage straight on; we design on that photo so you see the sign in place before it is made.</li>
+      <li><strong>Check permissions:</strong> landlords and malls often have signage rules, and outdoor advertising can need county approval. Ask early; we can prepare drawings for the application.</li>
+      <li><strong>Plan the power</strong> for illuminated signs: where the cable runs and whether a timer is wanted.</li>
+      <li><strong>Think about access:</strong> height, scaffolding and working hours affect installation, so we visit when the details matter.</li>
+    </ul>
+    <p>Decorating a restaurant, salon or event space? Read our guide to <a href="/knowledge-centre/customised-mirror-designs/">customised mirror designs</a>, and see <a href="/events-exhibitions/">event and exhibition branding</a> for stands and stages.</p>
+  </Block>
+
+  <section class="section on-paper-2" aria-labelledby="signage-process">
+    <div class="wrap">
+      <p class="eyebrow">Our process</p>
+      <h2 class="display" id="signage-process" data-split>Survey to Installation</h2>
+      <ol class="process">
+        <li><h3>Site Consultation</h3><p>We understand the location, sightlines and objectives, visiting where measurements matter.</p></li>
+        <li><h3>Design</h3><p>Layouts and mock-ups on photos of your actual frontage, office or vehicle.</p></li>
+        <li><h3>Production</h3><p>Cut, printed and fabricated in-house with materials matched to the environment.</p></li>
+        <li><h3>Installation</h3><p>Fitted by our own team, safely, level and with power connected for lit signs.</p></li>
+        <li><h3>Quality Check</h3><p>Inspected on site before handover, day and night for illuminated work.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <Block id="care" title="Looking after your signage" eyebrow="Care">
+    <p>Wipe acrylic and 3D letters with a soft damp cloth; avoid solvents and scouring pads. Wash vehicle graphics by hand or with a soft brush rather than a pressure washer aimed at the edges. For illuminated signs, tell us if a section dims; LED modules can be replaced without rebuilding the sign.</p>
+    <p>Signage works best alongside the rest of your brand: printed <a href="/commercial-printing/">menus, flyers and brochures</a>, branded <a href="/custom-apparel/">staff uniforms</a> and <a href="/packaging-labels/">packaging and labels</a> that match what customers see on the wall.</p>
+  </Block>
+</ServiceLayout>

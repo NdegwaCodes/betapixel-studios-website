@@ -1,0 +1,81 @@
+---
+import Icon from './Icon.astro';
+import { services } from '../data/services';
+import { heroSources, heroMobileSources, HERO_SIZES, MOBILE_MEDIA } from '../lib/hero';
+import { site, whatsappUrl } from '../data/site';
+import { heroImage, heroMobile } from '../data/work';
+
+const SLIDE_ORDER = ['uv-dtf-stickers', 'packaging-labels', 'commercial-printing', 'corporate-branding', 'corporate-gifts', 'custom-apparel', 'banners', 'events-exhibitions', 'book-publishing', 'signage'];
+const rank = (slug: string) => (SLIDE_ORDER.includes(slug) ? SLIDE_ORDER.indexOf(slug) : SLIDE_ORDER.length);
+const ordered = [...services].sort((a, b) => rank(a.slug) - rank(b.slug));
+const slides = await Promise.all(ordered.map(async (s) => ({
+  s, alt: heroImage[s.slug].alt, img: await heroSources(heroImage[s.slug].src),
+  mobile: heroMobile[s.slug] ? await heroMobileSources(heroMobile[s.slug].src) : null,
+})));
+const total = String(slides.length).padStart(2, '0');
+---
+<section class="hero on-dark" aria-labelledby="hero-title" data-hero>
+  <div class="hero__slides" aria-roledescription="carousel" aria-label="Betapixel services" id="hero-carousel">
+    {slides.map(({ s, alt, img, mobile }, i) => (
+      <div class:list={['hero__slide', i === 0 && 'is-active']} role="group" aria-roledescription="slide"
+        aria-label={`${i + 1} of ${slides.length}: ${s.slide}`} data-slide={i}>
+        <div class="hero__media">
+          <picture>
+            {mobile && <source media={MOBILE_MEDIA} type="image/avif" srcset={mobile.avif} sizes={HERO_SIZES} />}
+            {mobile && <source media={MOBILE_MEDIA} type="image/webp" srcset={mobile.webp} sizes={HERO_SIZES} />}
+            <source type="image/avif" srcset={img.avif} sizes={HERO_SIZES} />
+            <source type="image/webp" srcset={img.webp} sizes={HERO_SIZES} />
+            <img src={img.fallback} alt={alt} width={img.width} height={img.height} data-portrait={mobile ? '' : undefined}
+              loading={i === 0 ? 'eager' : 'lazy'} decoding={i === 0 ? 'sync' : 'async'}
+              fetchpriority={i === 0 ? 'high' : 'low'} />
+          </picture>
+        </div>
+        <div class="hero__slide-copy">
+          <div class="wrap">
+            <a class="hero__slide-link" href={`/${s.slug}/`}>
+              <span class="mask"><span class="hero__slide-title">{s.slide}</span></span>
+              <span class="mask"><span class="hero__slide-line">{s.line}</span></span>
+              <span class="mask"><span class="hero__slide-cta">{s.name} <Icon name="arrow" class="icon-16" /></span></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="hero__static">
+    <div class="wrap">
+      <h1 class="display" id="hero-title"><span class="h1-kicker">Printing &amp; Branding Company in Nairobi</span>Build a Brand People Remember.</h1>
+      <p><strong>Premium printing. Creative branding. Endless possibilities.</strong> Betapixel Studios is a printing and branding company in Nairobi, founded in {site.foundingYear}, specialising in UV DTF stickers, also known as magic stickers and 3D crystal labels.</p>
+      <div class="btn-row">
+        <a class="btn btn--orange" href="/request-a-quote/">Request a Quote</a>
+        <a class="btn btn--light" href="/services/">Explore Our Services</a>
+        <a class="btn btn--wa hero__wa" href={whatsappUrl()} data-wa rel="noopener" target="_blank" aria-label="Chat on WhatsApp"><Icon name="whatsapp" /></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__controls">
+    <div class="wrap">
+      <span class="hero__index" aria-hidden="true"><span data-hero-current>01</span> / {total}</span>
+      <div class="hero__dots" role="group" aria-label="Choose slide">
+        {slides.map(({ s }, i) => (
+          <button class="hero__dot" type="button" data-goto={i} aria-controls="hero-carousel"
+            aria-current={i === 0 ? 'true' : 'false'}><span class="visually-hidden">Slide {i + 1}: {s.slide}</span></button>
+        ))}
+      </div>
+      <div class="hero__buttons">
+        <button class="hero__btn" type="button" data-hero-toggle aria-label="Pause slideshow"><Icon name="pause" class="i-pause" /><Icon name="play" class="i-play" /></button>
+        <button class="hero__btn" type="button" data-hero-prev aria-controls="hero-carousel" aria-label="Previous slide"><Icon name="arrow-left" /></button>
+        <button class="hero__btn" type="button" data-hero-next aria-controls="hero-carousel" aria-label="Next slide"><Icon name="arrow" /></button>
+      </div>
+    </div>
+  </div>
+  <div class="hero__progress" aria-hidden="true"><i data-hero-progress></i></div>
+  <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-hero-live></p>
+</section>
+
+<script>
+  import { initHero } from '../scripts/hero';
+  initHero();
+</script>

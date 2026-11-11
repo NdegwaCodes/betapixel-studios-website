@@ -1,0 +1,28 @@
+---
+import { titleCase } from '../lib/titleCase';
+export interface Offer { title: string; tag?: string; body: string; options?: string[]; optionsLabel?: string; ideal?: string[]; id?: string }
+interface Props { items: Offer[]; columns?: 2 | 3 }
+const { items, columns = 3 } = Astro.props;
+const slug = (t: string) => t.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+---
+<div class:list={['offer-grid', columns === 2 && 'offer-grid--2']}>
+  {items.map((o) => (
+    <article class="offer" id={o.id ?? slug(o.title)}>
+      <h3>{titleCase(o.title)}</h3>
+      {o.tag && <p class="offer__tag">{o.tag}</p>}
+      <p>{o.body}</p>
+      {o.options && (
+        <>
+          <p class="offer__label">{o.optionsLabel ?? 'Options'}</p>
+          <ul class="chip-list chip-list--sm">{o.options.map((x) => <li>{x}</li>)}</ul>
+        </>
+      )}
+      {o.ideal && (
+        <>
+          <p class="offer__label">Ideal for</p>
+          <p class="offer__ideal">{o.ideal.join(' · ')}</p>
+        </>
+      )}
+    </article>
+  ))}
+</div>

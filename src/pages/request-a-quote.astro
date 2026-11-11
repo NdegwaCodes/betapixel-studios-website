@@ -1,0 +1,266 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { site, whatsappUrl } from '../data/site';
+import { webPage } from '../lib/schema';
+
+const title = 'Request a Printing Quote in Nairobi | Betapixel';
+const description = 'Request a printing or branding quote from Betapixel Studios in Nairobi. Share the product, quantity, size and deadline, upload artwork, get a quick reply.';
+
+const serviceOptions = [
+  { value: 'UV DTF Stickers', cond: 'uv', slug: 'uv-dtf-stickers', hint: 'Magic stickers / 3D crystal labels' },
+  { value: 'Commercial Printing', cond: 'print', slug: 'commercial-printing' },
+  { value: 'Signage', cond: 'signage', slug: 'signage' },
+  { value: 'Media Banners & Roll-Ups', cond: 'banners', slug: 'banners' },
+  { value: 'Custom Apparel & Corporate Wear', cond: 'apparel', slug: 'custom-apparel' },
+  { value: 'Promotional Merchandise & Corporate Gifts', cond: 'gifts', slug: 'corporate-gifts' },
+  { value: 'Packaging & Product Labels', cond: 'packaging', slug: 'packaging-labels' },
+  { value: 'Corporate Branding', cond: 'branding', slug: 'corporate-branding' },
+  { value: 'Events & Exhibitions', cond: 'events', slug: 'events-exhibitions' },
+  { value: 'Book Publishing', cond: 'books', slug: 'book-publishing' },
+  { value: 'Graphic Design', cond: 'branding', slug: 'graphic-design' },
+  { value: "I'm not sure yet", cond: '', slug: 'unsure' },
+];
+const steps = ['Project', 'Details', 'Artwork', 'Delivery', 'Contact'];
+---
+<BaseLayout title={title} description={description} crumbs={[{ name: 'Home', path: '/' }, { name: 'Request a Quote', path: '/request-a-quote/' }]}
+  schema={[{ ...webPage(title, '/request-a-quote/', description), potentialAction: { '@type': 'QuoteAction', target: `${site.url}/request-a-quote/` } }]}>
+  <header class="page-hero" style="padding-bottom:40px">
+    <div class="wrap">
+      <p class="eyebrow">Request a Quote</p>
+      <h1 class="h1-body">Tell Us What You’re Creating.</h1>
+      <p class="lead">You do not need the technical printing terms. Tell us what you want to make, share the details you already have, and we will help with the rest, whether it is a few UV DTF stickers, 500 branded T-shirts, a new shop sign or an entire corporate branding project.</p>
+    </div>
+  </header>
+
+  <section class="section--tight" style="padding-top:0" aria-label="Quote form">
+    <div class="wrap quote-shell">
+      <div class="quote-card">
+        <ol class="stepper" data-stepper aria-hidden="true" hidden>{steps.map((s) => <li><span>{s}</span></li>)}</ol>
+        <form method="POST" action="/api/enquiry/" enctype="multipart/form-data" data-quote novalidate>
+          <input type="hidden" name="form_type" value="quote" />
+          <input type="hidden" name="started" value="" data-started />
+          <input type="hidden" name="page" value="/request-a-quote/" />
+          <p class="hp"><label>Leave this empty <input name="company-website" tabindex="-1" autocomplete="off" /></label></p>
+
+          <fieldset class="qstep" data-step="0" style="border:0;padding:0;margin:0 0 28px;min-width:0">
+            <h2>What Can We Help You With?</h2>
+            <p class="small">Select one or more. The next questions adapt to your choice.</p>
+            <div class="choice-grid" role="group" aria-label="Services">
+              {serviceOptions.map((s) => (
+                <label class="choice"><input type="checkbox" name="services[]" value={s.value} data-cond={s.cond} data-slug={s.slug} /><span>{s.value}{s.hint && <><br /><span class="small" style="font-weight:400">{s.hint}</span></>}</span></label>
+              ))}
+            </div>
+            <p class="field-error" data-err="services" hidden>Please choose at least one option.</p>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="1" style="border:0;padding:0;margin:0 0 28px;min-width:0">
+            <h2>Tell Us About the Project</h2>
+            <p class="small">The more context you give, the better we can recommend the right solution.</p>
+            <div class="field"><label for="q-project">Project / product</label><input id="q-project" name="project" placeholder="e.g. 500 product labels, 20 branded polos, reception sign, UV DTF transfers" required /></div>
+            <div class="field-row" style="margin-top:16px">
+              <div class="field"><label for="q-qty">Quantity</label><input id="q-qty" name="quantity" inputmode="numeric" placeholder="e.g. 200" /></div>
+              <div class="field"><label for="q-size">Dimensions / size <span class="hint">(if known)</span></label><input id="q-size" name="size" placeholder="e.g. A5, 85 × 200 cm" /></div>
+            </div>
+            <label class="choice" style="margin-top:10px;min-height:44px;font-weight:400"><input type="checkbox" name="quantity_help" value="Yes" />I need help determining quantity</label>
+
+            <div class="cond" data-cond-block="uv">
+              <p class="cond__title">UV DTF stickers</p>
+              <div class="field-row">
+                <div class="field"><label for="q-uvsize">Transfer size (width × height)</label><input id="q-uvsize" name="uv_size" placeholder="e.g. 80 × 40 mm" /></div>
+                <div class="field"><label for="q-uvqty">Quantity / number of sheets</label><input id="q-uvqty" name="uv_qty" /></div>
+              </div>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Surface you’ll apply it to</legend>
+                {['Glass', 'Plastic', 'Metal', 'Acrylic', 'Ceramic', 'Wood', 'Other'].map((o) => <label class="choice"><input type="radio" name="uv_surface" value={o} />{o}</label>)}
+              </fieldset>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Should we apply the transfers?</legend>
+                {['Yes, apply them', 'No, I will apply', 'Not sure'].map((o) => <label class="choice"><input type="radio" name="uv_apply" value={o} />{o}</label>)}
+              </fieldset>
+            </div>
+
+            <div class="cond" data-cond-block="print">
+              <p class="cond__title">Commercial printing</p>
+              <div class="field-row">
+                <div class="field"><label for="q-pp">Product</label><select id="q-pp" name="print_product"><option value="">Choose…</option>{['Business cards', 'Flyers', 'Brochures', 'Booklets', 'Posters', 'Company profiles', 'Menus', 'Certificates', 'Calendars', 'NCR books', 'Stationery', 'Other'].map((o) => <option>{o}</option>)}</select></div>
+                <div class="field"><label for="q-ps">Finished size</label><input id="q-ps" name="print_size" placeholder="e.g. A5" /></div>
+              </div>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Sides</legend>{['Single-sided', 'Double-sided'].map((o) => <label class="choice"><input type="radio" name="print_sides" value={o} />{o}</label>)}</fieldset>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Finishing</legend>{['Lamination', 'Folding', 'Binding', 'Foiling', 'Other', 'Not sure'].map((o) => <label class="choice"><input type="checkbox" name="print_finish[]" value={o} />{o}</label>)}</fieldset>
+            </div>
+
+            <div class="cond" data-cond-block="signage">
+              <p class="cond__title">Signage</p>
+              <div class="field-row">
+                <div class="field"><label for="q-st">Type of sign</label><input id="q-st" name="sign_type" placeholder="e.g. shop fascia, 3D letters, vehicle wrap, window graphics" /></div>
+                <div class="field"><label for="q-sd">Approximate dimensions</label><input id="q-sd" name="sign_dims" /></div>
+              </div>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Indoor or outdoor?</legend>{['Indoor', 'Outdoor', 'Both'].map((o) => <label class="choice"><input type="radio" name="sign_env" value={o} />{o}</label>)}</fieldset>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Do you need installation?</legend>{['Yes', 'No', 'Not sure'].map((o) => <label class="choice"><input type="radio" name="sign_install" value={o} />{o}</label>)}</fieldset>
+              <div class="field"><label for="q-sl">Where will it be installed?</label><input id="q-sl" name="sign_location" placeholder="Area / building, which helps us decide if a site visit is needed" /></div>
+            </div>
+
+            <div class="cond" data-cond-block="banners">
+              <p class="cond__title">Banners</p>
+              <div class="field-row">
+                <div class="field"><label for="q-bt">Banner type</label><select id="q-bt" name="banner_type"><option value="">Choose…</option>{['Media / backdrop banner', 'Broad-base roll-up banner', 'Narrow-base roll-up banner', 'X-banner', 'PVC banner', 'Backlit banner', 'Teardrop or feather flag', 'Not sure'].map((o) => <option>{o}</option>)}</select></div>
+                <div class="field"><label for="q-bsz">Size</label><select id="q-bsz" name="banner_size"><option value="">Choose…</option>{['2.25 m × 2.25 m', '3 m × 2.25 m', '6 m × 2.25 m', '85 × 200 cm roll-up', 'Other size'].map((o) => <option>{o}</option>)}</select></div>
+              </div>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Indoor or outdoor?</legend>{['Indoor', 'Outdoor', 'Both'].map((o) => <label class="choice"><input type="radio" name="banner_env" value={o} />{o}</label>)}</fieldset>
+            </div>
+
+            <div class="cond" data-cond-block="apparel">
+              <p class="cond__title">Apparel</p>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Garments <span class="hint">(choose all you need, e.g. a full uniform package)</span></legend>{['T-shirt', 'Polo', 'Hoodie', 'Cap', 'Corporate shirt', 'Workwear', 'Jersey', 'Apron', 'Other'].map((o) => <label class="choice"><input type="checkbox" name="garment[]" value={o} />{o}</label>)}</fieldset>
+              <div class="field"><label for="q-gq">Quantity of each item <span class="hint">(optional)</span></label><input id="q-gq" name="garment_qty" placeholder="e.g. 50 T-shirts, 20 polos, 10 caps" /></div>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Do you already have the garments?</legend>{['Yes', 'No'].map((o) => <label class="choice"><input type="radio" name="garments_own" value={o} />{o}</label>)}</fieldset>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Branding placement</legend>{['Front', 'Back', 'Sleeve', 'Chest', 'Multiple areas'].map((o) => <label class="choice"><input type="checkbox" name="placement[]" value={o} />{o}</label>)}</fieldset>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Preferred method</legend>{['DTF', 'Embroidery', 'Screen printing', 'Not sure'].map((o) => <label class="choice"><input type="radio" name="method" value={o} />{o}</label>)}</fieldset>
+            </div>
+
+            <div class="cond" data-cond-block="packaging">
+              <p class="cond__title">Packaging &amp; labels</p>
+              <div class="field-row">
+                <div class="field"><label for="q-pk">What product are you packaging?</label><input id="q-pk" name="pack_product" /></div>
+                <div class="field"><label for="q-pt">Packaging / label type</label><input id="q-pt" name="pack_type" placeholder="e.g. jar label, box, hang tag" /></div>
+              </div>
+              <div class="field"><label for="q-pd">Dimensions</label><input id="q-pd" name="pack_dims" /></div>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Water, refrigeration or frequent handling?</legend>{['Yes', 'No', 'Not sure'].map((o) => <label class="choice"><input type="radio" name="pack_env" value={o} />{o}</label>)}</fieldset>
+            </div>
+
+            <div class="cond" data-cond-block="gifts">
+              <p class="cond__title">Corporate gifts</p>
+              <div class="field-row">
+                <div class="field"><label for="q-r">Number of recipients</label><input id="q-r" name="recipients" inputmode="numeric" /></div>
+                <div class="field"><label for="q-b">Approximate budget per person (KSh)</label><input id="q-b" name="budget_pp" inputmode="numeric" /></div>
+              </div>
+              <div class="field"><label for="q-o">Occasion</label><select id="q-o" name="occasion"><option value="">Choose…</option>{['Client gift', 'Employee gift', 'Conference', 'Event', 'Onboarding', 'Festive gift', 'Other'].map((o) => <option>{o}</option>)}</select></div>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Would you like us to recommend products?</legend>{['Yes', 'No'].map((o) => <label class="choice"><input type="radio" name="recommend" value={o} />{o}</label>)}</fieldset>
+            </div>
+
+            <div class="cond" data-cond-block="branding">
+              <p class="cond__title">Corporate branding &amp; design</p>
+              <div class="field"><label for="q-bw">What are you branding?</label><select id="q-bw" name="branding_what"><option value="">Choose…</option>{['Office', 'Shop', 'Restaurant', 'School', 'Hotel', 'Fleet', 'Multiple locations', 'Logo / brand identity', 'Other'].map((o) => <option>{o}</option>)}</select></div>
+              <fieldset class="choice-grid choice-grid--inline"><legend>Would you like a consultation / site assessment?</legend>{['Yes', 'No', 'Not sure'].map((o) => <label class="choice"><input type="radio" name="consult" value={o} />{o}</label>)}</fieldset>
+            </div>
+
+            <div class="cond" data-cond-block="events">
+              <p class="cond__title">Events &amp; exhibitions</p>
+              <div class="field-row">
+                <div class="field"><label for="q-et">Type of event</label><input id="q-et" name="event_type" placeholder="e.g. conference, expo, launch, graduation" /></div>
+                <div class="field"><label for="q-at">Expected attendance</label><input id="q-at" name="attendance" inputmode="numeric" /></div>
+              </div>
+              <div class="field"><label for="q-v">Venue</label><input id="q-v" name="venue" /></div>
+            </div>
+
+            <div class="cond" data-cond-block="books">
+              <p class="cond__title">Book publishing</p>
+              <div class="field-row">
+                <div class="field"><label for="q-bs">Manuscript stage</label><select id="q-bs" name="book_stage"><option value="">Choose…</option>{['Edited manuscript ready', 'Needs typesetting', 'Needs cover design', 'Print-ready files', 'Still writing'].map((o) => <option>{o}</option>)}</select></div>
+                <div class="field"><label for="q-bz">Trim size</label><input id="q-bz" name="book_size" placeholder="e.g. A5, 14 × 21 cm" /></div>
+              </div>
+              <div class="field"><label for="q-c">Number of copies</label><input id="q-c" name="copies" inputmode="numeric" /></div>
+            </div>
+
+            <div class="field" style="margin-top:16px"><label for="q-desc">Tell us more</label><textarea id="q-desc" name="description" placeholder="Describe what you are trying to create: materials, colours, where it will be used, anything you are unsure about."></textarea></div>
+            <p class="field-error" data-err="project" hidden>Please describe the project or product.</p>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="2" style="border:0;padding:0;margin:0 0 28px;min-width:0">
+            <h2>Already Have Your Design?</h2>
+            <p class="small">Upload artwork or references (up to 4 MB in total), or paste a link for larger files.</p>
+            <div class="choice-grid" role="radiogroup" aria-label="Artwork status">
+              {['Artwork is print-ready', "I have artwork but I'm not sure it's print-ready", 'I only have my logo', 'I need Betapixel to design it', "I'm still developing the idea"].map((o) => <label class="choice"><input type="radio" name="artwork_status" value={o} />{o}</label>)}
+            </div>
+            <div class="dropzone" data-dropzone style="margin-top:12px">
+              <input type="file" name="files[]" multiple accept=".ai,.pdf,.eps,.svg,.psd,.png,.jpg,.jpeg,.tif,.tiff,.zip" aria-label="Upload files" data-files />
+              <strong>Drag &amp; drop files here</strong><span class="small">or tap to browse · AI · PDF · EPS · SVG · PSD · PNG · JPG · ZIP</span>
+              <ul class="dropzone__list" data-file-list></ul>
+            </div>
+            <p class="field-error" data-err="files" hidden></p>
+            <div class="field" style="margin-top:16px"><label for="q-link">Or share a link <span class="hint">(Google Drive, WeTransfer, Dropbox)</span></label><input id="q-link" name="artwork_link" type="url" placeholder="https://" /></div>
+            <div class="field" style="margin-top:16px"><label for="q-an">Additional instructions</label><textarea id="q-an" name="artwork_notes" style="min-height:100px"></textarea></div>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="3" style="border:0;padding:0;margin:0 0 28px;min-width:0">
+            <h2>When and Where?</h2>
+            <p class="small">Tell us the date you need the items, not just the event date.</p>
+            <div class="field-row">
+              <div class="field"><label for="q-date">Required date</label><input id="q-date" name="required_date" type="date" /></div>
+              <fieldset class="choice-grid choice-grid--inline" style="margin:0"><legend>Is this date flexible?</legend>{['Yes', 'No'].map((o) => <label class="choice"><input type="radio" name="date_flexible" value={o} />{o}</label>)}</fieldset>
+            </div>
+            <fieldset class="choice-grid choice-grid--inline" style="margin-top:12px"><legend>Is this for an event?</legend>{['No', 'Yes'].map((o) => <label class="choice"><input type="radio" name="for_event" value={o} data-event-toggle={o === 'Yes' ? '' : undefined} />{o}</label>)}</fieldset>
+            <div class="field" data-event-date><label for="q-ed">Event date</label><input id="q-ed" name="event_date" type="date" /></div>
+            <fieldset class="choice-grid" style="margin-top:16px"><legend>How would you like to receive your order?</legend>
+              {['Collect from Betapixel Studios', 'Delivery within Nairobi', 'Delivery elsewhere in Kenya', 'To be decided later'].map((o) => <label class="choice"><input type="radio" name="delivery" value={o} data-delivery={o.startsWith('Delivery') ? '' : undefined} />{o}</label>)}
+            </fieldset>
+            <div class="field" data-delivery-area><label for="q-da">Delivery area / town</label><input id="q-da" name="delivery_area" placeholder="No full address needed for a quote" /></div>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="4" style="border:0;padding:0;margin:0 0 12px;min-width:0">
+            <h2>Almost Done</h2>
+            <p class="small">How should we reach you with the quotation?</p>
+            <div class="field-row">
+              <div class="field"><label for="q-name">Name *</label><input id="q-name" name="name" autocomplete="name" required /></div>
+              <div class="field"><label for="q-co">Company / organisation <span class="hint">(optional)</span></label><input id="q-co" name="company" autocomplete="organization" /></div>
+              <div class="field"><label for="q-ph">Phone / WhatsApp *</label><input id="q-ph" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07XX XXX XXX" required /></div>
+              <div class="field"><label for="q-em">Email</label><input id="q-em" name="email" type="email" autocomplete="email" /></div>
+              <div class="field"><label for="q-kra">KRA PIN <span class="hint">(optional, for your invoice)</span></label><input id="q-kra" name="kra_pin" maxlength="11" autocapitalize="characters" autocomplete="off" spellcheck="false" pattern="[AaPp][0-9]{9}[A-Za-z]" title="11 characters, e.g. A123456789B" placeholder="e.g. A123456789B" /></div>
+            </div>
+            <fieldset class="choice-grid choice-grid--inline" style="margin-top:12px"><legend>Preferred contact method</legend>{['WhatsApp', 'Phone', 'Email'].map((o, i) => <label class="choice"><input type="radio" name="contact_pref" value={o} checked={i === 0} />{o}</label>)}</fieldset>
+            <label class="choice" style="margin-top:8px;font-weight:400;min-height:44px"><input type="checkbox" name="consent" value="yes" required />I agree that Betapixel may use these details to prepare my quotation, as described in the <a href="/privacy-policy/">privacy policy</a>.</label>
+            <p class="field-error" data-err="contact" hidden>Please add your name, a phone number, and tick the consent box.</p>
+            <div data-summary-wrap hidden style="margin-top:24px">
+              <h3 style="margin:0 0 12px">Your Quote Request</h3>
+              <dl class="summary" data-summary></dl>
+              <button class="btn btn--ghost" type="button" data-edit>Edit details</button>
+            </div>
+          </fieldset>
+
+          <p class="field-error" data-submit-error role="alert" hidden></p>
+          <div class="qstep__nav" data-nav>
+            <button class="btn btn--ghost" type="button" data-prev hidden>← Back</button>
+            <button class="btn" type="button" data-next hidden>Continue →</button>
+            <button class="btn btn--orange" type="submit" data-submit>Submit quote request</button>
+          </div>
+        </form>
+
+        <div class="quote-success" data-success hidden tabindex="-1">
+          <p class="eyebrow">Request sent</p>
+          <h2 style="margin:0">We’ve Got It.</h2>
+          <p>Your quote request is with the Betapixel team. We will review your details, artwork and production requirements before getting back to you.</p>
+          <p class="small" style="margin:0">Your reference</p>
+          <p class="quote-success__ref" data-ref>BPQ-</p>
+          <p class="small">Save this reference if you need to follow up.</p>
+          <div class="btn-row" style="justify-content:center">
+            <a class="btn btn--wa" href={whatsappUrl()} data-wa data-continue-wa rel="noopener" target="_blank"><Icon name="whatsapp" />Continue on WhatsApp</a>
+            <a class="btn btn--ghost" href="/">Return home</a>
+            <a class="btn btn--ghost" href="/uv-dtf-stickers/">Explore UV DTF</a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="quote-aside" aria-label="Other ways to reach us">
+        <div class="aside-card">
+          <h2>Rather Talk to Someone?</h2>
+          <p>Complicated project or not sure where to begin? Chat with the team and tell us what you are trying to create.</p>
+          <a class="btn btn--wa" href={whatsappUrl('I would like a quotation')} data-wa rel="noopener" target="_blank"><Icon name="whatsapp" />Chat on WhatsApp</a>
+          <p class="small">For accurate quotations we may still ask for dimensions, quantities or artwork.</p>
+        </div>
+        <div class="aside-card">
+          <h2>Planning Something Bigger?</h2>
+          <p>Office branding, multiple branches, fleets, large events or ongoing corporate requirements may need a consultation first.</p>
+          <a class="btn btn--ghost" href={`tel:${site.phone.e164}`}><Icon name="phone" />{site.phone.display}</a>
+        </div>
+        <div class="aside-card">
+          <h2>What Happens Next</h2>
+          <p>We review your request, flag anything that will not work, and send a tailored quotation by WhatsApp or email. Prices depend on size, quantity, material and finish, so every job is quoted individually.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { initQuote } from '../scripts/quote';
+  initQuote();
+</script>

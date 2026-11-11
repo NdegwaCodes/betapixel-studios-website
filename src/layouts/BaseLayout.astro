@@ -1,0 +1,116 @@
+---
+import '../styles/global.css';
+import '../styles/v3.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Icon from '../components/Icon.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import Analytics from '@vercel/analytics/astro';
+import { site, whatsappUrl } from '../data/site';
+import { abs, breadcrumbs as crumbSchema, organization, type Crumb } from '../lib/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  schema?: object[];
+  crumbs?: Crumb[];
+  noindex?: boolean;
+  heroOverlay?: boolean;
+  preload?: { srcset: string; sizes: string; type: string; media?: string }[] | undefined;
+  waContext?: string;
+  bare?: boolean;
+}
+
+const { title, description, ogImage = '/og/betapixel-studios-share.jpg', ogType = 'website', schema = [], crumbs, noindex = false, heroOverlay = false, preload, waContext = '', bare = false } = Astro.props;
+const canonical = abs(Astro.url.pathname);
+const ld = [organization(), ...(crumbs ? [crumbSchema(crumbs)] : []), ...schema];
+---
+<!doctype html>
+<html lang="en-KE">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
+  <meta name="theme-color" content="#011C72" />
+
+  <link rel="preload" href="/fonts/manrope-800.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/k2d-400.woff2" as="font" type="font/woff2" crossorigin />
+  {preload?.map((p) => <link rel="preload" as="image" imagesrcset={p.srcset} imagesizes={p.sizes} type={p.type} media={p.media} fetchpriority="high" />)}
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+
+  <meta property="og:type" content={ogType} />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:locale" content="en_KE" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={abs(ogImage)} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={abs(ogImage)} />
+
+  <script is:inline define:vars={{ bare }}>
+    (function () {
+      var d = document.documentElement; d.classList.add('js');
+      if (bare) return;
+      try {
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (!sessionStorage.getItem('bp-pl') && innerWidth >= 768) d.classList.add('has-pl');
+        else if (sessionStorage.getItem('bp-pt') === '1') d.classList.add('pt-in');
+      } catch (e) {}
+    })();
+  </script>
+  <style is:inline>
+    .has-pl .preloader { animation: bp-hide 0s 2.6s forwards; }
+    .pt-in .pt-panel { animation: bp-hide 0s 1.4s forwards; }
+    @keyframes bp-hide { to { visibility: hidden; opacity: 0; } }
+  </style>
+
+  {ld.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  {!bare && <div class="preloader" aria-hidden="true">
+    <div class="preloader__cols"><span class="preloader__col"></span><span class="preloader__col"></span><span class="preloader__col"></span><span class="preloader__col"></span><span class="preloader__col"></span></div>
+    <div class="preloader__inner"><span class="preloader__word">Betapixel</span><span class="preloader__count">0</span></div>
+  </div>}
+  {!bare && <div class="pt-panel" aria-hidden="true"></div>}
+
+  {!bare && <Header overlay={heroOverlay} />}
+
+  <main id="main" tabindex="-1" class:list={[!heroOverlay && !bare && 'page-top']}>
+    {crumbs && <Breadcrumbs crumbs={crumbs} />}
+    <slot />
+  </main>
+
+  {!bare && <Footer />}
+
+  {!bare && <a class="wa-float" href={whatsappUrl(waContext)} data-wa rel="noopener" target="_blank">
+    <Icon name="whatsapp" /><span>WhatsApp us</span>
+  </a>}
+
+  <CookieBanner />
+  {site.vercelAnalytics && <Analytics />}
+  {!bare && <div class="cursor-dot" aria-hidden="true"></div>}
+  {!bare && <div class="cursor-ring" aria-hidden="true"><span>View</span></div>}
+
+  <script>
+    import '../scripts/core';
+  </script>
+  {site.ga4Id && <script is:inline define:vars={{ id: site.ga4Id }}>window.__GA4 = id;</script>}
+</body>
+</html>
